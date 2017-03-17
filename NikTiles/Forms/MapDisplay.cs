@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using NikTiles.Engine;
 
-namespace NikTiles.Forms{
+
+namespace NikTiles.Forms {
 
     public class MapDisplay : WinFormsGraphicsDevice.GraphicsDeviceControl {
 
+        #region Static
+        private static List<Map> maps = new List<Map>(0);
+        private static int currentMap = 0;
+        public static Map GetCurrentMap() { return maps[currentMap]; }
+        #endregion
+
+        #region Declarations
         private SpriteBatch spriteBatch;
-        public Rectangle rectangle;
+        #endregion
 
         protected override void Initialize(){
             Application.Idle += delegate { Invalidate(); };
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            rectangle = new Rectangle(0, 0, 604, 602);
+            maps.Add(new Map(10, 10));
             ContentLoader.LoadTextures(GraphicsDevice);
         }
 
         protected override void Draw(){
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            if (ContentLoader.textures.Count != 0) {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
-                spriteBatch.Draw(ContentLoader.textures["test"], rectangle, Color.White);
+            if (ContentLoader.textures != null) {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.transform);
+                GetCurrentMap().Draw(spriteBatch);
                 spriteBatch.End();
             }
         }
+        
 
     }
 }

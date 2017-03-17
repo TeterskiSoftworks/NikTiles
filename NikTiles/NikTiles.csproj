@@ -41,7 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\ContentLoader.cs" />
+    <Compile Include="Engine\Map.cs" />
+    <Compile Include="Engine\Tile.cs" />
     <Compile Include="Forms\MapDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
