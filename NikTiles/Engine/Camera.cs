@@ -26,10 +26,11 @@ namespace NikTiles.Engine {
             target = new Vector3(0f, 0f, 0f);
             position = new Vector3(0f, 0f, -100f);
 
-            //change to orthographic
+            //projection = Matrix.CreateOrthographic(graphicsDevice.DisplayMode.Width, graphicsDevice.DisplayMode.Height, 1f, 1000f);
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), graphicsDevice.DisplayMode.AspectRatio, 1f, 1000f);
             view = Matrix.CreateLookAt(position, target, Vector3.Up);
             world = Matrix.CreateWorld(target, Vector3.Forward, Vector3.Up);
+
         }
 
         public Vector3 GetTraget() {
@@ -49,7 +50,6 @@ namespace NikTiles.Engine {
         public Matrix GetWorld() {
             return world;
         }
-
 
     }
 }

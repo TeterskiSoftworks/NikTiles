@@ -31,38 +31,32 @@ namespace NikTiles.Editor.Forms{
             ContentLoader.LoadTextures(GraphicsDevice);
 
             maps.Add(new Map(10, 10));
-            tile = new Tile(GraphicsDevice);
+            tile = new Tile(GraphicsDevice,0,0);
 
             camera = new Camera(GraphicsDevice);
+
             basicEffect = new BasicEffect(GraphicsDevice);
-            basicEffect.Alpha = 1.0f;
-            basicEffect.VertexColorEnabled = true;
+            basicEffect.Alpha = 1f;
+            basicEffect.TextureEnabled = true;
+            basicEffect.VertexColorEnabled = false;
             basicEffect.LightingEnabled = false;
+            basicEffect.View = camera.GetView();
+            basicEffect.World = camera.GetWorld();
+
+            GraphicsDevice.BlendState = BlendState.NonPremultiplied;
         }
 
         protected override void Draw() {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            if (ContentLoader.textures.Count != 0 && false) {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
-                spriteBatch.Draw(ContentLoader.textures["test"], rectangle, Color.White);
-                spriteBatch.End();
-            }
-            basicEffect.Projection = camera.GetProjection();
-            basicEffect.View = camera.GetView();// can put these last two in initialise instead
-            basicEffect.World = camera.GetWorld();//
+            if (ContentLoader.textures.Count != 0) {
 
-            tile.Draw();
+                basicEffect.Projection = camera.GetProjection();
 
-            //Turn off back face culling
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.CullMode = CullMode.None;
-
-            GraphicsDevice.RasterizerState = rasterizerState;
-
-            foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes) {
-                pass.Apply();
-                //change to strip from list
-                GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 3);
+                tile.Draw(basicEffect);
+                foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes) {
+                    pass.Apply();
+                    GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 4);
+                }
             }
 
         }
