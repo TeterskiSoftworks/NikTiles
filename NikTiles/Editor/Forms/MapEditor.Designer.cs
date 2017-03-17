@@ -1,6 +1,5 @@
 ﻿
-namespace NikTiles.Forms
-{
+namespace NikTiles.Editor.Forms {
     partial class MapEditor
     {
         /// <summary>
@@ -30,7 +29,7 @@ namespace NikTiles.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapEditor));
-            this.mapDisplay = new NikTiles.Forms.MapDisplay();
+            this.mapDisplay = new NikTiles.Editor.Forms.MapDisplay();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

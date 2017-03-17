@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using NikTiles.Forms;
+using NikTiles.Editor.Forms;
 
 namespace NikTiles
 {

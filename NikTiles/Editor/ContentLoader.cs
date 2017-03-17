@@ -8,7 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace NikTiles.Engine {
+namespace NikTiles.Editor {
     static class ContentLoader {
 
         #region Declarations

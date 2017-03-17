@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikTiles", "NikTiles\NikTiles.csproj", "{34446346-916A-4EF8-8B4C-C92E16A1806E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikTilesEditor", "NikTiles\NikTilesEditor.csproj", "{34446346-916A-4EF8-8B4C-C92E16A1806E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
