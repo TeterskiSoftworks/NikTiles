@@ -15,9 +15,9 @@ namespace NikTiles.Engine {
 
         public static void SetCenter(int y, int x) {centre.X = x; centre.Y = y;}
 
-        public static int GetX() {return (int)(centre.X / (Tile.GetX() * zoom.X));}
+        public static int GetX() {return (int)(centre.X / (Tile.Width() * zoom.X));}
 
-        public static int GetY() {return (int)(centre.Y / (Tile.GetY() * zoom.Y));}
+        public static int GetY() {return (int)(centre.Y / (Tile.Height() * zoom.Y));}
 
         public static int GetPixelsX() {return (int)centre.X;}
 
@@ -29,8 +29,8 @@ namespace NikTiles.Engine {
         /// <param name="y">Change in Y.</param>
         /// <param name="x">Change in X.</param>
         public static void Translate(int y, int x) {
-            centre.X += x * Tile.GetX() * zoom.X;
-            centre.Y += y * Tile.GetY() * zoom.Y;
+            centre.X += x * Tile.Width() * zoom.X;
+            centre.Y += y * Tile.Height() * zoom.Y;
         }
 
         /// <summary>
@@ -69,12 +69,12 @@ namespace NikTiles.Engine {
         public static void Boundaries(MapDisplay mapDisplay) {
             if (centre.X < -0.4 * mapDisplay.Width)
                 centre.X = (int)(-0.4 * mapDisplay.Width);
-            else if (centre.X > (MapDisplay.GetCurrentMap().GetX() * Tile.GetX() / 2 * zoom.X) - 0.4 * mapDisplay.Height)
-                centre.X = (int)(MapDisplay.GetCurrentMap().GetX() * Tile.GetX() / 2 * zoom.X - 0.4 * mapDisplay.Height);
+            else if (centre.X > (MapDisplay.GetCurrentMap().GetX() * Tile.Width() / 2 * zoom.X) - 0.4 * mapDisplay.Height)
+                centre.X = (int)(MapDisplay.GetCurrentMap().GetX() * Tile.Width() / 2 * zoom.X - 0.4 * mapDisplay.Height);
             if (centre.Y < -0.4 * mapDisplay.Height)
                 centre.Y = (int)(-0.4 * mapDisplay.Height);
-            else if (centre.Y > (MapDisplay.GetCurrentMap().GetY() * Tile.GetY() * zoom.Y) - 0.4 * mapDisplay.Height)
-                centre.Y = (int)(MapDisplay.GetCurrentMap().GetY() * Tile.GetY() * zoom.Y - 0.4 * mapDisplay.Height);
+            else if (centre.Y > (MapDisplay.GetCurrentMap().GetY() * Tile.Height() * zoom.Y) - 0.4 * mapDisplay.Height)
+                centre.Y = (int)(MapDisplay.GetCurrentMap().GetY() * Tile.Height() * zoom.Y - 0.4 * mapDisplay.Height);
         }
     }
 }

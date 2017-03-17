@@ -5,7 +5,7 @@ namespace NikTiles.Engine {
     public class Map {
 
         #region  Declarations
-        public Tile[,] tiles;
+        private Tile[,] tiles;
         private int y, x;
         #endregion
 
@@ -25,6 +25,12 @@ namespace NikTiles.Engine {
 
         public int GetX() { return x; }
         public int GetY() { return y; }
+
+
+        /// <summary>
+        /// Returns the tile on the map at the given x and y coordinates.
+        /// </summary>
+        public Tile Tile(int x, int y) { return tiles[y, x]; }
 
         public void Draw(SpriteBatch spriteBatch) {
             foreach(Tile tile in tiles) {
