@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NikTiles.Editor.Forms {
+namespace NikTiles.Forms {
     public partial class MapEditor : Form {
 
         public MapEditor() {
