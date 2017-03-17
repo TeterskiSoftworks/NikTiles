@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\ContentLoader.cs" />
     <Compile Include="Forms\MapDisplay.cs">
       <SubType>Component</SubType>
     </Compile>

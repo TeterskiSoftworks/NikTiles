@@ -12,8 +12,7 @@ namespace NikTiles.Forms {
     public partial class MapEditor : Form {
 
         public MapEditor() {
-
-            Application.EnableVisualStyles();
+            
             InitializeComponent();
         }
     }

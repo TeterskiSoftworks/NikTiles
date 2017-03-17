@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using NikTiles.Engine;
 
 namespace NikTiles.Forms{
 
@@ -14,27 +15,22 @@ namespace NikTiles.Forms{
 
         private SpriteBatch spriteBatch;
         public Rectangle rectangle;
-        Texture2D texture;
 
         protected override void Initialize(){
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            texture = new Texture2D(GraphicsDevice, 100, 100);
-            rectangle = new Rectangle(0, 0, 100, 100);
             Application.Idle += delegate { Invalidate(); };
-            Color[] pixels = new Color[texture.Width * texture.Height];
-            for(int p=0; p<pixels.Length;p++){
-                pixels[p] = Color.White;
-            }
-            texture.SetData(pixels);
-            
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            rectangle = new Rectangle(0, 0, 604, 602);
+            ContentLoader.LoadTextures(GraphicsDevice);
         }
 
         protected override void Draw(){
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, rectangle, Color.White);
-            spriteBatch.End();
-
+            if (ContentLoader.textures.Count != 0) {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+                spriteBatch.Draw(ContentLoader.textures["test"], rectangle, Color.White);
+                spriteBatch.End();
+            }
         }
 
     }
