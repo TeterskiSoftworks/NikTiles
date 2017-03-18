@@ -30,7 +30,6 @@ namespace NikTiles.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapEditor));
-            this.mapDisplay = new NikTiles.Forms.MapDisplay();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +75,9 @@ namespace NikTiles.Forms
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.mapDisplay = new NikTiles.Forms.MapDisplay();
             this.mapPanel = new System.Windows.Forms.Panel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -87,14 +87,6 @@ namespace NikTiles.Forms
             this.toolStrip.SuspendLayout();
             this.mapPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // mapDisplay
-            // 
-            this.mapDisplay.Location = new System.Drawing.Point(0, 0);
-            this.mapDisplay.Name = "mapDisplay";
-            this.mapDisplay.Size = new System.Drawing.Size(784, 547);
-            this.mapDisplay.TabIndex = 0;
-            this.mapDisplay.Text = "mapDisplay1";
             // 
             // splitContainer1
             // 
@@ -489,6 +481,29 @@ namespace NikTiles.Forms
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
+            // mapDisplay
+            // 
+            this.mapDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.mapDisplay.Location = new System.Drawing.Point(0, 0);
+            this.mapDisplay.Name = "mapDisplay";
+            this.mapDisplay.Size = new System.Drawing.Size(784, 547);
+            this.mapDisplay.TabIndex = 0;
+            this.mapDisplay.Text = "mapDisplay";
+            // 
+            // mapPanel
+            // 
+            this.mapPanel.AutoScroll = true;
+            this.mapPanel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.mapPanel.Controls.Add(this.mapDisplay);
+            this.mapPanel.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapPanel.Location = new System.Drawing.Point(0, 24);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(536, 525);
+            this.mapPanel.TabIndex = 1;
+            this.mapPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.mapPanel_Scroll);
+            this.mapPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.mapPanel_Layout);
+            // 
             // statusStrip
             // 
             this.statusStrip.Location = new System.Drawing.Point(0, 549);
@@ -498,17 +513,6 @@ namespace NikTiles.Forms
             this.statusStrip.TabIndex = 3;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // mapPanel
-            // 
-            this.mapPanel.AutoScroll = true;
-            this.mapPanel.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.mapPanel.Controls.Add(this.mapDisplay);
-            this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapPanel.Location = new System.Drawing.Point(0, 24);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(536, 525);
-            this.mapPanel.TabIndex = 1;
-            // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -516,9 +520,10 @@ namespace NikTiles.Forms
             this.ClientSize = new System.Drawing.Size(784, 571);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MapEditor";
-            this.Text = "MapEditor";
+            this.Text = "NikTileEditor";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -537,8 +542,6 @@ namespace NikTiles.Forms
         }
 
         #endregion
-
-        private MapDisplay mapDisplay;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage floorTab;
@@ -573,7 +576,6 @@ namespace NikTiles.Forms
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton newToolStripButton;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
@@ -586,5 +588,7 @@ namespace NikTiles.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.Panel mapPanel;
+        private MapDisplay mapDisplay;
+        private System.Windows.Forms.StatusStrip statusStrip;
     }
 }

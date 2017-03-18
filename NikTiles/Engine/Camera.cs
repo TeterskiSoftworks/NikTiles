@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using NikTiles.Forms;
-using System;
-using System.Collections.Generic;
+
 namespace NikTiles.Engine {
 
     public static class Camera {
@@ -13,7 +11,7 @@ namespace NikTiles.Engine {
         
         #endregion
 
-        public static void SetCenter(int y, int x) {centre.X = x; centre.Y = y;}
+        public static void SetCenter(int x, int y) {centre.X = x; centre.Y = y;}
 
         public static int GetX() {return (int)(centre.X / (Tile.Width() * zoom.X));}
 
@@ -28,7 +26,7 @@ namespace NikTiles.Engine {
         /// </summary>
         /// <param name="y">Change in Y.</param>
         /// <param name="x">Change in X.</param>
-        public static void Translate(int y, int x) {
+        public static void Translate(int x, int y) {
             centre.X += x * Tile.Width() * zoom.X;
             centre.Y += y * Tile.Height() * zoom.Y;
         }
@@ -39,7 +37,7 @@ namespace NikTiles.Engine {
         /// </summary>
         /// <param name="x">X zoom amount.</param>
         /// <param name="y">Z zoom amount.</param>
-        public static void Zoom(float y, float x) {
+        public static void Zoom(float x, float y) {
             zoom.X += x; zoom.Y += y;
         }
 
@@ -61,20 +59,5 @@ namespace NikTiles.Engine {
             transform = Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
         }
 
-        /// <summary>
-        /// Makes sure the camera does not go too much out of the map bounds,
-        /// allowing for the map to always take up at least 40% of the screen.
-        /// </summary>
-        /// <param name="mapDisplay">The MapDisplay that uses the camera.</param>
-        public static void Boundaries(MapDisplay mapDisplay) {
-            if (centre.X < -0.4 * mapDisplay.Width)
-                centre.X = (int)(-0.4 * mapDisplay.Width);
-            else if (centre.X > (MapDisplay.GetCurrentMap().GetX() * Tile.Width() / 2 * zoom.X) - 0.4 * mapDisplay.Height)
-                centre.X = (int)(MapDisplay.GetCurrentMap().GetX() * Tile.Width() / 2 * zoom.X - 0.4 * mapDisplay.Height);
-            if (centre.Y < -0.4 * mapDisplay.Height)
-                centre.Y = (int)(-0.4 * mapDisplay.Height);
-            else if (centre.Y > (MapDisplay.GetCurrentMap().GetY() * Tile.Height() * zoom.Y) - 0.4 * mapDisplay.Height)
-                centre.Y = (int)(MapDisplay.GetCurrentMap().GetY() * Tile.Height() * zoom.Y - 0.4 * mapDisplay.Height);
-        }
     }
 }

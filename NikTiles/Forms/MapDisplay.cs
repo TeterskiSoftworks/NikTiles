@@ -30,25 +30,41 @@ namespace NikTiles.Forms {
 
         #region Declarations
         private SpriteBatch spriteBatch;
+        private int width, height;
+        private Vector2 scroll = new Vector2(0,0);
         #endregion
 
         protected override void Initialize(){
+
+            MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
             Application.Idle += delegate { Invalidate(); };
+
             ContentLoader.LoadTextures(GraphicsDevice);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             maps.Add(new Map(100, 100));
             SetCurrentMap(0,this);
         }
-
+        
         protected override void Draw(){
             GraphicsDevice.Clear(Color.CornflowerBlue);
             if (ContentLoader.textures != null) {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp,null, null, null, Camera.transform);
-                GetCurrentMap().Draw(spriteBatch);
+                GetCurrentMap().Draw(spriteBatch, width, height);
                 spriteBatch.End();
             }
         }
-        
+
+        public void ResizeView(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        private void mapDisplay_MouseWheel(object sender, MouseEventArgs e) {
+            //Camera.Zoom()
+            //Disables MouseWheel effect on scroll.
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
+
 
     }
 }
