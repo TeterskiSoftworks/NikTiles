@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NikTiles.Engine;
 
 
-namespace NikTiles.Forms {
+namespace NikTiles.Editor.Forms {
 
     public class MapDisplay : WinFormsGraphicsDevice.GraphicsDeviceControl {
 
@@ -22,9 +22,20 @@ namespace NikTiles.Forms {
         /// <param name="mapDisplay">The control to be resized.</param>
         public static void SetCurrentMap(int map, MapDisplay mapDisplay) {
             currentMap = map;
-            mapDisplay.Width = GetCurrentMap().GetX() * Tile.Width()/2 + Tile.Width()/2;
-            mapDisplay.Height = GetCurrentMap().GetY() * Tile.Height()  + Tile.Height()/2;
+            UpdateSize(mapDisplay);
         }
+
+        /// <summary>
+        /// Updates the size of the MapDisplay.
+        /// </summary>
+        public static void UpdateSize(MapDisplay mapDisplay) {
+            //mapDisplay.Width  = GetCurrentMap().GetX() * Tile.Width() / 2 + Tile.Width() / 2;
+            //mapDisplay.Height = GetCurrentMap().GetY() * Tile.Height() + Tile.Height() / 2;
+
+            mapDisplay.Width  = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width()/2 + Camera.GetZoomX() * Tile.Width()/2);
+            mapDisplay.Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height()  + Camera.GetZoomY() * Tile.Height()/2);
+        }
+
 
         #endregion
 
@@ -54,13 +65,25 @@ namespace NikTiles.Forms {
             }
         }
 
+
+        /// <summary>
+        /// Udates how much of the MapDsiplay is visible
+        /// </summary>
+        /// <param name="width">View width</param>
+        /// <param name="height">View height</param>
         public void ResizeView(int width, int height) {
             this.width = width;
             this.height = height;
         }
 
+
+        /// <summary>
+        /// MouseEventHandler for MouseWheel. Does not update MapDisplay scrollbars.
+        /// Controls Camera zoom.
+        /// </summary>
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs e) {
-            //Camera.Zoom()
+            Camera.Zoom(e.Delta*0.001f);
+            UpdateSize(this);
             //Disables MouseWheel effect on scroll.
             ((HandledMouseEventArgs)e).Handled = true;
         }

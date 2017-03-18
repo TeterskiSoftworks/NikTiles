@@ -21,6 +21,10 @@ namespace NikTiles.Engine {
 
         public static int GetPixelsY() {return (int)centre.Y;}
 
+        public static float GetZoomX() { return zoom.X; }
+
+        public static float GetZoomY() { return zoom.Y; }
+
         /// <summary>
         /// Transaltes or moves the camera.
         /// </summary>
@@ -39,6 +43,8 @@ namespace NikTiles.Engine {
         /// <param name="y">Z zoom amount.</param>
         public static void Zoom(float x, float y) {
             zoom.X += x; zoom.Y += y;
+
+            Update();
         }
 
         /// <summary>
@@ -46,10 +52,12 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void Zoom(float amount) {
             zoom.X += amount; zoom.Y += amount;
-            if (zoom.X < 0.1) zoom.X = 0.1f;
-            else if (zoom.X > 2.5) zoom.X = 2.5f;
-            if (zoom.Y < 0.1) zoom.Y = 0.1f;
-            else if (zoom.Y > 2.5) zoom.Y = 2.5f;
+            if (zoom.X < 0.5f) zoom.X = 0.5f;
+            else if (zoom.X > 2.5f) zoom.X = 2.5f;
+            if (zoom.Y < 0.5f) zoom.Y = 0.5f;
+            else if (zoom.Y > 2.5f) zoom.Y = 2.5f;
+
+            Update();
         }
 
         /// <summary>

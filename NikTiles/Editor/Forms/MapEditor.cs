@@ -1,7 +1,7 @@
 ﻿using NikTiles.Engine;
 using System.Windows.Forms;
 
-namespace NikTiles.Forms {
+namespace NikTiles.Editor.Forms {
     public partial class MapEditor : Form {
 
         public MapEditor() {
@@ -11,15 +11,12 @@ namespace NikTiles.Forms {
 
        
         private void mapPanel_Layout(object sender, LayoutEventArgs e) {
-            int width = mapPanel.Width;
-            int height = mapPanel.Height;
-
-            mapDisplay.ResizeView(width, height);
-            Camera.SetCenter(0, 0);
+            mapDisplay.ResizeView(mapPanel.Width,mapPanel.Height);
+            Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
         }
 
         private void mapPanel_Scroll(object sender, ScrollEventArgs e) {
-            Camera.SetCenter(mapPanel.HorizontalScroll.Value*2, mapPanel.VerticalScroll.Value);
+            Camera.SetCenter((int)(mapPanel.HorizontalScroll.Value*2/Camera.GetZoomX()), (int)(mapPanel.VerticalScroll.Value/Camera.GetZoomY()));
         }
     }
 }

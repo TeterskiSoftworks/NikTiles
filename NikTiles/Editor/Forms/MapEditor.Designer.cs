@@ -1,5 +1,5 @@
 ﻿
-namespace NikTiles.Forms
+namespace NikTiles.Editor.Forms
 {
     partial class MapEditor
     {
@@ -75,7 +75,7 @@ namespace NikTiles.Forms
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.mapDisplay = new NikTiles.Forms.MapDisplay();
+            this.mapDisplay = new NikTiles.Editor.Forms.MapDisplay();
             this.mapPanel = new System.Windows.Forms.Panel();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();

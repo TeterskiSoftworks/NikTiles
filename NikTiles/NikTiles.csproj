@@ -42,16 +42,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine\Camera.cs" />
-    <Compile Include="Engine\ContentLoader.cs" />
+    <Compile Include="Editor\ContentLoader.cs" />
     <Compile Include="Engine\Map.cs" />
     <Compile Include="Engine\Tile.cs" />
-    <Compile Include="Forms\MapDisplay.cs">
+    <Compile Include="Editor\Forms\MapDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\MapEditor.cs">
+    <Compile Include="Editor\Forms\MapEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MapEditor.Designer.cs">
+    <Compile Include="Editor\Forms\MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -88,7 +88,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\MapEditor.resx">
+    <EmbeddedResource Include="Editor\Forms\MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

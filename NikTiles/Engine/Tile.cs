@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using NikTiles.Forms;
+using NikTiles.Editor;
 
 
 namespace NikTiles.Engine {

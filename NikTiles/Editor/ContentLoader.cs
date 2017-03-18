@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace NikTiles.Engine {
+namespace NikTiles.Editor {
     static class ContentLoader {
 
         #region Declarations
