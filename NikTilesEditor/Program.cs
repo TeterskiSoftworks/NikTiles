@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Windows.Forms;
+using NikTiles.Editor.Forms;
 
-namespace NikTiles {
+namespace NikTiles
+{
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
@@ -13,8 +16,11 @@ namespace NikTiles {
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
-                game.Run();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            using (MapEditor mapEditor = new MapEditor())
+                Application.Run(mapEditor);
         }
     }
 #endif

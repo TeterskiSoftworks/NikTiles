@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using NikTiles.Editor;
 
 
 namespace NikTiles.Engine {
@@ -36,7 +36,7 @@ namespace NikTiles.Engine {
         public int GetY() { return y; }
 
         public void Draw(SpriteBatch spriteBatch) {
-            //spriteBatch.Draw(ContentLoader.textures["Grass"], rectangle, Color.White);
+            spriteBatch.Draw(ContentLoader.textures["Grass"], rectangle, Color.White);
         }
 
 
