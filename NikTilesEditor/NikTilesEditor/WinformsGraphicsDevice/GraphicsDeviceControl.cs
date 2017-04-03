@@ -189,8 +189,7 @@ namespace WinFormsGraphicsDevice
                 Rectangle sourceRectangle = new Rectangle(0, 0, ClientSize.Width,
                                                                 ClientSize.Height);
 
-                GraphicsDevice.Present();
-                //XNA CODE GraphicsDevice.Present(sourceRectangle, null, this.Handle);
+                GraphicsDevice.Present(sourceRectangle, null, this.Handle);
             }
             catch
             {

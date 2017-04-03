@@ -32,8 +32,8 @@ namespace NikTiles.Editor.Forms {
             //mapDisplay.Width  = GetCurrentMap().GetX() * Tile.Width() / 2 + Tile.Width() / 2;
             //mapDisplay.Height = GetCurrentMap().GetY() * Tile.Height() + Tile.Height() / 2;
 
-            mapDisplay.Width  = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width()/2 + Camera.GetZoomX() * Tile.Width()/2);
-            mapDisplay.Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height()  + Camera.GetZoomY() * Tile.Height()/2);
+            mapDisplay.Width = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width() / 2 + Camera.GetZoomX() * Tile.Width() / 2);
+            mapDisplay.Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height() + Camera.GetZoomY() * Tile.Height() / 2);
         }
 
 
@@ -42,24 +42,24 @@ namespace NikTiles.Editor.Forms {
         #region Declarations
         private SpriteBatch spriteBatch;
         private int width, height;
-        private Vector2 scroll = new Vector2(0,0);
+        private Vector2 scroll = new Vector2(0, 0);
         #endregion
 
-        protected override void Initialize(){
+        protected override void Initialize() {
 
             MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
             Application.Idle += delegate { Invalidate(); };
 
             ContentLoader.LoadTextures(GraphicsDevice);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            maps.Add(new Map(100, 100));
-            SetCurrentMap(0,this);
+            maps.Add(new Map(10, 10));
+            SetCurrentMap(0, this);
         }
-        
-        protected override void Draw(){
+
+        protected override void Draw() {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             if (ContentLoader.textures != null) {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp,null, null, null, Camera.transform);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.transform);
                 GetCurrentMap().Draw(spriteBatch, width, height);
                 spriteBatch.End();
             }
@@ -82,7 +82,7 @@ namespace NikTiles.Editor.Forms {
         /// Controls Camera zoom.
         /// </summary>
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs e) {
-            Camera.Zoom(e.Delta*0.001f);
+            Camera.Zoom(e.Delta * 0.001f);
             UpdateSize(this);
             //Disables MouseWheel effect on scroll.
             ((HandledMouseEventArgs)e).Handled = true;

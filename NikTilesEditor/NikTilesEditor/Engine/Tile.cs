@@ -20,16 +20,16 @@ namespace NikTiles.Engine {
 
         #region Declarations
         private Rectangle rectangle = new Rectangle(0, 0, Tile.Width(), Tile.Height());
-        private int y,x;
+        private int y, x;
         #endregion
 
         public Tile(int y, int x) {
             this.y = y;
             this.x = x;
-            if (x%2!=0)
-                rectangle = new Rectangle(x * Tile.Width()/2, y * Tile.Height() + Tile.Height()/2, Tile.Width(), Tile.Height());
+            if (x % 2 != 0)
+                rectangle = new Rectangle(x * Tile.Width() / 2, y * Tile.Height() + Tile.Height() / 2, Tile.Width(), Tile.Height());
             else
-                rectangle = new Rectangle(Tile.Width()/2 * x, Tile.Height() * y, Tile.Width(), Tile.Height());
+                rectangle = new Rectangle(Tile.Width() / 2 * x, Tile.Height() * y, Tile.Width(), Tile.Height());
         }
 
         public int GetX() { return x; }

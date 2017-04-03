@@ -12,7 +12,7 @@ namespace NikTiles.Editor {
         public static Dictionary<String, Texture2D> textures;
 
         private static bool loaded = false;
-        private static string contentFolder = "Textures";
+        private static string contentFolder = "Content";
         #endregion
 
         /// <summary>
@@ -62,4 +62,3 @@ namespace NikTiles.Editor {
 
     }
 }
-

@@ -8,18 +8,18 @@ namespace NikTiles.Engine {
         public static Vector2 centre = new Vector2(0, 0);
         public static Vector2 zoom = new Vector2(1, 1);
         public static Matrix transform = Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
-        
+
         #endregion
 
-        public static void SetCenter(int x, int y) {centre.X = x; centre.Y = y;}
+        public static void SetCenter(int x, int y) { centre.X = x; centre.Y = y; }
 
-        public static int GetX() {return (int)(centre.X / (Tile.Width() * zoom.X));}
+        public static int GetX() { return (int)(centre.X / (Tile.Width() * zoom.X)); }
 
-        public static int GetY() {return (int)(centre.Y / (Tile.Height() * zoom.Y));}
+        public static int GetY() { return (int)(centre.Y / (Tile.Height() * zoom.Y)); }
 
-        public static int GetPixelsX() {return (int)centre.X;}
+        public static int GetPixelsX() { return (int)centre.X; }
 
-        public static int GetPixelsY() {return (int)centre.Y;}
+        public static int GetPixelsY() { return (int)centre.Y; }
 
         public static float GetZoomX() { return zoom.X; }
 
