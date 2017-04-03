@@ -37,8 +37,8 @@ namespace NikTiles.Engine {
         /// <param name="height">Height of the view window.</param>
         public void Draw(SpriteBatch spriteBatch, int width, int height) {
 
-            for (int y = Camera.GetY() - 1; y < height / (Tile.Height() * Camera.GetZoomY()) + Camera.GetY() + 1 && y < Y; y++) {
-                for (int x = Camera.GetX() - 1; x < 2 * width / (Tile.Width() * Camera.GetZoomX()) + Camera.GetX() + 1 && x < X; x++) {
+            for (    int y = Camera.GetY()-1; y < height  / (Tile.Height() * Camera.GetZoomY()) + Camera.GetY() + 1 && y < Y; y++) {
+                for (int x = Camera.GetX()-1; x < 2*width / (Tile.Width()  * Camera.GetZoomX()) + Camera.GetX() + 1 && x < X; x++) {
                     if (y != -1 && x != -1) tiles[y, x].Draw(spriteBatch);
                 }
             }

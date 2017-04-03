@@ -16,7 +16,7 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void mapPanel_Scroll(object sender, ScrollEventArgs e) {
-            Camera.SetCenter((int)(mapPanel.HorizontalScroll.Value * 2 / Camera.GetZoomX()), (int)(mapPanel.VerticalScroll.Value / Camera.GetZoomY()));
+            Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
         }
     }
 }

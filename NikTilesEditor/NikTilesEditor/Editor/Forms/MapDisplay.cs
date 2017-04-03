@@ -22,26 +22,14 @@ namespace NikTiles.Editor.Forms {
         /// <param name="mapDisplay">The control to be resized.</param>
         public static void SetCurrentMap(int map, MapDisplay mapDisplay) {
             currentMap = map;
-            UpdateSize(mapDisplay);
-        }
-
-        /// <summary>
-        /// Updates the size of the MapDisplay.
-        /// </summary>
-        public static void UpdateSize(MapDisplay mapDisplay) {
-            //mapDisplay.Width  = GetCurrentMap().GetX() * Tile.Width() / 2 + Tile.Width() / 2;
-            //mapDisplay.Height = GetCurrentMap().GetY() * Tile.Height() + Tile.Height() / 2;
-
             mapDisplay.Width = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width() / 2 + Camera.GetZoomX() * Tile.Width() / 2);
             mapDisplay.Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height() + Camera.GetZoomY() * Tile.Height() / 2);
         }
-
-
         #endregion
 
         #region Declarations
         private SpriteBatch spriteBatch;
-        private int width, height;
+        private int width, height;  //The dimensions of the visible space.
         private Vector2 scroll = new Vector2(0, 0);
         #endregion
 
@@ -52,8 +40,9 @@ namespace NikTiles.Editor.Forms {
 
             ContentLoader.LoadTextures(GraphicsDevice);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            maps.Add(new Map(10, 10));
+            maps.Add(new Map(100, 100));
             SetCurrentMap(0, this);
+            
         }
 
         protected override void Draw() {
@@ -83,7 +72,9 @@ namespace NikTiles.Editor.Forms {
         /// </summary>
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs e) {
             Camera.Zoom(e.Delta * 0.001f);
-            UpdateSize(this);
+            Width = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width() / 2 + Camera.GetZoomX() * Tile.Width() / 2);
+            Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height() + Camera.GetZoomY() * Tile.Height() / 2);
+
             //Disables MouseWheel effect on scroll.
             ((HandledMouseEventArgs)e).Handled = true;
         }
