@@ -36,7 +36,7 @@ namespace NikTiles.Engine {
         public int GetY() { return y; }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(ContentLoader.textures["Grass"], rectangle, Color.White);
+            spriteBatch.Draw(ContentLoader.floor["Grass"], rectangle, Color.White);
         }
 
 

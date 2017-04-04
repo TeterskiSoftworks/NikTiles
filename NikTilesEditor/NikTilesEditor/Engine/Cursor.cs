@@ -44,9 +44,12 @@ namespace NikTiles.Engine {
             OffGridCheck1(mouse, mapDisplay);
 
             if (!offGrid) {
+
+                //Something is wrong here! 
+
                 mouseMapPosition = mouseMap[
-                    (int)(mouse.X / Camera.zoom.X - position.X * Tile.Width() / 2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width(),
-                    (int)(mouse.Y / Camera.zoom.Y - position.Y * Tile.Height() + Camera.centre.Y / Camera.zoom.Y) * cursorTexture.Height / Tile.Height()];
+                    (int)(mouse.X / Camera.zoom.X - position.X * Tile.Width()/2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width(),
+                    (int)(mouse.Y / Camera.zoom.Y - position.Y * Tile.Height()  + Camera.centre.Y / Camera.zoom.Y) * cursorTexture.Height / Tile.Height()];
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
                     position.Y--;
@@ -78,10 +81,8 @@ namespace NikTiles.Engine {
         }
 
         /// <summary>
-        /// The first check to see if the cursor is out of bounds of the map, using moue poistion.
+        /// The first check to see if the cursor is out of bounds of the map, using mouse poistion.
         /// </summary>
-        /// <param name="mouse"></param>
-        /// <param name="mapDisplay"></param>
         public static void OffGridCheck1(MouseEventArgs mouse, MapDisplay mapDisplay) {
             offGrid = false;
             if ((int)(mouse.X / Camera.zoom.X - position.X * Tile.Width() / 2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width() < 0)
@@ -92,16 +93,19 @@ namespace NikTiles.Engine {
             else if (position.Y > MapDisplay.GetCurrentMap().Height() - 1) offGrid = true;
         }
 
+
         /// <summary>
         /// The second check to see if the mouse hasen't been moved out of the map bounds.
+        /// It checks too see if the cursor is still inbounds once its location has been
+        /// transformed by the mouse map.
         /// </summary>
         public static void OffGridCheck2() {
             offGrid = false;
             if (position.X < 0) offGrid = true;
             if (position.Y < 0 && position.X % 2 == 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width() - 1) offGrid = true;
-            else if (position.Y > MapDisplay.GetCurrentMap().Height() - 1) offGrid = true;
+            else if (position.X > MapDisplay.GetCurrentMap().Width() -1) offGrid = true;
+            else if (position.Y > MapDisplay.GetCurrentMap().Height()-1) offGrid = true;
         }
 
     }

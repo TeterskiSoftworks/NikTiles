@@ -47,7 +47,7 @@ namespace NikTiles.Editor.Forms {
 
         protected override void Draw() {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            if (ContentLoader.textures != null) {
+            if (ContentLoader.floor != null) { //add more advanced check later
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.transform);
                 GetCurrentMap().Draw(spriteBatch, width, height);
                 NikTiles.Engine.Cursor.Draw(spriteBatch);

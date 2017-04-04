@@ -53,9 +53,9 @@ namespace NikTiles.Engine {
         public static void Zoom(float amount) {
             zoom.X += amount; zoom.Y += amount;
             if (zoom.X < 0.5f) zoom.X = 0.5f;
-            else if (zoom.X > 2.5f) zoom.X = 2.5f;
+            else if (zoom.X > 3.0f) zoom.X = 3.0f;
             if (zoom.Y < 0.5f) zoom.Y = 0.5f;
-            else if (zoom.Y > 2.5f) zoom.Y = 2.5f;
+            else if (zoom.Y > 3.0f) zoom.Y = 3.0f;
 
             Update();
         }
