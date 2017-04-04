@@ -11,13 +11,13 @@ namespace NikTiles.Engine {
         public static Rectangle rectangle = new Rectangle(0,0,0,0);
 
         private static Texture2D cursorTexture;
-        private static Color[,] mouseMap;
+        private static Color[] mouseMap;
         private static Color mouseMapPosition = new Color();
         private static bool offGrid = false;
         #endregion
 
 
-        public static void LoadCursorTextures(Color[,] mouseMap, Texture2D cursorTexture) {
+        public static void LoadCursorTextures(Color[] mouseMap, Texture2D cursorTexture) {
             Cursor.mouseMap = mouseMap;
             Cursor.cursorTexture = cursorTexture;
             CreateRectangle();
@@ -45,19 +45,21 @@ namespace NikTiles.Engine {
 
             if (!offGrid) {
 
-                //Something is wrong here! 
+                //Consider having the colors be dynamically be selected from the 4 corners
+                //of the mouseMap.
 
                 mouseMapPosition = mouseMap[
-                    (int)(mouse.X / Camera.zoom.X - position.X * Tile.Width()/2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width(),
+                    (int)(mouse.X / Camera.zoom.X - position.X * Tile.Width() / 2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width()+
+                    Tile.Width()*
                     (int)(mouse.Y / Camera.zoom.Y - position.Y * Tile.Height()  + Camera.centre.Y / Camera.zoom.Y) * cursorTexture.Height / Tile.Height()];
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
                     position.Y--;
                 } else if (mouseMapPosition == Color.Yellow) {
-                    position.X--;
-                } else if (mouseMapPosition == Color.Green) {
                     position.X++;
                     position.Y--;
+                } else if (mouseMapPosition == Color.Green) {
+                    position.X--;
                 } else if (mouseMapPosition == Color.Blue) {
                     position.X++;
                 }

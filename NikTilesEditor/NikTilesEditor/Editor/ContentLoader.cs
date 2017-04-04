@@ -40,7 +40,7 @@ namespace NikTiles.Editor {
         private static void LoadUserInterface(GraphicsDevice graphicsDevice) {
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
             if (dir.Exists) {
-                FileInfo[] files = dir.GetFiles("Cursor.png");
+                FileInfo[] files = dir.GetFiles("MouseMap.png");
                 Texture2D cursorTexture = new Texture2D(graphicsDevice, 1, 1);
                 foreach (FileInfo file in files) {
                     Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
@@ -48,21 +48,13 @@ namespace NikTiles.Editor {
                     cursorTexture.SetData(CreateColorArray(img));
                 }
 
-                Microsoft.Xna.Framework.Color[,] mouseMap = new Microsoft.Xna.Framework.Color[0, 0];
+                Microsoft.Xna.Framework.Color[] mouseMap = new Microsoft.Xna.Framework.Color[0];
                 files = dir.GetFiles("MouseMap.png");
                 foreach (FileInfo file in files) {
                     Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
 
-                    //consider having the image scaled to Tile width and height before loading it in.
-                    //
-                    mouseMap = new Microsoft.Xna.Framework.Color[img.Width, img.Height];
-                    Color c = new Color();
-                    for (int y = 0; y < img.Height; y++) {
-                        for (int x = 0; x < img.Width; x++) {
-                            c = img.GetPixel(x, y);
-                            mouseMap[y, x] = new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
-                        }
-                    }
+                    mouseMap = new Microsoft.Xna.Framework.Color[img.Width * img.Height];
+                    mouseMap = CreateColorArray(img);
 
                 }
 
@@ -100,7 +92,7 @@ namespace NikTiles.Editor {
         }
 
         /// <summary>
-        /// Creates and returns a 2D array of color pixels representation of the image.
+        /// Creates and returns an array of color pixels representation of the image.
         /// </summary>
         /// <param name="img">The image the array is based on.</param>
         private static Microsoft.Xna.Framework.Color[] CreateColorArray(Bitmap image) {
