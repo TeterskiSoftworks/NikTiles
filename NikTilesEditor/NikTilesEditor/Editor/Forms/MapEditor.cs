@@ -18,5 +18,9 @@ namespace NikTiles.Editor.Forms {
         private void mapPanel_Scroll(object sender, ScrollEventArgs e) {
             Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
         }
+
+        private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
+            NikTiles.Engine.Cursor.SetCursor(mouse, mapDisplay);
+        }
     }
 }

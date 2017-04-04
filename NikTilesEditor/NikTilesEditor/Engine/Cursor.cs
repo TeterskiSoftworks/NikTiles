@@ -38,7 +38,7 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void SetCursor(MouseEventArgs mouse, MapDisplay mapDisplay) {
             position.X = (int)((2 * mouse.X - Tile.Width() * Camera.zoom.X + Camera.centre.X * 2) / (Tile.Width() * Camera.zoom.X));
-            if (position.X % 2 == 0) position.X++;
+            if (position.X % 2 != 0) position.X++;
             position.Y = (int)((mouse.Y + Camera.centre.Y) / (Tile.Height() * Camera.zoom.Y));
 
             OffGridCheck1(mouse, mapDisplay);
@@ -51,10 +51,10 @@ namespace NikTiles.Engine {
                     position.X--;
                     position.Y--;
                 } else if (mouseMapPosition == Color.Yellow) {
+                    position.X--;
+                } else if (mouseMapPosition == Color.Green) {
                     position.X++;
                     position.Y--;
-                } else if (mouseMapPosition == Color.Green) {
-                    position.X--;
                 } else if (mouseMapPosition == Color.Blue) {
                     position.X++;
                 }
