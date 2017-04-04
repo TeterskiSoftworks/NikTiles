@@ -14,6 +14,7 @@ namespace NikTiles.Engine {
         private static Color[] mouseMap;
         private static Color mouseMapPosition = new Color();
         private static bool offGrid = false;
+
         #endregion
 
 
@@ -36,22 +37,24 @@ namespace NikTiles.Engine {
         /// <summary>
         /// Sets the cursor on the map based on user mouse movement.
         /// </summary>
-        public static void SetCursor(MouseEventArgs mouse, MapDisplay mapDisplay) {
-            position.X = (int)((2 * mouse.X - Tile.Width() * Camera.zoom.X + Camera.centre.X * 2) / (Tile.Width() * Camera.zoom.X));
-            if (position.X % 2 != 0) position.X++;
-            position.Y = (int)((mouse.Y + Camera.centre.Y) / (Tile.Height() * Camera.zoom.Y));
+        public static void SetCursor(MouseEventArgs mouse) {
 
-            OffGridCheck1(mouse, mapDisplay);
+            position.X = (int)((2 * mouse.X - Tile.Width() * Camera.GetZoomX()) / (Tile.Width() * Camera.GetZoomX()));
+            if (position.X % 2 != 0) position.X++;
+            position.Y = (int)(mouse.Y / (Tile.Height() * Camera.GetZoomY()));
+
+            OffGridCheck1(mouse);
 
             if (!offGrid) {
 
                 //Consider having the colors be dynamically be selected from the 4 corners
                 //of the mouseMap.
+                //  -how would non-standard/custom mousemaps work into this?
 
-                mouseMapPosition = mouseMap[
-                    (int)(mouse.X / Camera.zoom.X - position.X * Tile.Width() / 2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width()+
-                    Tile.Width()*
-                    (int)(mouse.Y / Camera.zoom.Y - position.Y * Tile.Height()  + Camera.centre.Y / Camera.zoom.Y) * cursorTexture.Height / Tile.Height()];
+                mouseMapPosition = mouseMap[ Tile.Width() *
+                   (int)(mouse.Y / Camera.GetZoomY() - position.Y * Tile.Height() ) * cursorTexture.Height / Tile.Height()+
+                   (int)(mouse.X / Camera.GetZoomX() - position.X * Tile.Width()/2) * cursorTexture.Width / Tile.Width()];
+
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
                     position.Y--;
@@ -74,7 +77,7 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void CreateRectangle() {
             if (position.X % 2 != 0)
-                rectangle = new Rectangle((int)(position.X * Tile.Width() / 2), (int)(position.Y * Tile.Height() + Tile.Height() / 2), Tile.Width(), Tile.Height());
+                rectangle = new Rectangle((int)(position.X * Tile.Width()  / 2), (int)(position.Y * Tile.Height() + Tile.Height() / 2), Tile.Width(), Tile.Height());
             else rectangle = new Rectangle((int)(position.X * Tile.Width() / 2), (int)(position.Y * Tile.Height()), Tile.Width(), Tile.Height());
         }
 
@@ -85,13 +88,13 @@ namespace NikTiles.Engine {
         /// <summary>
         /// The first check to see if the cursor is out of bounds of the map, using mouse poistion.
         /// </summary>
-        public static void OffGridCheck1(MouseEventArgs mouse, MapDisplay mapDisplay) {
+        public static void OffGridCheck1(MouseEventArgs mouse) {
             offGrid = false;
-            if ((int)(mouse.X / Camera.zoom.X - position.X * Tile.Width() / 2 + Camera.centre.X / Camera.zoom.X) * cursorTexture.Width / Tile.Width() < 0)
+            if ((int)(mouse.X / Camera.GetZoomX() - position.X * Tile.Width() / 2 + Camera.GetPixelsX() / Camera.GetZoomX()) * cursorTexture.Width / Tile.Width() < 0)
                 offGrid = true;
-            else if ((int)(mouse.Y / Camera.zoom.Y - position.Y * Tile.Height() + Camera.centre.Y / Camera.zoom.Y) * cursorTexture.Height / Tile.Height() < 0)
+            else if ((int)(mouse.Y / Camera.GetZoomY() - position.Y * Tile.Height() + Camera.GetPixelsY() / Camera.GetZoomY()) * cursorTexture.Height / Tile.Height() < 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width() - 1) offGrid = true;
+            else if (position.X > MapDisplay.GetCurrentMap().Width()  - 1) offGrid = true;
             else if (position.Y > MapDisplay.GetCurrentMap().Height() - 1) offGrid = true;
         }
 
@@ -104,7 +107,7 @@ namespace NikTiles.Engine {
         public static void OffGridCheck2() {
             offGrid = false;
             if (position.X < 0) offGrid = true;
-            if (position.Y < 0 && position.X % 2 == 0)
+            if (position.Y < 0 && position.X % 2 != 0)
                 offGrid = true;
             else if (position.X > MapDisplay.GetCurrentMap().Width() -1) offGrid = true;
             else if (position.Y > MapDisplay.GetCurrentMap().Height()-1) offGrid = true;

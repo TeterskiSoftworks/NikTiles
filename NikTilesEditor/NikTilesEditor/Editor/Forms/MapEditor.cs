@@ -20,7 +20,7 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
-            NikTiles.Engine.Cursor.SetCursor(mouse, mapDisplay);
+            NikTiles.Engine.Cursor.SetCursor(mouse);
         }
     }
 }

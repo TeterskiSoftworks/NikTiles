@@ -40,7 +40,7 @@ namespace NikTiles.Editor {
         private static void LoadUserInterface(GraphicsDevice graphicsDevice) {
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
             if (dir.Exists) {
-                FileInfo[] files = dir.GetFiles("MouseMap.png");
+                FileInfo[] files = dir.GetFiles("Cursor.png");
                 Texture2D cursorTexture = new Texture2D(graphicsDevice, 1, 1);
                 foreach (FileInfo file in files) {
                     Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);

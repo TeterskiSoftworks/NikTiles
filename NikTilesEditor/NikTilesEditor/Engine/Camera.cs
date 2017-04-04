@@ -5,9 +5,9 @@ namespace NikTiles.Engine {
     public static class Camera {
 
         #region Declarations
-        public static Vector2 centre = new Vector2(0, 0);
-        public static Vector2 zoom = new Vector2(1, 1);
-        public static Matrix transform = Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
+        private static Vector2 centre = new Vector2(0, 0);
+        private static Vector2 zoom = new Vector2(1, 1);
+        private static Matrix transform = Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
 
         #endregion
 
@@ -24,6 +24,8 @@ namespace NikTiles.Engine {
         public static float GetZoomX() { return zoom.X; }
 
         public static float GetZoomY() { return zoom.Y; }
+
+        public static Matrix GetTransform() { return transform; }
 
         /// <summary>
         /// Transaltes or moves the camera.
