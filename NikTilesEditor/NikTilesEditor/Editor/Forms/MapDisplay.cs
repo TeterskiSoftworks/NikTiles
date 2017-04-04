@@ -50,6 +50,7 @@ namespace NikTiles.Editor.Forms {
             if (ContentLoader.textures != null) {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.transform);
                 GetCurrentMap().Draw(spriteBatch, width, height);
+                NikTiles.Engine.Cursor.Draw(spriteBatch);
                 spriteBatch.End();
             }
         }

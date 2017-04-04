@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using NikTiles.Editor.Forms;
 
-namespace NikTilesEditor {
+namespace NikTiles {
 #if WINDOWS || XBOX
     static class Program
     {

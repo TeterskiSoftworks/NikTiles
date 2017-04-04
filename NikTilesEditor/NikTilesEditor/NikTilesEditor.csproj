@@ -88,6 +88,7 @@
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine\Camera.cs" />
+    <Compile Include="Engine\Cursor.cs" />
     <Compile Include="Engine\Map.cs" />
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
