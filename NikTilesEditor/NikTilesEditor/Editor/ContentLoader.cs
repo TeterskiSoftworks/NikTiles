@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using NikTiles.Engine;
 
 namespace NikTiles.Editor {
     static class ContentLoader {
 
 
         #region Declarations
-        public static Dictionary<String, Texture2D> floor;  //maybe move to Tile class?
+        
 
         private static bool loaded = false;
         private static string contentFolder = "Content";
@@ -28,7 +29,7 @@ namespace NikTiles.Editor {
             if (!loaded) {
                 LoadUserInterface(graphicsDevice);
 
-                floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
+                Tile.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
 
             }
 
@@ -40,25 +41,22 @@ namespace NikTiles.Editor {
         private static void LoadUserInterface(GraphicsDevice graphicsDevice) {
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
             if (dir.Exists) {
-                FileInfo[] files = dir.GetFiles("Cursor.png");
-                Texture2D cursorTexture = new Texture2D(graphicsDevice, 1, 1);
-                foreach (FileInfo file in files) {
-                    Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
-                    cursorTexture = new Texture2D(graphicsDevice, img.Width, img.Height);
-                    cursorTexture.SetData(CreateColorArray(img));
-                }
+
+                Tile.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png", graphicsDevice);
+                Tile.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png",      graphicsDevice);
+                Texture2D cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png",    graphicsDevice);
 
                 Microsoft.Xna.Framework.Color[] mouseMap = new Microsoft.Xna.Framework.Color[0];
-                files = dir.GetFiles("MouseMap.png");
-                foreach (FileInfo file in files) {
-                    Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
-
-                    mouseMap = new Microsoft.Xna.Framework.Color[img.Width * img.Height];
-                    mouseMap = CreateColorArray(img);
-
+                FileInfo[] files = dir.GetFiles("MouseMap.png");
+                if (dir.Exists) {
+                    foreach (FileInfo file in files) {
+                        Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
+                        mouseMap = new Microsoft.Xna.Framework.Color[img.Width * img.Height];
+                        mouseMap = CreateColorArray(img);
+                    }
                 }
 
-                NikTiles.Engine.Cursor.LoadCursorTextures(mouseMap, cursorTexture);
+                NikTiles.Engine.Cursor.LoadCursorTextures(mouseMap, cursor);
             }
         }
 
@@ -82,13 +80,33 @@ namespace NikTiles.Editor {
                     Texture2D texture = new Texture2D(graphicsDevice, img.Width, img.Height);
                     texture.SetData(CreateColorArray(img));
 
-
                     String key = Path.GetFileNameWithoutExtension(file.Name);
                     textures[key] = texture;
 
                 }
             }
             return textures;
+        }
+
+
+        /// <summary>
+        /// Loads a single file from the given directory.
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="graphicsDevice"></param>
+        /// <returns></returns>
+        private static Texture2D LoadFileFrom(string contentFolder, string searchFilter, GraphicsDevice graphicsDevice) {
+            Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
+            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder);
+            if (dir.Exists) {
+                FileInfo[] files = new DirectoryInfo(Application.StartupPath + "/" + contentFolder).GetFiles(searchFilter);
+                foreach (FileInfo file in files) {
+                    Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
+                    texture = new Texture2D(graphicsDevice, img.Width, img.Height);
+                    texture.SetData(CreateColorArray(img));
+                }
+            }
+            return texture;
         }
 
         /// <summary>

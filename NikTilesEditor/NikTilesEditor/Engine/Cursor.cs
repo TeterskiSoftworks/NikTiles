@@ -81,10 +81,6 @@ namespace NikTiles.Engine {
             else rectangle = new Rectangle((int)(position.X * Tile.Width() / 2), (int)(position.Y * Tile.Height()), Tile.Width(), Tile.Height());
         }
 
-        public static void Draw(SpriteBatch spriteBatch) {
-            if (!offGrid) spriteBatch.Draw(cursorTexture, rectangle, Color.White);
-        }
-
         /// <summary>
         /// The first check to see if the cursor is out of bounds of the map, using mouse poistion.
         /// </summary>
@@ -113,5 +109,21 @@ namespace NikTiles.Engine {
             else if (position.Y > MapDisplay.GetCurrentMap().Height()-1) offGrid = true;
         }
 
+
+        public static Vector2 GetPoistion() {
+            return position;
+        }
+
+        public static int GetX() {
+            return (int)position.X;
+        }
+
+        public static int GetY() {
+            return (int)position.Y;
+        }
+
+        public static void Draw(SpriteBatch spriteBatch) {
+            if (!offGrid) spriteBatch.Draw(cursorTexture, rectangle, Color.White);
+        }
     }
 }

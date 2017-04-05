@@ -111,7 +111,10 @@ namespace NikTiles.Editor.Forms {
             this.mapDisplay.Size = new System.Drawing.Size(784, 547);
             this.mapDisplay.TabIndex = 0;
             this.mapDisplay.Text = "mapDisplay";
+            this.mapDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mapDisplay_KeyDown);
+            this.mapDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mapDisplay_MouseDown);
             this.mapDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapDisplay_MouseMove);
+            this.mapDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mapDisplay_MouseUp);
             // 
             // menuStrip
             // 

@@ -1,8 +1,11 @@
 ﻿using NikTiles.Engine;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework.Input;
 
 namespace NikTiles.Editor.Forms {
     public partial class MapEditor : Form {
+        bool mouseDown = false;
+
 
         public MapEditor() {
 
@@ -32,9 +35,41 @@ namespace NikTiles.Editor.Forms {
             Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
         }
 
-        private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
-            NikTiles.Engine.Cursor.SetCursor(mouse);
+        private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
+            mouseDown = true;
+            if (mouse.Button == MouseButtons.Left) {
+                if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+                    MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Deselect();
+                else MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Select();
+            }
         }
 
+        private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
+            Engine.Cursor.SetCursor(mouse);
+            if (mouseDown && mouse.Button == MouseButtons.Left){
+                if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+                    MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Deselect();
+                else MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Select();
+            }
+        }
+
+        private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {
+            mouseDown = false;
+            if (mouse.Button == MouseButtons.Left) {
+                if(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+                    MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Deselect();
+                else MapDisplay.GetCurrentMap().TileAt(Engine.Cursor.GetX(), Engine.Cursor.GetY()).Select();
+            }
+        }
+
+        private bool IsKeyDown(Microsoft.Xna.Framework.Input.Keys key) {
+            return Keyboard.GetState().IsKeyDown(key);
+        }
+
+        private void mapDisplay_KeyDown(object sender, KeyEventArgs e) {
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) {
+                Tile.viewGrid = !Tile.viewGrid;
+            }
+        }
     }
 }
