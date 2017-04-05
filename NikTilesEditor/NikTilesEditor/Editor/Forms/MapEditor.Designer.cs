@@ -95,7 +95,6 @@ namespace NikTiles.Editor.Forms {
             this.mapPanel.AutoScroll = true;
             this.mapPanel.BackColor = System.Drawing.Color.CornflowerBlue;
             this.mapPanel.Controls.Add(this.mapDisplay);
-            this.mapPanel.Cursor = System.Windows.Forms.Cursors.Cross;
             this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapPanel.Location = new System.Drawing.Point(0, 24);
             this.mapPanel.Name = "mapPanel";

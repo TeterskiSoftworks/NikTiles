@@ -8,7 +8,7 @@ namespace NikTiles.Engine {
 
         #region Fields
         private static Vector2 position = new Vector2(1, 0);
-        public static Rectangle rectangle = new Rectangle(0,0,0,0);
+        private static Rectangle rectangle = new Rectangle(0,0,0,0);
 
         private static Texture2D cursorTexture;
         private static Color[] mouseMap;

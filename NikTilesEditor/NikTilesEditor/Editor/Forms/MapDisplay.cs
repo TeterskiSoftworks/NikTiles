@@ -30,12 +30,10 @@ namespace NikTiles.Editor.Forms {
         #region Declarations
         private SpriteBatch spriteBatch;
         private int width, height;  //The dimensions of the visible space.
-        private Vector2 scroll = new Vector2(0, 0);
         #endregion
 
         protected override void Initialize() {
 
-            MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
             Application.Idle += delegate { Invalidate(); };
 
             ContentLoader.LoadTextures(GraphicsDevice);
@@ -65,21 +63,6 @@ namespace NikTiles.Editor.Forms {
             this.width = width;
             this.height = height;
         }
-
-
-        /// <summary>
-        /// MouseEventHandler for MouseWheel. Does not update MapDisplay scrollbars.
-        /// Controls Camera zoom.
-        /// </summary>
-        private void mapDisplay_MouseWheel(object sender, MouseEventArgs e) {
-            Camera.Zoom(e.Delta * 0.001f);
-            Width = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width() / 2 + Camera.GetZoomX() * Tile.Width() / 2);
-            Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height() + Camera.GetZoomY() * Tile.Height() / 2);
-
-            //Disables MouseWheel effect on scroll.
-            ((HandledMouseEventArgs)e).Handled = true;
-        }
-
 
     }
 }
