@@ -87,6 +87,7 @@
     <Compile Include="Editor\Forms\MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\Selector.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\Cursor.cs" />
     <Compile Include="Engine\Map.cs" />
