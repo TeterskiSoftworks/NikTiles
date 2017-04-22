@@ -67,7 +67,7 @@ namespace NikTiles.Editor.Forms {
                 if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A)) Selector.SelectAll();
                 if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.I)) Selector.InverseSelection();
             }
-
+            
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) {
                 Tile.viewGrid = !Tile.viewGrid;
             }
