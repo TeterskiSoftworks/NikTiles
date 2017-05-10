@@ -60,7 +60,12 @@ namespace NikTiles.Editor.Forms {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.wallTab = new System.Windows.Forms.TabPage();
             this.floorTab = new System.Windows.Forms.TabPage();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.zoomBox = new System.Windows.Forms.ToolStripComboBox();
+            this.cursorLabelX = new System.Windows.Forms.ToolStripLabel();
+            this.cursorBoxX = new System.Windows.Forms.ToolStripTextBox();
+            this.cursorLabelY = new System.Windows.Forms.ToolStripLabel();
+            this.cursorBoxY = new System.Windows.Forms.ToolStripTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,6 +73,7 @@ namespace NikTiles.Editor.Forms {
             this.mapPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -86,7 +92,7 @@ namespace NikTiles.Editor.Forms {
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer1.Size = new System.Drawing.Size(784, 549);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 546);
             this.splitContainer1.SplitterDistance = 536;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -98,7 +104,7 @@ namespace NikTiles.Editor.Forms {
             this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapPanel.Location = new System.Drawing.Point(0, 24);
             this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(536, 525);
+            this.mapPanel.Size = new System.Drawing.Size(536, 522);
             this.mapPanel.TabIndex = 1;
             this.mapPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.mapPanel_Scroll);
             this.mapPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.mapPanel_Layout);
@@ -352,7 +358,7 @@ namespace NikTiles.Editor.Forms {
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(244, 549);
+            this.tabControl.Size = new System.Drawing.Size(244, 546);
             this.tabControl.TabIndex = 0;
             // 
             // wallTab
@@ -361,7 +367,7 @@ namespace NikTiles.Editor.Forms {
             this.wallTab.Location = new System.Drawing.Point(4, 22);
             this.wallTab.Name = "wallTab";
             this.wallTab.Padding = new System.Windows.Forms.Padding(3);
-            this.wallTab.Size = new System.Drawing.Size(236, 523);
+            this.wallTab.Size = new System.Drawing.Size(236, 520);
             this.wallTab.TabIndex = 1;
             this.wallTab.Text = "Wall";
             this.wallTab.UseVisualStyleBackColor = true;
@@ -377,14 +383,55 @@ namespace NikTiles.Editor.Forms {
             this.floorTab.Text = "Floor";
             this.floorTab.UseVisualStyleBackColor = true;
             // 
-            // statusStrip
+            // toolStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 549);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip.Size = new System.Drawing.Size(784, 22);
-            this.statusStrip.TabIndex = 3;
-            this.statusStrip.Text = "statusStrip1";
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zoomBox,
+            this.cursorLabelX,
+            this.cursorBoxX,
+            this.cursorLabelY,
+            this.cursorBoxY});
+            this.toolStrip.Location = new System.Drawing.Point(0, 546);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(784, 25);
+            this.toolStrip.TabIndex = 1;
+            this.toolStrip.Text = "toolStrip1";
+            // 
+            // zoomBox
+            // 
+            this.zoomBox.Items.AddRange(new object[] {
+            "200",
+            "150",
+            "100",
+            "75",
+            "50",
+            "25"});
+            this.zoomBox.Name = "zoomBox";
+            this.zoomBox.Size = new System.Drawing.Size(80, 25);
+            // 
+            // cursorLabelX
+            // 
+            this.cursorLabelX.Name = "cursorLabelX";
+            this.cursorLabelX.Size = new System.Drawing.Size(17, 22);
+            this.cursorLabelX.Text = "X:";
+            // 
+            // cursorBoxX
+            // 
+            this.cursorBoxX.Name = "cursorBoxX";
+            this.cursorBoxX.Size = new System.Drawing.Size(100, 25);
+            // 
+            // cursorLabelY
+            // 
+            this.cursorLabelY.Name = "cursorLabelY";
+            this.cursorLabelY.Size = new System.Drawing.Size(17, 22);
+            this.cursorLabelY.Text = "Y:";
+            // 
+            // cursorBoxY
+            // 
+            this.cursorBoxY.Name = "cursorBoxY";
+            this.cursorBoxY.Size = new System.Drawing.Size(100, 25);
             // 
             // MapEditor
             // 
@@ -392,7 +439,7 @@ namespace NikTiles.Editor.Forms {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 571);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.toolStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MapEditor";
             this.Text = "NikTileEditor";
@@ -405,6 +452,8 @@ namespace NikTiles.Editor.Forms {
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,6 +496,11 @@ namespace NikTiles.Editor.Forms {
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Panel mapPanel;
         private MapDisplay mapDisplay;
-        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripComboBox zoomBox;
+        private System.Windows.Forms.ToolStripLabel cursorLabelX;
+        private System.Windows.Forms.ToolStripTextBox cursorBoxX;
+        private System.Windows.Forms.ToolStripLabel cursorLabelY;
+        private System.Windows.Forms.ToolStripTextBox cursorBoxY;
     }
 }

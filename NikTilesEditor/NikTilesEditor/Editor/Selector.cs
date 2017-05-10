@@ -11,28 +11,23 @@ namespace NikTiles.Editor {
         /// <summary>
         /// The mode refers to how the selector functions. E.i. point selection, line selection, etc.
         /// </summary>
-        public struct Mode { //does it have to be a struct?
-            public const int POINT = 0;
-            public const int LINE = 1;
-            public const int BOX = 2;
-            public const int CIRCLE = 3;
-
-            public static int current = LINE;
+        public enum Mode {
+            Point, Line, Box, Circle}
             
-            public static void SetCurrentMode(int mode) {current = mode;}
-        }
-
         //add mouse state memory here
-
 
         private static int[] head, tail;
         private static bool firstPress = false;
+        private static Mode currentMode = Mode.Line;
+
+
+        public static void SetCurrentMode(Mode mode) { currentMode = mode; }
 
 
         public static void Select(bool deselect, bool mouseDown) {
-            switch (Mode.current) {
-                case Mode.POINT: PointSelect(deselect           ); break;
-                case Mode.LINE : LineSelect (deselect, mouseDown); break;
+            switch (currentMode) {
+                case Mode.Point: PointSelect(deselect           ); break;
+                case Mode.Line : LineSelect (deselect, mouseDown); break;
             }
 
         }
@@ -47,20 +42,21 @@ namespace NikTiles.Editor {
         }
 
         public static void LineSelect(bool deselect, bool mouseDown) {
-            int y = Cursor.GetY();
-            int x = Cursor.GetX();
+            int[] cursor = { Cursor.GetX(), Cursor.GetY() };
             if (mouseDown && !firstPress) {
                 firstPress = true;
-                head = new int[] { x, y };
+                head = new int[] { cursor[0], cursor[1] };
                 //do a check for mouseUp
             } else if (mouseDown && firstPress) {
-                tail = new int[] { x, y };
+                tail = new int[] { cursor[0], cursor[1] };
                 firstPress = false;
-
 
                 //Bresenham's Line Algorithm
                 // needs to be adjusted to the 
                 // jagged coordinate system used.
+
+                //CAUTION: This code is modified to work correctly with a jagged isometric coordinate system.
+                // A typical line algorithm will not work!
 
                 int dx = tail[0] - head[0]; int dy = tail[1] - head[1];
 
@@ -90,16 +86,38 @@ namespace NikTiles.Editor {
                 int yStep = (head[1] < tail[1] ? yStep = 1 : yStep=-1);
 
                 //Iterate over bounding box generating points between head and tail
-                y = head[1];
-                for(int _x=head[0]; _x < tail[0] + 1; _x++) {
-                    if (steep) MapDisplay.GetCurrentMap().TileAt(y, _x).Select();
-                    else MapDisplay.GetCurrentMap().TileAt(_x, y).Select();
+                cursor[1] = head[1];
+                for(int x=head[0]; x < tail[0] + 1; x++) {
 
+                    int[] selection = steep ? new int[] { x,cursor[1] } : new int[]{ cursor[1],x };
+                    
                     error -= Math.Abs(dy);
                     if (error < 0) {
-                        y += yStep;
+
+                        cursor[1] += yStep;      
                         error += dx;
+
+                        //Corrections for a jagged coordinated grid.
+                        if (steep) {
+                            //for steep lines tearing occures at changes only in X values, but is correct when X and Y both change.
+                            if (selection[1] % 2 == 0) {
+                                MapDisplay.GetCurrentMap().TileAt(selection).Debug();
+                            }
+                        } else {
+
+
+                            //for non-steep lines tearing occures at changes in both X and Y values, correct jumps occure only when X values change.
+                            MapDisplay.GetCurrentMap().TileAt(selection).Debug();
+                            if (selection[1] % 2 == 1) {
+                                //if only one of them is negative, the slope is negative.
+                                if (dy < 0 ^ dx < 0) selection[0]--;
+                            }else if (selection[1] % 2 == 0) {
+                            }
+
+                        }
                     }
+
+                    MapDisplay.GetCurrentMap().TileAt(selection).Select();
                 }
 
             }

@@ -12,6 +12,10 @@ namespace NikTiles.Editor.Forms {
             InitializeComponent();
             mapDisplay.MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
 
+            zoomBox.Text = "100";
+
+            cursorBoxX.Text = "0/0";
+            cursorBoxY.Text = "0/0";
         }
 
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs mouse) {
@@ -47,6 +51,11 @@ namespace NikTiles.Editor.Forms {
             if (mouseDown && mouse.Button == MouseButtons.Left){
                 Selector.Select(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt), mouseDown);
             }
+
+            //cursor label update
+            
+            cursorBoxX.Text = Engine.Cursor.GetX().ToString()+"/"+MapDisplay.GetCurrentMap().Width();
+            cursorBoxY.Text = Engine.Cursor.GetY().ToString()+"/"+MapDisplay.GetCurrentMap().Height();
         }
 
         private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {

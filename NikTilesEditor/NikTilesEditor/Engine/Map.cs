@@ -29,6 +29,7 @@ namespace NikTiles.Engine {
         /// </summary>
         public Tile TileAt(int x, int y) { return tiles[y, x]; }
 
+        public Tile TileAt(int[] coord) { return tiles[coord[0], coord[1]]; }
 
         /// <summary>
         /// Draws the area of the map visible on the screen.

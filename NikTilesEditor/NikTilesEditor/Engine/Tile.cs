@@ -25,6 +25,7 @@ namespace NikTiles.Engine {
         private Rectangle rectangle = new Rectangle(0, 0, Tile.Width(), Tile.Height());
         private int y, x;
         private bool selected = false;
+        private bool debug = false;
         #endregion
 
         public Tile(int y, int x) {
@@ -43,7 +44,7 @@ namespace NikTiles.Engine {
             spriteBatch.Draw(floor["Grass"], rectangle, Color.White);
             if (viewGrid) spriteBatch.Draw(grid,      rectangle, Color.Black*0.5f);
             if (selected) spriteBatch.Draw(selection, rectangle, Color.Aqua * 0.5f);
-
+            if (debug)    spriteBatch.Draw(grid, rectangle, Color.Red * 0.5f);
         }
 
         public void Select() {
@@ -52,10 +53,18 @@ namespace NikTiles.Engine {
 
         public void Deselect() {
             selected = false;
+            debug = false;
         }
 
         public void InverseSelection() {
             selected = !selected;
+        }
+
+        /// <summary>
+        /// A debug function. Use for whatever and however you wish.
+        /// </summary>
+        public void Debug() {
+            debug = true;
         }
 
     }
