@@ -94,26 +94,25 @@ namespace NikTiles.Editor {
                     error -= Math.Abs(dy);
                     if (error < 0) {
 
-                        cursor[1] += yStep;      
+                        cursor[1] += yStep;
                         error += dx;
 
                         //Corrections for a jagged coordinated grid.
                         if (steep) {
-                            //for steep lines tearing occures at changes only in X values, but is correct when X and Y both change.
-                            if (selection[1] % 2 == 0) {
-                                MapDisplay.GetCurrentMap().TileAt(selection).Debug();
-                            }
+                            if (selection[1] % 2 == 0)
+                                MapDisplay.GetCurrentMap().TileAt(selection[1], selection[0] + 1).Select();
+                            //case missing
                         } else {
-
-
-                            //for non-steep lines tearing occures at changes in both X and Y values, correct jumps occure only when X values change.
-                            MapDisplay.GetCurrentMap().TileAt(selection).Debug();
-                            if (selection[1] % 2 == 1) {
-                                //if only one of them is negative, the slope is negative.
-                                if (dy < 0 ^ dx < 0) selection[0]--;
-                            }else if (selection[1] % 2 == 0) {
+                            if (dy < 0) {
+                                if (selection[1] % 2 == 1) {
+                                    selection[0]--;
+                                }
+                            } else {
+                                if (selection[1] % 2 == 0){
+                                    selection[0]++;
+                                    MapDisplay.GetCurrentMap().TileAt(selection).Debug();
+                                }
                             }
-
                         }
                     }
 
