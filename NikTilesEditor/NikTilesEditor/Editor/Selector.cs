@@ -42,7 +42,21 @@ namespace NikTiles.Editor {
         }
 
         public static void LineSelect(bool deselect, bool mouseDown) {
-            int[] cursor = { Cursor.GetX(), Cursor.GetY() };
+            int[] cursor = new int[2];
+
+            //Check if inbounds
+            if (Cursor.GetX() < 0) cursor[0] = 0;
+            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
+                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
+            else cursor[0] = Cursor.GetX();
+
+
+            if (Cursor.GetY() < 0) cursor[1] = 0;
+            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
+                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
+            else cursor[1] = Cursor.GetY();
+
+
             if (mouseDown && !firstPress) {
                 firstPress = true;
                 head = new int[] { cursor[0], cursor[1] };
@@ -52,11 +66,7 @@ namespace NikTiles.Editor {
                 firstPress = false;
 
                 //Bresenham's Line Algorithm
-                // needs to be adjusted to the 
-                // jagged coordinate system used.
-
-                //CAUTION: This code is modified to work correctly with a jagged isometric coordinate system.
-                // A typical line algorithm will not work!
+                // adjusted to the jagged coordinate system used.
 
                 int dx = tail[0] - head[0]; int dy = tail[1] - head[1];
 
@@ -87,10 +97,12 @@ namespace NikTiles.Editor {
 
                 //Iterate over bounding box generating points between head and tail
                 cursor[1] = head[1];
-                for(int x=head[0]; x < tail[0] + 1; x++) {
+                int oldY = new int();
 
-                    int[] selection = steep ? new int[] { x,cursor[1] } : new int[]{ cursor[1],x };
-                    
+                for(int x=head[0]; x < tail[0]; x++) {
+
+                    int[] selection = steep ? new int[]{ cursor[1],x } : new int[] { x, cursor[1] };
+
                     error -= Math.Abs(dy);
                     if (error < 0) {
 
@@ -98,27 +110,35 @@ namespace NikTiles.Editor {
                         error += dx;
 
                         //Corrections for a jagged coordinated grid.
+
+                        // Perhaps make lines smoother, no diagonal changes.
                         if (steep) {
-                            if (selection[1] % 2 == 0)
-                                MapDisplay.GetCurrentMap().TileAt(selection[1], selection[0] + 1).Select();
-                            //case missing
+                            if (selection[0] % 2 == 0) MapDisplay.GetCurrentMap().TileAt(selection[0], selection[1]+1).Select();
                         } else {
-                            if (dy < 0) {
-                                if (selection[1] % 2 == 1) {
-                                    selection[0]--;
+                            if (dy <= 0) {
+                                if (selection[0] % 2 == 1) {
+                                    if(oldY == selection[1] + 1) {
+                                        MapDisplay.GetCurrentMap().TileAt(selection).Select();
+                                        MapDisplay.GetCurrentMap().TileAt(selection[0]+1,selection[1]).Select();
+                                    }
+                                    selection[1]--;
                                 }
-                            } else {
-                                if (selection[1] % 2 == 0){
-                                    selection[0]++;
-                                    MapDisplay.GetCurrentMap().TileAt(selection).Debug();
-                                }
+                            } else if (selection[0] % 2 == 0) {
+                                if (oldY == selection[1] - 1) {
+                                    MapDisplay.GetCurrentMap().TileAt(selection[0]+1, selection[1]  ).Select();
+                                    MapDisplay.GetCurrentMap().TileAt(selection[0]  , selection[1]+1).Select();
+                                }else selection[1]++;
                             }
+                            
                         }
                     }
 
                     MapDisplay.GetCurrentMap().TileAt(selection).Select();
-                }
 
+                    oldY = steep ? selection[0] : selection[1];
+                }
+                if(steep)MapDisplay.GetCurrentMap().TileAt(tail[1],tail[0]).Select();
+                else MapDisplay.GetCurrentMap().TileAt(tail).Select();
             }
         }
 
