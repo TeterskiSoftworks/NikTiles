@@ -14,51 +14,44 @@ namespace NikTiles.Editor {
         public enum Mode {
             Point, Line, Box, BoxFill, BoxAlign, BoxAlignFill, Circle }
 
-        //add mouse state memory here
-
         private static int[] head, tail;
-        private static bool firstPress = false;
-        private static Mode currentMode = Mode.BoxAlignFill;
+        private static int width = 1;
+        private static bool firstPress = false, deselect=false,mouseDown=false;
+        private static Mode currentMode = Mode.BoxAlign;
 
 
         public static void SetCurrentMode(Mode mode) { currentMode = mode; }
+        public static void Deselect(bool deselect) { Selector.deselect = deselect; }
+        public static bool Deselect() { return deselect; }  //rename
+        public static void MouseDown(bool mouseDown) { Selector.mouseDown = mouseDown; }
+        public static bool MouseDown() { return mouseDown; }
 
-
-        public static void Select(bool deselect, bool mouseDown) {
+        public static void Select() {
             switch (currentMode) {
-                case Mode.Point: PointSelect(deselect); break;
-                case Mode.Line: LineSelect(deselect, mouseDown); break;
-                case Mode.Box: BoxSelect(deselect, mouseDown, false); break;
-                case Mode.BoxFill: BoxSelect(deselect, mouseDown, true); break;
-                case Mode.BoxAlign: BoxAlignSelect(deselect, mouseDown, false); break;
-                case Mode.BoxAlignFill: BoxAlignSelect(deselect, mouseDown, true); break;
+                case Mode.Point: PointSelect(); break;
+                case Mode.Line:  LineSelect(); break;
+
+                case Mode.Box:     BoxSelect(width); break;
+                case Mode.BoxFill: BoxSelect(-1); break;
+
+                case Mode.BoxAlign:     BoxAlignSelect(width); break;
+                case Mode.BoxAlignFill: BoxAlignSelect(-1); break;
             }
 
         }
 
-        public static void PointSelect(bool deselect) {
+        //!!!!!!!!! add summeries to the entire file.
+
+        public static void PointSelect() {
             int y = Cursor.GetY();
             int x = Cursor.GetX();
-            if (y >= 0 && y < MapDisplay.GetCurrentMap().Height() && x >= 0 && x < MapDisplay.GetCurrentMap().Width()) {
-                if (!deselect) MapDisplay.GetCurrentMap().TileAt(x, y).Select();
-                else MapDisplay.GetCurrentMap().TileAt(x, y).Deselect();
-            }
+            if (y >= 0 && y < MapDisplay.GetCurrentMap().Height() && x >= 0 && x < MapDisplay.GetCurrentMap().Width())
+                MapDisplay.GetCurrentMap().TileAt(x, y).Select();
         }
 
-        public static void LineSelect(bool deselect, bool mouseDown) {
-            int[] cursor = new int[2];
-
-            //Check if inbounds
-            if (Cursor.GetX() < 0) cursor[0] = 0;
-            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
-                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
-            else cursor[0] = Cursor.GetX();
-
-
-            if (Cursor.GetY() < 0) cursor[1] = 0;
-            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
-                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
-            else cursor[1] = Cursor.GetY();
+        //add width?
+        public static void LineSelect() {
+            int[] cursor = GetCursor();
 
 
             if (mouseDown && !firstPress) {
@@ -102,7 +95,6 @@ namespace NikTiles.Editor {
                 //Iterate over bounding box generating points between head and tail
                 cursor[1] = head[1];
                 int oldY = new int();
-
                 for (int x = head[0]; x < tail[0]; x++) {
 
                     int[] selection = steep ? new int[] { cursor[1], x } : new int[] { x, cursor[1] };
@@ -115,7 +107,6 @@ namespace NikTiles.Editor {
 
                         //Corrections for a jagged coordinated grid.
 
-                        // Perhaps make lines smoother, no diagonal changes.
                         if (steep) {
                             if (selection[0] % 2 == 0) MapDisplay.GetCurrentMap().TileAt(selection[0], selection[1] + 1).Select();
                         } else {
@@ -141,13 +132,20 @@ namespace NikTiles.Editor {
 
                     oldY = steep ? selection[0] : selection[1];
                 }
-                if (steep) MapDisplay.GetCurrentMap().TileAt(tail[1], tail[0]).Select();
-                else MapDisplay.GetCurrentMap().TileAt(tail).Select();
+
+                if (steep) {
+                    MapDisplay.GetCurrentMap().TileAt(head[1], head[0]).Select();
+                    MapDisplay.GetCurrentMap().TileAt(tail[1], tail[0]).Select();
+                } else {
+                    MapDisplay.GetCurrentMap().TileAt(head).Select();
+                    MapDisplay.GetCurrentMap().TileAt(tail).Select();
+                }
+
             }
         }
 
-        public static void BoxSelect(bool deselect, bool mouseDown, bool fill) {
-            int[] cursor = new int[2];
+        public static void BoxSelect(int width) {
+            int[] cursor = GetCursor();
 
             //Check if inbounds
             if (Cursor.GetX() < 0) cursor[0] = 0;
@@ -179,44 +177,23 @@ namespace NikTiles.Editor {
                     head[1] = tail[1]; tail[1] = temp;
                 }
 
-                if (fill) {
-                    for (int y = head[1]; y <= tail[1]; y++) {
-                        for (int x = head[0]; x <= tail[0]; x++) {
-                            MapDisplay.GetCurrentMap().TileAt(x, y).Select();
-                        }
+                for (int xOffset = 0, yOffset=0; xOffset < width; xOffset++, yOffset++) {
+                    if(head[1]+yOffset<tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
+                        MapDisplay.GetCurrentMap().TileAt(x, head[1]+yOffset).Select();
+                        MapDisplay.GetCurrentMap().TileAt(x, tail[1]-yOffset).Select();
                     }
-                } else {
-                    for (int x = head[0]; x <= tail[0]; x++) {
-                        MapDisplay.GetCurrentMap().TileAt(x, head[1]).Select();
-                        MapDisplay.GetCurrentMap().TileAt(x, tail[1]).Select();
-                    }
-
-                    for (int y = head[1]; y <= tail[1]; y++) {
-                        MapDisplay.GetCurrentMap().TileAt(head[0], y).Select();
-                        MapDisplay.GetCurrentMap().TileAt(tail[0], y).Select();
+                    if (head[0]+xOffset < tail[0]) for (int y = head[1]; y <= tail[1]; y++) {
+                        MapDisplay.GetCurrentMap().TileAt(head[0]+xOffset, y).Select();
+                        MapDisplay.GetCurrentMap().TileAt(tail[0]-xOffset, y).Select();
                     }
                 }
                 firstPress = false;
             }
         }
 
-        public static void BoxAlignSelect(bool deselect, bool mouseDown, bool fill) {
-            int[] cursor = new int[2];
+        public static void BoxAlignSelect(int width) {
+            int[] cursor = GetCursor();
             bool swapped = false;
-
-
-            //Check if inbounds
-            if (Cursor.GetX() < 0) cursor[0] = 0;
-            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
-                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
-            else cursor[0] = Cursor.GetX();
-
-
-            if (Cursor.GetY() < 0) cursor[1] = 0;
-            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
-                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
-            else cursor[1] = Cursor.GetY();
-
 
             if (mouseDown && !firstPress) {
                 firstPress = true;
@@ -255,7 +232,7 @@ namespace NikTiles.Editor {
                     } else if (!swapped) tail[1] = head[1];
                     else head[1] = tail[1];
 
-                    BoxAlignSelect_H(deselect, fill, head, tail);
+                    BoxAlignHorizontal(width, head, tail);
 
 
                 } else {
@@ -270,7 +247,7 @@ namespace NikTiles.Editor {
                         head[1] = tail[1]; tail[1] = temp;
                     }
 
-                    BoxAlignSelect_V(deselect,true,head,tail);
+                    BoxAlignVertical(width,head,tail);
 
                 }
 
@@ -278,9 +255,7 @@ namespace NikTiles.Editor {
             }
         }
 
-
-        //rename    consider changing fill to width.
-        public static void BoxAlignSelect_H(bool deselect, bool fill, int[] start, int[] end) {
+        public static void BoxAlignHorizontal(int width, int[] start, int[] end) {
 
             int yTop = 0, yBottom = 0;
             bool topOverflow = false, bottomOverflow = false;
@@ -306,11 +281,12 @@ namespace NikTiles.Editor {
             if (!bottomOverflow && start[1]+yBottom<MapDisplay.GetCurrentMap().Height())
                 MapDisplay.GetCurrentMap().TileAt((end[0] - start[0]) / 2 + start[0], start[1] + yBottom).Select();
 
-            if (fill && start[0] != end[0]) BoxAlignSelect_H(deselect, fill, new int[] { start[0] + 1, start[1] }, new int[] { end[0] - 1, end[1] });
-
+            if (width != 1 && start[0] != end[0]) {
+                BoxAlignHorizontal(width - 1, new int[] { start[0] + 2, start[1] }, new int[] { end[0] - 2, end[1] });
+            }
         }
 
-        public static void BoxAlignSelect_V(bool deselect, bool fill, int[] start, int[] end) {
+        public static void BoxAlignVertical(int width, int[] start, int[] end) {
             int yNW = 0, yNE = 0, ySW = 0, ySE = 0, xLeft = 0, xRight = 0;
             bool leftOverflow = false, rightOverflow = false;
 
@@ -340,15 +316,31 @@ namespace NikTiles.Editor {
                 else MapDisplay.GetCurrentMap().TileAt(start[0] - xLeft, (end[1] - start[1]) / 2 + start[1]).Select();
             }
             if (!rightOverflow && start[0]+xRight < MapDisplay.GetCurrentMap().Width()) {
-                if (start[0] % 2 == 1 && (start[0] + xRight) % 2 == 0) {
-                    MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1] + 1).Select();
-                    MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1] + 1).Debug();
-                } else MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1]).Select();
+                if (start[0] % 2 == 1 && (start[0] + xRight) % 2 == 0) MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1] + 1).Select();
+                else MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1]).Select();
             }
 
-            if(fill && (start[1] != end[1] && start[1]+1 != end[1])) BoxAlignSelect_V(deselect, fill, new int[] { start[0], start[1]+1 }, new int[] { end[0], end[1]-1 });
+            if(width!=1 && start[1] != end[1] && start[1]+1 != end[1]) BoxAlignVertical(width-1, new int[] { start[0], start[1]+1 }, new int[] { end[0], end[1]-1 });
         }
 
+        public static int[] GetCursor() {
+            int[] cursor = new int[2];
+
+            //Check if inbounds
+            if (Cursor.GetX() < 0) cursor[0] = 0;
+            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
+                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
+            else cursor[0] = Cursor.GetX();
+
+
+            if (Cursor.GetY() < 0) cursor[1] = 0;
+            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
+                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
+            else cursor[1] = Cursor.GetY();
+
+
+            return cursor;
+        }
 
         public static void SelectAll() {
             for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++) {
@@ -359,11 +351,9 @@ namespace NikTiles.Editor {
         }
 
         public static void DeselectAll() {
-            for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++) {
-                for (int x = 0; x < MapDisplay.GetCurrentMap().Width(); x++) {
-                    MapDisplay.GetCurrentMap().TileAt(x, y).Deselect();
-                }
-            }
+            for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++)
+                for (int x = 0; x < MapDisplay.GetCurrentMap().Width(); x++)
+                    MapDisplay.GetCurrentMap().TileAt(x, y).Select(false);
         }
 
         public static void InverseSelection() {

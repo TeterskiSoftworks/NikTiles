@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace NikTiles.Editor.Forms {
     public partial class MapEditor : Form {
-        bool mouseDown = false;
-
 
         public MapEditor() {
 
@@ -40,28 +38,30 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
-            mouseDown = true;
+            Selector.MouseDown(true);
             if (mouse.Button == MouseButtons.Left) {
-                Selector.Select(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt), mouseDown);
+                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
+                Selector.Select();
             }
         }
 
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
             Engine.Cursor.SetCursor(mouse);
-            if (mouseDown && mouse.Button == MouseButtons.Left){
-                Selector.Select(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt), mouseDown);
+            if (Selector.MouseDown() && mouse.Button == MouseButtons.Left){
+                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
+                Selector.Select();
             }
 
             //cursor label update
-            
             cursorBoxX.Text = Engine.Cursor.GetX().ToString()+"/"+MapDisplay.GetCurrentMap().Width();
             cursorBoxY.Text = Engine.Cursor.GetY().ToString()+"/"+MapDisplay.GetCurrentMap().Height();
         }
 
         private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {
-            mouseDown = false;
+            Selector.MouseDown(false);
             if (mouse.Button == MouseButtons.Left) {
-                Selector.Select(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt), mouseDown);
+                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
+                Selector.Select();
             }
         }
 

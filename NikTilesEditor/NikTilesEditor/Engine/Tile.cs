@@ -48,12 +48,11 @@ namespace NikTiles.Engine {
         }
 
         public void Select() {
-            selected = true;
+            selected = !Selector.Deselect();
         }
 
-        public void Deselect() {
-            selected = false;
-            debug = false;
+        public void Select(bool _override) {
+            selected = _override;
         }
 
         public void InverseSelection() {
