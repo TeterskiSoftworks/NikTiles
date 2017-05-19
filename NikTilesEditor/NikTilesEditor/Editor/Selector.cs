@@ -17,10 +17,10 @@ namespace NikTiles.Editor {
         private static int[] head, tail;
         private static int width = 1;
         private static bool firstPress = false, deselect=false,mouseDown=false;
-        private static Mode currentMode = Mode.BoxAlign;
+        private static Mode currentMode = Mode.Point;
 
 
-        public static void SetCurrentMode(Mode mode) { currentMode = mode; }
+        public static void SetMode(Mode mode) { currentMode = mode; }
         public static void Deselect(bool deselect) { Selector.deselect = deselect; }
         public static bool Deselect() { return deselect; }  //rename
         public static void MouseDown(bool mouseDown) { Selector.mouseDown = mouseDown; }

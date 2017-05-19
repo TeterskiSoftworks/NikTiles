@@ -87,6 +87,12 @@
     <Compile Include="Editor\Forms\MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\Forms\SelectionToolStrip.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\SelectionToolStrip.Designer.cs">
+      <DependentUpon>SelectionToolStrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\Selector.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\Cursor.cs" />
@@ -95,6 +101,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="WinformsGraphicsDevice\GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +127,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Editor\Forms\MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\SelectionToolStrip.resx">
+      <DependentUpon>SelectionToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

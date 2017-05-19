@@ -77,9 +77,20 @@ namespace NikTiles.Editor.Forms {
                 if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.I)) Selector.InverseSelection();
             }
             
-            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) {
-                Tile.viewGrid = !Tile.viewGrid;
-            }
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) { Tile.viewGrid = !Tile.viewGrid; }
+
+            #region Selection Mode change
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D1))
+                selectionToolStrip1.SetMode(1);
+            else if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D2))
+                selectionToolStrip1.SetMode(2);
+            else if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3))
+                selectionToolStrip1.SetMode(3);
+            else if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4))
+                selectionToolStrip1.SetMode(4);
+            #endregion
+
+
         }
     }
 }
