@@ -12,7 +12,7 @@ namespace NikTiles.Editor {
         /// The mode refers to how the selector functions. E.i. point selection, line selection, etc.
         /// </summary>
         public enum Mode {
-            Point, Line, Box, BoxFill, BoxAlign, BoxAlignFill, Circle }
+            Point, Line, Box, BoxAlign, Circle }
 
         private static int[] head, tail;
         private static int width = 1;
@@ -28,14 +28,10 @@ namespace NikTiles.Editor {
 
         public static void Select() {
             switch (currentMode) {
-                case Mode.Point: PointSelect(); break;
-                case Mode.Line:  LineSelect(); break;
-
-                case Mode.Box:     BoxSelect(width); break;
-                case Mode.BoxFill: BoxSelect(-1); break;
-
-                case Mode.BoxAlign:     BoxAlignSelect(width); break;
-                case Mode.BoxAlignFill: BoxAlignSelect(-1); break;
+                case Mode.Point:    PointSelect(); break;
+                case Mode.Line:     LineSelect(); break;
+                case Mode.Box:      BoxSelect(width); break;
+                case Mode.BoxAlign: BoxAlignSelect(width); break;
             }
 
         }
@@ -177,6 +173,7 @@ namespace NikTiles.Editor {
                     head[1] = tail[1]; tail[1] = temp;
                 }
 
+                //!!!!! Fill doesnt actually work
                 for (int xOffset = 0, yOffset=0; xOffset < width; xOffset++, yOffset++) {
                     if(head[1]+yOffset<tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
                         MapDisplay.GetCurrentMap().TileAt(x, head[1]+yOffset).Select();
@@ -281,6 +278,7 @@ namespace NikTiles.Editor {
             if (!bottomOverflow && start[1]+yBottom<MapDisplay.GetCurrentMap().Height())
                 MapDisplay.GetCurrentMap().TileAt((end[0] - start[0]) / 2 + start[0], start[1] + yBottom).Select();
 
+            //!!!!!!!!!! the +2 & -2 is resulting in the head and tail never actually meeting, so check for that!
             if (width != 1 && start[0] != end[0]) {
                 BoxAlignHorizontal(width - 1, new int[] { start[0] + 2, start[1] }, new int[] { end[0] - 2, end[1] });
             }
@@ -363,6 +361,8 @@ namespace NikTiles.Editor {
                 }
             }
         }
+
+        public static void SetWidth(int width) { Selector.width = width; }
 
     }
 }

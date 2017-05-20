@@ -40,7 +40,6 @@ namespace NikTiles.Editor.Forms {
         private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
             Selector.MouseDown(true);
             if (mouse.Button == MouseButtons.Left) {
-                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
                 Selector.Select();
             }
         }
@@ -48,7 +47,6 @@ namespace NikTiles.Editor.Forms {
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
             Engine.Cursor.SetCursor(mouse);
             if (Selector.MouseDown() && mouse.Button == MouseButtons.Left){
-                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
                 Selector.Select();
             }
 
@@ -60,7 +58,6 @@ namespace NikTiles.Editor.Forms {
         private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {
             Selector.MouseDown(false);
             if (mouse.Button == MouseButtons.Left) {
-                Selector.Deselect(IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt));
                 Selector.Select();
             }
         }
@@ -80,6 +77,11 @@ namespace NikTiles.Editor.Forms {
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) { Tile.viewGrid = !Tile.viewGrid; }
 
             #region Selection Mode change
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.E))
+                selectionToolStrip1.DeslectToggle();
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F))
+                selectionToolStrip1.FillToggle();
+
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D1))
                 selectionToolStrip1.SetMode(1);
             else if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D2))
@@ -90,7 +92,11 @@ namespace NikTiles.Editor.Forms {
                 selectionToolStrip1.SetMode(4);
             #endregion
 
+        }
 
+        private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e) {
+            AboutBox1 about = new AboutBox1();
+            about.Show();
         }
     }
 }
