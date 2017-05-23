@@ -282,7 +282,7 @@ namespace NikTiles.Editor {
                 MapDisplay.GetCurrentMap().TileAt((end[0] - start[0]) / 2 + start[0], start[1] + yBottom).Select();
 
             //!!!!!!!!!! the +2 & -2 is resulting in the head and tail never actually meeting, so check for that!
-            if (width != 1 && start[0] != end[0]) {
+            if (width != 1 && start[0] != end[0] && start[0]+2 != end[0]) {
                 BoxAlignHorizontal(width - 1, new int[] { start[0] + 2, start[1] }, new int[] { end[0] - 2, end[1] });
             }
         }
