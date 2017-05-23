@@ -1,9 +1,11 @@
 ﻿using NikTiles.Engine;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Input;
+using System.Drawing;
 
 namespace NikTiles.Editor.Forms {
     public partial class MapEditor : Form {
+        
 
         public MapEditor() {
 
@@ -39,9 +41,7 @@ namespace NikTiles.Editor.Forms {
 
         private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
             Selector.MouseDown(true);
-            if (mouse.Button == MouseButtons.Left) {
-                Selector.Select();
-            }
+            Selector.Select();
         }
 
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
@@ -78,7 +78,7 @@ namespace NikTiles.Editor.Forms {
 
             #region Selection Mode change
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.E))
-                selectionToolStrip1.DeslectToggle();
+                selectionToolStrip1.DeselectToggle();
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F))
                 selectionToolStrip1.FillToggle();
 
@@ -95,8 +95,12 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e) {
-            AboutBox1 about = new AboutBox1();
+            AboutBox about = new AboutBox();
             about.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e) {
+            Application.Exit();
         }
     }
 }

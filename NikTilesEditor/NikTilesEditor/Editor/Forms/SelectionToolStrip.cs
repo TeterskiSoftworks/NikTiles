@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace NikTiles.Editor.Forms {
+
+    // Set to static? Why have instances?
     public partial class SelectionToolStrip : UserControl {
 
         private string oldWidth="1";
@@ -16,7 +18,7 @@ namespace NikTiles.Editor.Forms {
             InitializeComponent();
         }
 
-        public void ResetMode(ref object button) {
+        private void ResetMode(ref object button) {
             pointButton.Checked    = button == pointButton;
             lineButton.Checked     = button == lineButton;
             boxAlignButton.Checked = button == boxAlignButton;
@@ -31,10 +33,11 @@ namespace NikTiles.Editor.Forms {
             else if (key == 2) lineButton.Checked = true;
             else if (key == 3) boxAlignButton.Checked = true;
             else if (key == 4) boxButton.Checked = true;
+            else if (key == 5) circleButton.Checked = true;
         }
 
-        private void Button_Click(object sender, EventArgs e) {
-            ResetMode(ref sender);
+        private void Button_Click(object button, EventArgs e) {
+            ResetMode(ref button);
         }
 
         private void PointButton_CheckedChanged(object sender, EventArgs e) {
@@ -105,7 +108,7 @@ namespace NikTiles.Editor.Forms {
             }
         }
 
-        public void DeslectToggle() {
+        public void DeselectToggle() {
             deselectButton.Checked = !deselectButton.Checked;
         }
 

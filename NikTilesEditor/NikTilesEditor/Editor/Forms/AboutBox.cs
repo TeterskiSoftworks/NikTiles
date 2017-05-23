@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Windows.Forms;
 
 namespace NikTiles.Editor.Forms {
-    partial class AboutBox1 : Form {
-        public AboutBox1() {
+    partial class AboutBox : Form {
+        public AboutBox() {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct + "  "+ AssemblyVersion;

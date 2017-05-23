@@ -16,7 +16,10 @@ namespace NikTiles.Engine {
         public static Texture2D selection, grid;
         #endregion
 
+
+        /// <summary> Returns the width the game tiles. </summary>
         public static int Width() { return X; }
+        /// <summary> Returns the height the game tiles. </summary>
         public static int Height() { return Y; }
 
         #endregion
@@ -28,7 +31,7 @@ namespace NikTiles.Engine {
         private bool debug = false;
         #endregion
 
-        public Tile(int y, int x) {
+        public Tile(int x, int y) {
             this.y = y;
             this.x = x;
             if (x % 2 != 0)
@@ -37,9 +40,14 @@ namespace NikTiles.Engine {
                 rectangle = new Rectangle(Tile.Width() / 2 * x, Tile.Height() * y, Tile.Width(), Tile.Height());
         }
 
+        /// <summary> Returns the x coordinate of the tile. </summary>
         public int GetX() { return x; }
+        /// <summary> Returns the y coordinate of the tile. </summary>
         public int GetY() { return y; }
 
+
+        /// <summary> Draws the tile. </summary>
+        /// <param name="spriteBatch">The SpriteBatch used to draw the tile.</param>
         public void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(floor["Grass"], rectangle, Color.White);
             if (viewGrid) spriteBatch.Draw(grid,      rectangle, Color.Black*0.5f);
@@ -47,21 +55,22 @@ namespace NikTiles.Engine {
             if (debug)    spriteBatch.Draw(grid, rectangle, Color.Red * 0.5f);
         }
 
+        /// <summary> Selects/deselects the tile based on Selector. </summary>
         public void Select() {
             selected = !Selector.Deselect();
         }
 
-        public void Select(bool _override) {
-            selected = _override;
+        /// <summary> Sets the tile selection. </summary>
+        public void Select(bool select) {
+            selected = select;
         }
 
+        /// <summary> Inverts the tile's selection value. </summary>
         public void InverseSelection() {
             selected = !selected;
         }
 
-        /// <summary>
-        /// A debug function. Use for whatever and however you wish.
-        /// </summary>
+        /// <summary> A debug function which can be changed and used for any debugging needs. </summary>
         public void Debug() {
             debug = true;
         }

@@ -1,5 +1,5 @@
 ﻿namespace NikTiles.Editor.Forms {
-    partial class AboutBox1 {
+    partial class AboutBox {
         /// <summary>
         /// Required designer variable.
         /// </summary>

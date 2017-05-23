@@ -84,7 +84,7 @@ namespace NikTiles.Engine {
         /// <summary>
         /// The first check to see if the cursor is out of bounds of the map, using mouse poistion.
         /// </summary>
-        public static void OffGridCheck1(MouseEventArgs mouse) {
+        private static void OffGridCheck1(MouseEventArgs mouse) {
             offGrid = false;
             if ((int)(mouse.X / Camera.GetZoomX() - position.X * Tile.Width() / 2 + Camera.GetPixelsX() / Camera.GetZoomX()) * cursorTexture.Width / Tile.Width() < 0)
                 offGrid = true;
@@ -100,7 +100,7 @@ namespace NikTiles.Engine {
         /// It checks too see if the cursor is still inbounds once its location has been
         /// transformed by the mouse map.
         /// </summary>
-        public static void OffGridCheck2() {
+        private static void OffGridCheck2() {
             offGrid = false;
             if (position.X < 0) offGrid = true;
             if (position.Y < 0 && position.X % 2 != 0)
@@ -110,7 +110,7 @@ namespace NikTiles.Engine {
         }
 
 
-        public static Vector2 GetPoistion() {
+        public static Vector2 GetPosition() {
             return position;
         }
 

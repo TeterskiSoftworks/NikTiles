@@ -53,11 +53,9 @@ namespace NikTiles.Editor.Forms {
         }
 
 
-        /// <summary>
-        /// Udates how much of the MapDsiplay is visible
-        /// </summary>
-        /// <param name="width">View width</param>
-        /// <param name="height">View height</param>
+        /// <summary>  Updates how much of the MapDisplay is visible. </summary>
+        /// <param name="width">View width.</param>
+        /// <param name="height">View height.</param>
         public void ResizeView(int width, int height) {
             this.width = width;
             this.height = height;

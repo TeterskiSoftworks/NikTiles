@@ -21,6 +21,7 @@ namespace NikTiles.Editor {
 
 
         public static void SetMode(Mode mode) { currentMode = mode; }
+        public static Mode GetMode() { return currentMode; }
         public static void Deselect(bool deselect) { Selector.deselect = deselect; }
         public static bool Deselect() { return deselect; }  //rename
         public static void MouseDown(bool mouseDown) { Selector.mouseDown = mouseDown; }
@@ -38,7 +39,7 @@ namespace NikTiles.Editor {
 
         //!!!!!!!!! add summeries to the entire file.
 
-        public static void PointSelect() {
+        private static void PointSelect() {
             int y = Cursor.GetY();
             int x = Cursor.GetX();
             if (y >= 0 && y < MapDisplay.GetCurrentMap().Height() && x >= 0 && x < MapDisplay.GetCurrentMap().Width())
@@ -46,7 +47,7 @@ namespace NikTiles.Editor {
         }
 
         //add width?
-        public static void LineSelect() {
+        private static void LineSelect() {
             int[] cursor = GetCursor();
 
 
@@ -140,7 +141,7 @@ namespace NikTiles.Editor {
             }
         }
 
-        public static void BoxSelect(int width) {
+        private static void BoxSelect(int width) {
             int[] cursor = GetCursor();
 
             //Check if inbounds
@@ -173,22 +174,24 @@ namespace NikTiles.Editor {
                     head[1] = tail[1]; tail[1] = temp;
                 }
 
-                //!!!!! Fill doesnt actually work
-                for (int xOffset = 0, yOffset=0; xOffset < width; xOffset++, yOffset++) {
-                    if(head[1]+yOffset<tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
-                        MapDisplay.GetCurrentMap().TileAt(x, head[1]+yOffset).Select();
-                        MapDisplay.GetCurrentMap().TileAt(x, tail[1]-yOffset).Select();
+                if (width < 0) {
+                    for (int y = head[1]; y <= tail[1]; y++) for (int x = head[0]; x <= tail[0]; x++)
+                        MapDisplay.GetCurrentMap().TileAt(x, y).Select();
+                } else for (int xOffset = 0, yOffset = 0; xOffset < width; xOffset++, yOffset++) {
+                        if (head[1] + yOffset < tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
+                                MapDisplay.GetCurrentMap().TileAt(x, head[1] + yOffset).Select();
+                                MapDisplay.GetCurrentMap().TileAt(x, tail[1] - yOffset).Select();
+                            }
+                        if (head[0] + xOffset < tail[0]) for (int y = head[1]; y <= tail[1]; y++) {
+                                MapDisplay.GetCurrentMap().TileAt(head[0] + xOffset, y).Select();
+                                MapDisplay.GetCurrentMap().TileAt(tail[0] - xOffset, y).Select();
+                            }
                     }
-                    if (head[0]+xOffset < tail[0]) for (int y = head[1]; y <= tail[1]; y++) {
-                        MapDisplay.GetCurrentMap().TileAt(head[0]+xOffset, y).Select();
-                        MapDisplay.GetCurrentMap().TileAt(tail[0]-xOffset, y).Select();
-                    }
-                }
                 firstPress = false;
             }
         }
 
-        public static void BoxAlignSelect(int width) {
+        private static void BoxAlignSelect(int width) {
             int[] cursor = GetCursor();
             bool swapped = false;
 
@@ -252,7 +255,7 @@ namespace NikTiles.Editor {
             }
         }
 
-        public static void BoxAlignHorizontal(int width, int[] start, int[] end) {
+        private static void BoxAlignHorizontal(int width, int[] start, int[] end) {
 
             int yTop = 0, yBottom = 0;
             bool topOverflow = false, bottomOverflow = false;
@@ -284,7 +287,7 @@ namespace NikTiles.Editor {
             }
         }
 
-        public static void BoxAlignVertical(int width, int[] start, int[] end) {
+        private static void BoxAlignVertical(int width, int[] start, int[] end) {
             int yNW = 0, yNE = 0, ySW = 0, ySE = 0, xLeft = 0, xRight = 0;
             bool leftOverflow = false, rightOverflow = false;
 
@@ -321,7 +324,7 @@ namespace NikTiles.Editor {
             if(width!=1 && start[1] != end[1] && start[1]+1 != end[1]) BoxAlignVertical(width-1, new int[] { start[0], start[1]+1 }, new int[] { end[0], end[1]-1 });
         }
 
-        public static int[] GetCursor() {
+        private static int[] GetCursor() {
             int[] cursor = new int[2];
 
             //Check if inbounds

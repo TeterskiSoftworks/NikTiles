@@ -26,6 +26,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionToolStrip));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.widthLabel = new System.Windows.Forms.ToolStripLabel();
+            this.widthBox = new System.Windows.Forms.ToolStripTextBox();
             this.fillButton = new System.Windows.Forms.ToolStripButton();
             this.pointButton = new System.Windows.Forms.ToolStripButton();
             this.lineButton = new System.Windows.Forms.ToolStripButton();
@@ -33,7 +34,6 @@
             this.boxButton = new System.Windows.Forms.ToolStripButton();
             this.circleButton = new System.Windows.Forms.ToolStripButton();
             this.deselectButton = new System.Windows.Forms.ToolStripButton();
-            this.widthBox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +62,16 @@
             this.widthLabel.Size = new System.Drawing.Size(42, 22);
             this.widthLabel.Text = "Width:";
             this.widthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // widthBox
+            // 
+            this.widthBox.Enabled = false;
+            this.widthBox.MaxLength = 3;
+            this.widthBox.Name = "widthBox";
+            this.widthBox.Size = new System.Drawing.Size(25, 25);
+            this.widthBox.Text = "1";
+            this.widthBox.ToolTipText = "Width";
+            this.widthBox.TextChanged += new System.EventHandler(this.WidthBox_TextChanged);
             // 
             // fillButton
             // 
@@ -153,16 +163,6 @@
             this.deselectButton.Text = "Erase";
             this.deselectButton.ToolTipText = "Erase";
             this.deselectButton.CheckedChanged += new System.EventHandler(this.deselectButton_CheckedChanged);
-            // 
-            // widthBox
-            // 
-            this.widthBox.Enabled = false;
-            this.widthBox.MaxLength = 3;
-            this.widthBox.Name = "widthBox";
-            this.widthBox.Size = new System.Drawing.Size(25, 25);
-            this.widthBox.Text = "1";
-            this.widthBox.ToolTipText = "Width";
-            this.widthBox.TextChanged += new System.EventHandler(this.WidthBox_TextChanged);
             // 
             // SelectionToolStrip
             // 
