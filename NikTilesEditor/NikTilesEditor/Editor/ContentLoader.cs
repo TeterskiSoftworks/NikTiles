@@ -29,7 +29,7 @@ namespace NikTiles.Editor {
             if (!loaded) {
                 LoadUserInterface(graphicsDevice);
 
-                Tile.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
+                Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
 
             }
 
@@ -42,9 +42,9 @@ namespace NikTiles.Editor {
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
             if (dir.Exists) {
 
-                Tile.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png", graphicsDevice);
-                Tile.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png",      graphicsDevice);
-                Texture2D cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png",    graphicsDevice);
+                Engine.Texture.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png", graphicsDevice);
+                Engine.Texture.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png",      graphicsDevice);
+                Engine.Texture.cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png",    graphicsDevice);
 
                 Microsoft.Xna.Framework.Color[] mouseMap = new Microsoft.Xna.Framework.Color[0];
                 FileInfo[] files = dir.GetFiles("MouseMap.png");
@@ -56,7 +56,7 @@ namespace NikTiles.Editor {
                     }
                 }
 
-                NikTiles.Engine.Cursor.LoadCursorTextures(mouseMap, cursor);
+                NikTiles.Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
             }
         }
 

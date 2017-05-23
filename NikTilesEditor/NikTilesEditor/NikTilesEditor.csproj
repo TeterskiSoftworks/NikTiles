@@ -84,6 +84,12 @@
     <Compile Include="Editor\Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\Forms\FloorTextureMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorTextureMenu.Designer.cs">
+      <DependentUpon>FloorTextureMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\Forms\MapDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -103,6 +109,8 @@
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\Cursor.cs" />
     <Compile Include="Engine\Map.cs" />
+    <Compile Include="Engine\Material.cs" />
+    <Compile Include="Engine\Texture.cs" />
     <Compile Include="Engine\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -133,6 +141,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Editor\Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\FloorTextureMenu.resx">
+      <DependentUpon>FloorTextureMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>

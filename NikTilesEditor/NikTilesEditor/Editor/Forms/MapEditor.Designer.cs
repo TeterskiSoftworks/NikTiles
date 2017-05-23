@@ -65,6 +65,7 @@ namespace NikTiles.Editor.Forms {
             this.cursorBoxX = new System.Windows.Forms.ToolStripTextBox();
             this.cursorLabelY = new System.Windows.Forms.ToolStripLabel();
             this.cursorBoxY = new System.Windows.Forms.ToolStripTextBox();
+            this.floorTextureMenu1 = new NikTiles.Editor.Forms.FloorTextureMenu();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@ namespace NikTiles.Editor.Forms {
             this.mapPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.floorTab.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +81,6 @@ namespace NikTiles.Editor.Forms {
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -92,8 +93,8 @@ namespace NikTiles.Editor.Forms {
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl);
             this.splitContainer1.Panel2.Controls.Add(this.selectionToolStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(784, 546);
-            this.splitContainer1.SplitterDistance = 536;
+            this.splitContainer1.Size = new System.Drawing.Size(1033, 546);
+            this.splitContainer1.SplitterDistance = 671;
             this.splitContainer1.TabIndex = 1;
             // 
             // mapPanel
@@ -104,7 +105,7 @@ namespace NikTiles.Editor.Forms {
             this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapPanel.Location = new System.Drawing.Point(0, 24);
             this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(536, 522);
+            this.mapPanel.Size = new System.Drawing.Size(671, 522);
             this.mapPanel.TabIndex = 1;
             this.mapPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.mapPanel_Scroll);
             this.mapPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.mapPanel_Layout);
@@ -132,7 +133,7 @@ namespace NikTiles.Editor.Forms {
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip.Size = new System.Drawing.Size(536, 24);
+            this.menuStrip.Size = new System.Drawing.Size(671, 24);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -157,7 +158,7 @@ namespace NikTiles.Editor.Forms {
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -200,7 +201,7 @@ namespace NikTiles.Editor.Forms {
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -280,7 +281,7 @@ namespace NikTiles.Editor.Forms {
             // 
             this.selectAllToolStripMenuItem.Enabled = false;
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.selectAllToolStripMenuItem.Text = "Select &All";
             // 
             // toolsToolStripMenuItem
@@ -321,33 +322,33 @@ namespace NikTiles.Editor.Forms {
             // 
             this.contentsToolStripMenuItem.Enabled = false;
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Enabled = false;
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Enabled = false;
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -359,16 +360,17 @@ namespace NikTiles.Editor.Forms {
             this.tabControl.Location = new System.Drawing.Point(0, 25);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(244, 521);
+            this.tabControl.Size = new System.Drawing.Size(358, 521);
             this.tabControl.TabIndex = 0;
             // 
             // floorTab
             // 
             this.floorTab.AutoScroll = true;
+            this.floorTab.Controls.Add(this.floorTextureMenu1);
             this.floorTab.Location = new System.Drawing.Point(4, 22);
             this.floorTab.Name = "floorTab";
             this.floorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.floorTab.Size = new System.Drawing.Size(236, 495);
+            this.floorTab.Size = new System.Drawing.Size(350, 495);
             this.floorTab.TabIndex = 0;
             this.floorTab.Text = "Floor";
             this.floorTab.UseVisualStyleBackColor = true;
@@ -379,7 +381,7 @@ namespace NikTiles.Editor.Forms {
             this.wallTab.Location = new System.Drawing.Point(4, 22);
             this.wallTab.Name = "wallTab";
             this.wallTab.Padding = new System.Windows.Forms.Padding(3);
-            this.wallTab.Size = new System.Drawing.Size(236, 495);
+            this.wallTab.Size = new System.Drawing.Size(364, 495);
             this.wallTab.TabIndex = 1;
             this.wallTab.Text = "Wall";
             this.wallTab.UseVisualStyleBackColor = true;
@@ -391,7 +393,7 @@ namespace NikTiles.Editor.Forms {
             this.selectionToolStrip1.Location = new System.Drawing.Point(0, 0);
             this.selectionToolStrip1.Name = "selectionToolStrip1";
             this.selectionToolStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.selectionToolStrip1.Size = new System.Drawing.Size(244, 25);
+            this.selectionToolStrip1.Size = new System.Drawing.Size(358, 25);
             this.selectionToolStrip1.TabIndex = 1;
             // 
             // toolStrip
@@ -407,7 +409,7 @@ namespace NikTiles.Editor.Forms {
             this.cursorBoxY});
             this.toolStrip.Location = new System.Drawing.Point(0, 546);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(784, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1033, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -445,11 +447,21 @@ namespace NikTiles.Editor.Forms {
             this.cursorBoxY.Name = "cursorBoxY";
             this.cursorBoxY.Size = new System.Drawing.Size(100, 25);
             // 
+            // floorTextureMenu1
+            // 
+            this.floorTextureMenu1.AutoScroll = true;
+            this.floorTextureMenu1.BackColor = System.Drawing.SystemColors.Control;
+            this.floorTextureMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.floorTextureMenu1.Location = new System.Drawing.Point(3, 3);
+            this.floorTextureMenu1.Name = "floorTextureMenu1";
+            this.floorTextureMenu1.Size = new System.Drawing.Size(344, 489);
+            this.floorTextureMenu1.TabIndex = 0;
+            // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 571);
+            this.ClientSize = new System.Drawing.Size(1033, 571);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -465,6 +477,7 @@ namespace NikTiles.Editor.Forms {
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.floorTab.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -513,5 +526,6 @@ namespace NikTiles.Editor.Forms {
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private FloorTextureMenu floorTextureMenu1;
     }
 }

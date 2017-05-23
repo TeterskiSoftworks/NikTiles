@@ -12,8 +12,6 @@ namespace NikTiles.Engine {
         #region  Declarations
         private static int X = 64, Y = 32;
         public static bool viewGrid = false;
-        public static Dictionary<string, Texture2D> floor;
-        public static Texture2D selection, grid;
         #endregion
 
 
@@ -49,10 +47,10 @@ namespace NikTiles.Engine {
         /// <summary> Draws the tile. </summary>
         /// <param name="spriteBatch">The SpriteBatch used to draw the tile.</param>
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(floor["Grass"], rectangle, Color.White);
-            if (viewGrid) spriteBatch.Draw(grid,      rectangle, Color.Black*0.5f);
-            if (selected) spriteBatch.Draw(selection, rectangle, Color.Aqua * 0.5f);
-            if (debug)    spriteBatch.Draw(grid, rectangle, Color.Red * 0.5f);
+            spriteBatch.Draw(Texture.floor["Grass"], rectangle, Color.White);
+            if (viewGrid) spriteBatch.Draw(Texture.grid,      rectangle, Color.Black*0.5f);
+            if (selected) spriteBatch.Draw(Texture.selection, rectangle, Color.Aqua * 0.5f);
+            if (debug)    spriteBatch.Draw(Texture.grid, rectangle, Color.Red * 0.5f);
         }
 
         /// <summary> Selects/deselects the tile based on Selector. </summary>
