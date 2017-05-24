@@ -16,6 +16,7 @@ namespace NikTiles.Editor.Forms {
 
             cursorBoxX.Text = "0/0";
             cursorBoxY.Text = "0/0";
+
         }
 
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs mouse) {

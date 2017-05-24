@@ -84,10 +84,16 @@
     <Compile Include="Editor\Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Forms\FloorTextureMenu.cs">
+    <Compile Include="Editor\Forms\FloorMenu\FloorMaterialMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\Forms\FloorTextureMenu.Designer.cs">
+    <Compile Include="Editor\Forms\FloorMenu\FloorMaterialMenu.Designer.cs">
+      <DependentUpon>FloorMaterialMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\FloorTextureMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\FloorTextureMenu.Designer.cs">
       <DependentUpon>FloorTextureMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\Forms\MapDisplay.cs">
@@ -142,7 +148,10 @@
     <EmbeddedResource Include="Editor\Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Forms\FloorTextureMenu.resx">
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\FloorMaterialMenu.resx">
+      <DependentUpon>FloorMaterialMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\FloorTextureMenu.resx">
       <DependentUpon>FloorTextureMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\MapEditor.resx">
