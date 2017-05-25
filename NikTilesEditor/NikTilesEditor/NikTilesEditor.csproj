@@ -84,17 +84,29 @@
     <Compile Include="Editor\Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Forms\FloorMenu\FloorMaterialMenu.cs">
+    <Compile Include="Editor\Forms\FloorMenu\MaterialEditPreview.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\Forms\FloorMenu\FloorMaterialMenu.Designer.cs">
-      <DependentUpon>FloorMaterialMenu.cs</DependentUpon>
+    <Compile Include="Editor\Forms\FloorMenu\MaterialEditPreview.Designer.cs">
+      <DependentUpon>MaterialEditPreview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Forms\FloorMenu\FloorTextureMenu.cs">
+    <Compile Include="Editor\Forms\FloorMenu\MaterialMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\Forms\FloorMenu\FloorTextureMenu.Designer.cs">
-      <DependentUpon>FloorTextureMenu.cs</DependentUpon>
+    <Compile Include="Editor\Forms\FloorMenu\MaterialMenu.Designer.cs">
+      <DependentUpon>MaterialMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\TextureMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\TextureMenu.Designer.cs">
+      <DependentUpon>TextureMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\TexturePreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\TexturePreview.Designer.cs">
+      <DependentUpon>TexturePreview.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\Forms\MapDisplay.cs">
       <SubType>Component</SubType>
@@ -104,6 +116,18 @@
     </Compile>
     <Compile Include="Editor\Forms\MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Forms\NameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\NameDialog.Designer.cs">
+      <DependentUpon>NameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Forms\RewriteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\RewriteDialog.Designer.cs">
+      <DependentUpon>RewriteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\Forms\SelectionToolStrip.cs">
       <SubType>UserControl</SubType>
@@ -148,14 +172,26 @@
     <EmbeddedResource Include="Editor\Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Forms\FloorMenu\FloorMaterialMenu.resx">
-      <DependentUpon>FloorMaterialMenu.cs</DependentUpon>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\MaterialEditPreview.resx">
+      <DependentUpon>MaterialEditPreview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\Forms\FloorMenu\FloorTextureMenu.resx">
-      <DependentUpon>FloorTextureMenu.cs</DependentUpon>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\MaterialMenu.resx">
+      <DependentUpon>MaterialMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\TextureMenu.resx">
+      <DependentUpon>TextureMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\TexturePreview.resx">
+      <DependentUpon>TexturePreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\NameDialog.resx">
+      <DependentUpon>NameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\RewriteDialog.resx">
+      <DependentUpon>RewriteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\SelectionToolStrip.resx">
       <DependentUpon>SelectionToolStrip.cs</DependentUpon>

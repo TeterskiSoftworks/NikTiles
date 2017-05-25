@@ -1,5 +1,5 @@
 ﻿namespace NikTiles.Editor.Forms.FloorMenu {
-    partial class FloorMaterialMenu {
+    partial class MaterialMenu {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FloorMaterialMenu));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialMenu));
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.hoverLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
@@ -150,6 +150,7 @@
             // 
             this.menuLabel.AutoSize = true;
             this.menuLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.menuLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.menuLabel.Location = new System.Drawing.Point(6, 0);
             this.menuLabel.Name = "menuLabel";

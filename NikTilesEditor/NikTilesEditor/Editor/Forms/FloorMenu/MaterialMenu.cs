@@ -8,12 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace NikTiles.Editor.Forms.FloorMenu {
-    public partial class FloorMaterialMenu : UserControl {
+    public partial class MaterialMenu : UserControl {
 
         private bool expanded = true;
         private int groupBoxHeight;
 
-        public FloorMaterialMenu() {
+        public MaterialMenu() {
             InitializeComponent();
             groupBoxHeight = groupBox.Height;
         }

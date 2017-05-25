@@ -59,8 +59,8 @@ namespace NikTiles.Editor.Forms {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.floorTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.floorMaterialMenu = new NikTiles.Editor.Forms.FloorMenu.FloorMaterialMenu();
-            this.floorTextureMenu = new NikTiles.Editor.Forms.FloorMenu.FloorTextureMenu();
+            this.floorMaterialMenu = new NikTiles.Editor.Forms.FloorMenu.MaterialMenu();
+            this.floorTextureMenu = new NikTiles.Editor.Forms.FloorMenu.TextureMenu();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.zoomBox = new System.Windows.Forms.ToolStripComboBox();
             this.cursorLabelX = new System.Windows.Forms.ToolStripLabel();
@@ -483,6 +483,7 @@ namespace NikTiles.Editor.Forms {
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MapEditor";
             this.Text = "NikTileEditor";
+            this.Load += new System.EventHandler(this.MapEditor_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -542,8 +543,8 @@ namespace NikTiles.Editor.Forms {
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage floorTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
-        private FloorMenu.FloorTextureMenu floorTextureMenu;
-        private FloorMenu.FloorMaterialMenu floorMaterialMenu;
+        private FloorMenu.TextureMenu floorTextureMenu;
+        private FloorMenu.MaterialMenu floorMaterialMenu;
         private SelectionToolStrip selectionToolStrip1;
     }
 }

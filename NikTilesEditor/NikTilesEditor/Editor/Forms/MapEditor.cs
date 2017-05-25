@@ -103,5 +103,9 @@ namespace NikTiles.Editor.Forms {
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e) {
             Application.Exit();
         }
+
+        private void MapEditor_Load(object sender, System.EventArgs e) {
+            floorTextureMenu.LoadPreviews();
+        }
     }
 }
