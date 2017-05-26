@@ -8,8 +8,9 @@ namespace NikTiles.Engine {
     public class Texture{
 
         public static Texture2D cursor, selection, grid;
+        
+        public static Dictionary<string, Texture> floor;
 
-        public static Dictionary<string, Texture2D> floor;
 
         private string name = "";
         private Texture2D texture;
@@ -27,6 +28,10 @@ namespace NikTiles.Engine {
             Bitmap bitmap = new Bitmap(stream);
             stream.Dispose();
             return bitmap;
+        }
+
+        public Texture2D GetTexture() {
+            return texture;
         }
 
         public string Name() {
@@ -64,8 +69,6 @@ namespace NikTiles.Engine {
                 (int)(add.B * original.B / 255f));
             return color;
         }
-
-
 
         private static Color AlphaBlend(Color src, Color dst) {
 

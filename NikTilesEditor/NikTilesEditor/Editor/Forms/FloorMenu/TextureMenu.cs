@@ -27,10 +27,9 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         public void LoadPreviews() {
             foreach (String texture in Texture.floor.Keys) {
-
-                Texture test = new Texture(texture, Texture.floor[texture]);
+                
                 TexturePreview preview = new TexturePreview();
-                preview.SetTexture(test);
+                preview.SetTexture(Texture.floor[texture]);
                 flowLayoutPanel.Controls.Add(preview);
                 preview.MouseEnter += new EventHandler(TexturePreview_MouseEnter);
                 preview.MouseLeave += new EventHandler(TexturePreview_MouseLeave);
@@ -61,14 +60,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             string tempAlhpa = topAlphaBox.Text;
             topAlphaBox.Text = bottomAlphaBox.Text;
             bottomAlphaBox.Text = tempAlhpa;
-
-            string tempTopCol = topColBox.Text;
-            topColBox.Text = bottomColBox.Text;
-            bottomColBox.Text = tempTopCol;
-
-            string tempTopRow = topRowBox.Text;
-            topRowBox.Text = bottomRowBox.Text;
-            bottomRowBox.Text = tempTopRow;
 
             string tempTexture = topTextureButton.Text;
             topTextureButton.Text = bottomTextureButton.Text;
@@ -136,7 +127,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             TexturePreview preview = sender as TexturePreview;
             preview.BackColor = Color.RoyalBlue;
             preview.HideName();
-            hoverLabel.Text = preview.GetTextureName();
         }
 
         private void saveAsButton_Click(object sender, EventArgs e) {
@@ -149,7 +139,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             TexturePreview preview = sender as TexturePreview;
             preview.BackColor = Color.CornflowerBlue;
             preview.ShowName();
-            hoverLabel.Text = "";
         }
 
         protected void TexturePreview_Click(object sender, EventArgs e) {

@@ -26,77 +26,59 @@
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.materialEditPreview = new NikTiles.Editor.Forms.FloorMenu.MaterialEditPreview();
             this.saveAsButton = new System.Windows.Forms.Button();
-            this.hoverLabel = new System.Windows.Forms.Label();
             this.menuLabel = new System.Windows.Forms.Label();
             this.bottomTextureButton = new System.Windows.Forms.RadioButton();
             this.topTextureButton = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flipButton = new System.Windows.Forms.Button();
-            this.bottomRowBox = new System.Windows.Forms.MaskedTextBox();
-            this.topRowBox = new System.Windows.Forms.MaskedTextBox();
-            this.bottomColBox = new System.Windows.Forms.MaskedTextBox();
-            this.topColBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.topAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomColorButton = new System.Windows.Forms.Button();
             this.topColorButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox
             // 
             this.groupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox.Controls.Add(this.button1);
             this.groupBox.Controls.Add(this.materialEditPreview);
             this.groupBox.Controls.Add(this.saveAsButton);
-            this.groupBox.Controls.Add(this.hoverLabel);
             this.groupBox.Controls.Add(this.menuLabel);
             this.groupBox.Controls.Add(this.bottomTextureButton);
             this.groupBox.Controls.Add(this.topTextureButton);
             this.groupBox.Controls.Add(this.flowLayoutPanel);
             this.groupBox.Controls.Add(this.flipButton);
-            this.groupBox.Controls.Add(this.bottomRowBox);
-            this.groupBox.Controls.Add(this.topRowBox);
-            this.groupBox.Controls.Add(this.bottomColBox);
-            this.groupBox.Controls.Add(this.topColBox);
             this.groupBox.Controls.Add(this.bottomAlphaBox);
             this.groupBox.Controls.Add(this.topAlphaBox);
             this.groupBox.Controls.Add(this.bottomColorButton);
             this.groupBox.Controls.Add(this.topColorButton);
             this.groupBox.Location = new System.Drawing.Point(3, 3);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(318, 268);
+            this.groupBox.Size = new System.Drawing.Size(278, 250);
             this.groupBox.TabIndex = 2;
             this.groupBox.TabStop = false;
             // 
             // materialEditPreview
             // 
             this.materialEditPreview.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.materialEditPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.materialEditPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.materialEditPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.materialEditPreview.Location = new System.Drawing.Point(9, 16);
+            this.materialEditPreview.Location = new System.Drawing.Point(8, 19);
             this.materialEditPreview.Name = "materialEditPreview";
-            this.materialEditPreview.Size = new System.Drawing.Size(68, 36);
+            this.materialEditPreview.Size = new System.Drawing.Size(74, 43);
             this.materialEditPreview.TabIndex = 21;
             // 
             // saveAsButton
             // 
-            this.saveAsButton.Location = new System.Drawing.Point(257, 15);
+            this.saveAsButton.Location = new System.Drawing.Point(6, 67);
             this.saveAsButton.Name = "saveAsButton";
-            this.saveAsButton.Size = new System.Drawing.Size(58, 23);
+            this.saveAsButton.Size = new System.Drawing.Size(75, 23);
             this.saveAsButton.TabIndex = 2;
             this.saveAsButton.Text = "Save As";
             this.saveAsButton.UseVisualStyleBackColor = true;
             this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
-            // 
-            // hoverLabel
-            // 
-            this.hoverLabel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.hoverLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.hoverLabel.Location = new System.Drawing.Point(78, 16);
-            this.hoverLabel.Name = "hoverLabel";
-            this.hoverLabel.Size = new System.Drawing.Size(178, 36);
-            this.hoverLabel.TabIndex = 7;
-            this.hoverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuLabel
             // 
@@ -116,7 +98,7 @@
             // 
             this.bottomTextureButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.bottomTextureButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.bottomTextureButton.Location = new System.Drawing.Point(29, 77);
+            this.bottomTextureButton.Location = new System.Drawing.Point(102, 39);
             this.bottomTextureButton.Name = "bottomTextureButton";
             this.bottomTextureButton.Size = new System.Drawing.Size(118, 22);
             this.bottomTextureButton.TabIndex = 20;
@@ -129,7 +111,7 @@
             this.topTextureButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.topTextureButton.Checked = true;
             this.topTextureButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.topTextureButton.Location = new System.Drawing.Point(29, 56);
+            this.topTextureButton.Location = new System.Drawing.Point(102, 18);
             this.topTextureButton.Name = "topTextureButton";
             this.topTextureButton.Size = new System.Drawing.Size(118, 22);
             this.topTextureButton.TabIndex = 19;
@@ -144,16 +126,16 @@
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.BackColor = System.Drawing.Color.CornflowerBlue;
             this.flowLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(8, 105);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(8, 96);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(306, 157);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(262, 148);
             this.flowLayoutPanel.TabIndex = 15;
             // 
             // flipButton
             // 
             this.flipButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.flipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flipButton.Location = new System.Drawing.Point(8, 56);
+            this.flipButton.Location = new System.Drawing.Point(81, 18);
             this.flipButton.Name = "flipButton";
             this.flipButton.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.flipButton.Size = new System.Drawing.Size(22, 43);
@@ -162,57 +144,9 @@
             this.flipButton.UseVisualStyleBackColor = true;
             this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
             // 
-            // bottomRowBox
-            // 
-            this.bottomRowBox.Enabled = false;
-            this.bottomRowBox.Location = new System.Drawing.Point(256, 78);
-            this.bottomRowBox.Mask = "0000 rows";
-            this.bottomRowBox.Name = "bottomRowBox";
-            this.bottomRowBox.PromptChar = ' ';
-            this.bottomRowBox.Size = new System.Drawing.Size(57, 20);
-            this.bottomRowBox.TabIndex = 10;
-            this.bottomRowBox.Text = "   1";
-            this.bottomRowBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // topRowBox
-            // 
-            this.topRowBox.Enabled = false;
-            this.topRowBox.Location = new System.Drawing.Point(256, 57);
-            this.topRowBox.Mask = "0000 rows";
-            this.topRowBox.Name = "topRowBox";
-            this.topRowBox.PromptChar = ' ';
-            this.topRowBox.Size = new System.Drawing.Size(57, 20);
-            this.topRowBox.TabIndex = 9;
-            this.topRowBox.Text = "   1";
-            this.topRowBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // bottomColBox
-            // 
-            this.bottomColBox.Enabled = false;
-            this.bottomColBox.Location = new System.Drawing.Point(198, 78);
-            this.bottomColBox.Mask = "0000 cols";
-            this.bottomColBox.Name = "bottomColBox";
-            this.bottomColBox.PromptChar = ' ';
-            this.bottomColBox.Size = new System.Drawing.Size(57, 20);
-            this.bottomColBox.TabIndex = 8;
-            this.bottomColBox.Text = "   1";
-            this.bottomColBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // topColBox
-            // 
-            this.topColBox.Enabled = false;
-            this.topColBox.Location = new System.Drawing.Point(198, 57);
-            this.topColBox.Mask = "0000 cols";
-            this.topColBox.Name = "topColBox";
-            this.topColBox.PromptChar = ' ';
-            this.topColBox.Size = new System.Drawing.Size(57, 20);
-            this.topColBox.TabIndex = 7;
-            this.topColBox.Text = "   1";
-            this.topColBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // bottomAlphaBox
             // 
-            this.bottomAlphaBox.Location = new System.Drawing.Point(168, 78);
+            this.bottomAlphaBox.Location = new System.Drawing.Point(241, 40);
             this.bottomAlphaBox.Mask = "00%";
             this.bottomAlphaBox.Name = "bottomAlphaBox";
             this.bottomAlphaBox.PromptChar = ' ';
@@ -225,7 +159,7 @@
             // 
             // topAlphaBox
             // 
-            this.topAlphaBox.Location = new System.Drawing.Point(168, 57);
+            this.topAlphaBox.Location = new System.Drawing.Point(241, 19);
             this.topAlphaBox.Mask = "00%";
             this.topAlphaBox.Name = "topAlphaBox";
             this.topAlphaBox.PromptChar = ' ';
@@ -240,7 +174,7 @@
             // 
             this.bottomColorButton.BackColor = System.Drawing.Color.White;
             this.bottomColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bottomColorButton.Location = new System.Drawing.Point(147, 78);
+            this.bottomColorButton.Location = new System.Drawing.Point(220, 40);
             this.bottomColorButton.Name = "bottomColorButton";
             this.bottomColorButton.Size = new System.Drawing.Size(20, 20);
             this.bottomColorButton.TabIndex = 4;
@@ -251,12 +185,22 @@
             // 
             this.topColorButton.BackColor = System.Drawing.Color.White;
             this.topColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.topColorButton.Location = new System.Drawing.Point(147, 57);
+            this.topColorButton.Location = new System.Drawing.Point(220, 19);
             this.topColorButton.Name = "topColorButton";
             this.topColorButton.Size = new System.Drawing.Size(20, 20);
             this.topColorButton.TabIndex = 3;
             this.topColorButton.UseVisualStyleBackColor = false;
             this.topColorButton.Click += new System.EventHandler(this.topColorButton_Click);
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(102, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "Animation Tools";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // TextureMenu
             // 
@@ -266,7 +210,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.groupBox);
             this.Name = "TextureMenu";
-            this.Size = new System.Drawing.Size(324, 274);
+            this.Size = new System.Drawing.Size(284, 256);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -277,20 +221,16 @@
 
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Button saveAsButton;
-        private System.Windows.Forms.Label hoverLabel;
         private System.Windows.Forms.Label menuLabel;
         private System.Windows.Forms.RadioButton bottomTextureButton;
         private System.Windows.Forms.RadioButton topTextureButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button flipButton;
-        private System.Windows.Forms.MaskedTextBox bottomRowBox;
-        private System.Windows.Forms.MaskedTextBox topRowBox;
-        private System.Windows.Forms.MaskedTextBox bottomColBox;
-        private System.Windows.Forms.MaskedTextBox topColBox;
         private System.Windows.Forms.MaskedTextBox bottomAlphaBox;
         private System.Windows.Forms.MaskedTextBox topAlphaBox;
         private System.Windows.Forms.Button bottomColorButton;
         private System.Windows.Forms.Button topColorButton;
         private MaterialEditPreview materialEditPreview;
+        private System.Windows.Forms.Button button1;
     }
 }

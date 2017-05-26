@@ -30,7 +30,7 @@ namespace NikTiles.Editor {
                 LoadUserInterface(graphicsDevice);
 
                 Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
-
+                Engine.Texture.floor.Add("Empty", new Engine.Texture("Empty", new Texture2D(graphicsDevice, 1, 1)));
             }
 
         }
@@ -66,12 +66,12 @@ namespace NikTiles.Editor {
         /// <param name="contentFolder">The location of the image files.</param>
         /// <param name="searchFilter">Search parameters for the file (ex. file extension)</param>
         /// <param name="graphicsDevice">Graphics device is required for the creation of new textures.</param>
-        private static Dictionary<String, Texture2D> LoadFilesFrom(string contentFolder, string searchFilter, GraphicsDevice graphicsDevice) {
-            Dictionary<String, Texture2D> textures = new Dictionary<string, Texture2D>();
+        private static Dictionary<String, Engine.Texture> LoadFilesFrom(string contentFolder, string searchFilter, GraphicsDevice graphicsDevice) {
+            Dictionary<String, Engine.Texture> textures = new Dictionary<string, Engine.Texture>();
 
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder);
             if (dir.Exists) {
-                textures = new Dictionary<String, Texture2D>();
+                textures = new Dictionary<String, Engine.Texture>();
 
                 FileInfo[] files = dir.GetFiles(searchFilter);
                 foreach (FileInfo file in files) {
@@ -81,7 +81,7 @@ namespace NikTiles.Editor {
                     texture.SetData(CreateColorArray(img));
 
                     String key = Path.GetFileNameWithoutExtension(file.Name);
-                    textures[key] = texture;
+                    textures[key] = new Engine.Texture(key,texture);
 
                 }
             }
