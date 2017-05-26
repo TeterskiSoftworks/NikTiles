@@ -122,17 +122,25 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             return alpha;
         }
 
+
+        public FloorMaterial NewMaterial() {
+            NameDialog nameDialog = new NameDialog();
+            string name ="";
+            if (nameDialog.ShowDialog() == DialogResult.OK) {
+                name = nameDialog.textBox.Text;
+                nameDialog.Dispose();
+                return materialEditPreview.CreateMaterial(name);
+            } else {
+                return materialEditPreview.CreateMaterial(name);
+            }
+        }
+
+
         #region Texture Preview
         protected void TexturePreview_MouseEnter(object sender, EventArgs e) {
             TexturePreview preview = sender as TexturePreview;
             preview.BackColor = Color.RoyalBlue;
             preview.HideName();
-        }
-
-        private void saveAsButton_Click(object sender, EventArgs e) {
-            NameDialog nameDialog = new NameDialog();
-            if(nameDialog.ShowDialog()==DialogResult.OK)
-                nameDialog.Dispose();
         }
 
         protected void TexturePreview_MouseLeave(object sender, EventArgs e) {

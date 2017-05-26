@@ -11,6 +11,7 @@ namespace NikTiles.Editor.Forms {
 
             InitializeComponent();
             mapDisplay.MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
+            floorTextureMenu.saveAsButton.Click += new System.EventHandler(AddNewFloorMaterial);
 
             zoomBox.Text = "100";
 
@@ -23,8 +24,8 @@ namespace NikTiles.Editor.Forms {
             Camera.SetCenter(0, 0);
             Camera.Zoom(mouse.Delta * 0.001f);
 
-            mapDisplay.Width  = (int)((MapDisplay.GetCurrentMap().Width() + 1) * Camera.GetZoomX() * Tile.Width() / 2);
-            mapDisplay.Height = (int)((MapDisplay.GetCurrentMap().Height()+.5) * Camera.GetZoomY() * Tile.Height());
+            mapDisplay.Width  = (int)((MapDisplay.GetCurrentMap().Width + 1) * Camera.ZoomX * Tile.Width / 2);
+            mapDisplay.Height = (int)((MapDisplay.GetCurrentMap().Height+.5) * Camera.ZoomY * Tile.Height);
 
 
             Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
@@ -52,8 +53,8 @@ namespace NikTiles.Editor.Forms {
             }
 
             //cursor label update
-            cursorBoxX.Text = Engine.Cursor.GetX().ToString()+"/"+MapDisplay.GetCurrentMap().Width();
-            cursorBoxY.Text = Engine.Cursor.GetY().ToString()+"/"+MapDisplay.GetCurrentMap().Height();
+            cursorBoxX.Text = Engine.Cursor.X.ToString()+"/"+MapDisplay.GetCurrentMap().Width;
+            cursorBoxY.Text = Engine.Cursor.Y.ToString()+"/"+MapDisplay.GetCurrentMap().Height;
         }
 
         private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {
@@ -107,5 +108,12 @@ namespace NikTiles.Editor.Forms {
         private void MapEditor_Load(object sender, System.EventArgs e) {
             floorTextureMenu.LoadPreviews();
         }
+
+        private void AddNewFloorMaterial(object sender, System.EventArgs e) {
+            FloorMaterial material = floorTextureMenu.NewMaterial();
+            Material.floor.Add(material.Name,material);
+            floorMaterialMenu.LoadPreviews();
+        }
+
     }
 }

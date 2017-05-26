@@ -96,6 +96,12 @@
     <Compile Include="Editor\Forms\FloorMenu\MaterialMenu.Designer.cs">
       <DependentUpon>MaterialMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\MaterialPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Forms\FloorMenu\MaterialPreview.Designer.cs">
+      <DependentUpon>MaterialPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\Forms\FloorMenu\TextureMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\FloorMenu\MaterialMenu.resx">
       <DependentUpon>MaterialMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Forms\FloorMenu\MaterialPreview.resx">
+      <DependentUpon>MaterialPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\Forms\FloorMenu\TextureMenu.resx">
       <DependentUpon>TextureMenu.cs</DependentUpon>

@@ -40,9 +40,9 @@ namespace NikTiles.Editor {
         //!!!!!!!!! add summeries to the entire file.
 
         private static void PointSelect() {
-            int y = Cursor.GetY();
-            int x = Cursor.GetX();
-            if (y >= 0 && y < MapDisplay.GetCurrentMap().Height() && x >= 0 && x < MapDisplay.GetCurrentMap().Width())
+            int y = Cursor.Y;
+            int x = Cursor.X;
+            if (y >= 0 && y < MapDisplay.GetCurrentMap().Height && x >= 0 && x < MapDisplay.GetCurrentMap().Width)
                 MapDisplay.GetCurrentMap().TileAt(x, y).Select();
         }
 
@@ -145,16 +145,16 @@ namespace NikTiles.Editor {
             int[] cursor = GetCursor();
 
             //Check if inbounds
-            if (Cursor.GetX() < 0) cursor[0] = 0;
-            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
-                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
-            else cursor[0] = Cursor.GetX();
+            if (Cursor.X < 0) cursor[0] = 0;
+            else if (Cursor.X >= MapDisplay.GetCurrentMap().Width)
+                cursor[0] = MapDisplay.GetCurrentMap().Width - 1;
+            else cursor[0] = Cursor.X;
 
 
-            if (Cursor.GetY() < 0) cursor[1] = 0;
-            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
-                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
-            else cursor[1] = Cursor.GetY();
+            if (Cursor.Y < 0) cursor[1] = 0;
+            else if (Cursor.Y >= MapDisplay.GetCurrentMap().Height)
+                cursor[1] = MapDisplay.GetCurrentMap().Height - 1;
+            else cursor[1] = Cursor.Y;
 
 
             if (mouseDown && !firstPress) {
@@ -267,7 +267,7 @@ namespace NikTiles.Editor {
 
                 } else if (!topOverflow) topOverflow = true;
 
-                if (!bottomOverflow && start[1] + yBottom < MapDisplay.GetCurrentMap().Height()) {
+                if (!bottomOverflow && start[1] + yBottom < MapDisplay.GetCurrentMap().Height) {
                     MapDisplay.GetCurrentMap().TileAt(start[0] + x, start[1] + yBottom).Select();
                     MapDisplay.GetCurrentMap().TileAt(end[0] - x, end[1] + yBottom).Select();
                     if ((start[0] + x) % 2 == 1) yBottom++;
@@ -278,10 +278,9 @@ namespace NikTiles.Editor {
 
             if (!topOverflow && start[1]-yTop>=0)
                 MapDisplay.GetCurrentMap().TileAt((end[0] - start[0]) / 2 + start[0], start[1] - yTop).Select();
-            if (!bottomOverflow && start[1]+yBottom<MapDisplay.GetCurrentMap().Height())
+            if (!bottomOverflow && start[1]+yBottom<MapDisplay.GetCurrentMap().Height)
                 MapDisplay.GetCurrentMap().TileAt((end[0] - start[0]) / 2 + start[0], start[1] + yBottom).Select();
 
-            //!!!!!!!!!! the +2 & -2 is resulting in the head and tail never actually meeting, so check for that!
             if (width != 1 && start[0] != end[0] && start[0]+2 != end[0]) {
                 BoxAlignHorizontal(width - 1, new int[] { start[0] + 2, start[1] }, new int[] { end[0] - 2, end[1] });
             }
@@ -301,7 +300,7 @@ namespace NikTiles.Editor {
 
                 } else if (!leftOverflow) leftOverflow = true;
 
-                if (!rightOverflow && start[0] + xRight < MapDisplay.GetCurrentMap().Width()) {
+                if (!rightOverflow && start[0] + xRight < MapDisplay.GetCurrentMap().Width) {
                     MapDisplay.GetCurrentMap().TileAt(start[0] +xRight, start[1] +y-ySW).Select();
                     MapDisplay.GetCurrentMap().TileAt(end[0]   +xRight, end[1]   -y+ySE).Select();
                     xRight++;
@@ -316,7 +315,7 @@ namespace NikTiles.Editor {
                 if (start[0]%2 == 1 && (start[0] + xLeft) % 2 == 0) MapDisplay.GetCurrentMap().TileAt(start[0] - xLeft, (end[1] - start[1]) / 2 + start[1] +1).Select();
                 else MapDisplay.GetCurrentMap().TileAt(start[0] - xLeft, (end[1] - start[1]) / 2 + start[1]).Select();
             }
-            if (!rightOverflow && start[0]+xRight < MapDisplay.GetCurrentMap().Width()) {
+            if (!rightOverflow && start[0]+xRight < MapDisplay.GetCurrentMap().Width) {
                 if (start[0] % 2 == 1 && (start[0] + xRight) % 2 == 0) MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1] + 1).Select();
                 else MapDisplay.GetCurrentMap().TileAt(start[0] + xRight, (end[1] - start[1]) / 2 + start[1]).Select();
             }
@@ -328,38 +327,38 @@ namespace NikTiles.Editor {
             int[] cursor = new int[2];
 
             //Check if inbounds
-            if (Cursor.GetX() < 0) cursor[0] = 0;
-            else if (Cursor.GetX() >= MapDisplay.GetCurrentMap().Width())
-                cursor[0] = MapDisplay.GetCurrentMap().Width() - 1;
-            else cursor[0] = Cursor.GetX();
+            if (Cursor.X < 0) cursor[0] = 0;
+            else if (Cursor.X >= MapDisplay.GetCurrentMap().Width)
+                cursor[0] = MapDisplay.GetCurrentMap().Width - 1;
+            else cursor[0] = Cursor.X;
 
 
-            if (Cursor.GetY() < 0) cursor[1] = 0;
-            else if (Cursor.GetY() >= MapDisplay.GetCurrentMap().Height())
-                cursor[1] = MapDisplay.GetCurrentMap().Height() - 1;
-            else cursor[1] = Cursor.GetY();
+            if (Cursor.Y < 0) cursor[1] = 0;
+            else if (Cursor.Y >= MapDisplay.GetCurrentMap().Height)
+                cursor[1] = MapDisplay.GetCurrentMap().Height - 1;
+            else cursor[1] = Cursor.Y;
 
 
             return cursor;
         }
 
         public static void SelectAll() {
-            for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++) {
-                for (int x = 0; x < MapDisplay.GetCurrentMap().Width(); x++) {
+            for (int y = 0; y < MapDisplay.GetCurrentMap().Height; y++) {
+                for (int x = 0; x < MapDisplay.GetCurrentMap().Width; x++) {
                     MapDisplay.GetCurrentMap().TileAt(x, y).Select();
                 }
             }
         }
 
         public static void DeselectAll() {
-            for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++)
-                for (int x = 0; x < MapDisplay.GetCurrentMap().Width(); x++)
+            for (int y = 0; y < MapDisplay.GetCurrentMap().Height; y++)
+                for (int x = 0; x < MapDisplay.GetCurrentMap().Width; x++)
                     MapDisplay.GetCurrentMap().TileAt(x, y).Select(false);
         }
 
         public static void InverseSelection() {
-            for (int y = 0; y < MapDisplay.GetCurrentMap().Height(); y++) {
-                for (int x = 0; x < MapDisplay.GetCurrentMap().Width(); x++) {
+            for (int y = 0; y < MapDisplay.GetCurrentMap().Height; y++) {
+                for (int x = 0; x < MapDisplay.GetCurrentMap().Width; x++) {
                     MapDisplay.GetCurrentMap().TileAt(x, y).InverseSelection();
                 }
             }

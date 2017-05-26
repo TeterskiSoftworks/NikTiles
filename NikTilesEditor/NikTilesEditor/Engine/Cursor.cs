@@ -39,9 +39,9 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void SetCursor(MouseEventArgs mouse) {
 
-            position.X = (int)((2 * mouse.X - Tile.Width() * Camera.GetZoomX()) / (Tile.Width() * Camera.GetZoomX()));
+            position.X = (int)((2 * mouse.X - Tile.Width * Camera.ZoomX) / (Tile.Width * Camera.ZoomX));
             if (position.X % 2 != 0) position.X++;
-            position.Y = (int)(mouse.Y / (Tile.Height() * Camera.GetZoomY()));
+            position.Y = (int)(mouse.Y / (Tile.Height * Camera.ZoomY));
 
             OffGridCheck1(mouse);
 
@@ -51,9 +51,9 @@ namespace NikTiles.Engine {
                 //of the mouseMap.
                 //  -how would non-standard/custom mousemaps work into this?
 
-                mouseMapPosition = mouseMap[ Tile.Width() *
-                   (int)(mouse.Y / Camera.GetZoomY() - position.Y * Tile.Height() ) * cursorTexture.Height / Tile.Height()+
-                   (int)(mouse.X / Camera.GetZoomX() - position.X * Tile.Width()/2) * cursorTexture.Width / Tile.Width()];
+                mouseMapPosition = mouseMap[ Tile.Width *
+                   (int)(mouse.Y / Camera.ZoomY - position.Y * Tile.Height ) * cursorTexture.Height / Tile.Height+
+                   (int)(mouse.X / Camera.ZoomX - position.X * Tile.Width/2) * cursorTexture.Width / Tile.Width];
 
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
@@ -77,8 +77,8 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void CreateRectangle() {
             if (position.X % 2 != 0)
-                rectangle = new Rectangle((int)(position.X * Tile.Width()  / 2), (int)(position.Y * Tile.Height() + Tile.Height() / 2), Tile.Width(), Tile.Height());
-            else rectangle = new Rectangle((int)(position.X * Tile.Width() / 2), (int)(position.Y * Tile.Height()), Tile.Width(), Tile.Height());
+                rectangle = new Rectangle((int)(position.X * Tile.Width  / 2), (int)(position.Y * Tile.Height + Tile.Height / 2), Tile.Width, Tile.Height);
+            else rectangle = new Rectangle((int)(position.X * Tile.Width / 2), (int)(position.Y * Tile.Height), Tile.Width, Tile.Height);
         }
 
         /// <summary>
@@ -86,12 +86,12 @@ namespace NikTiles.Engine {
         /// </summary>
         private static void OffGridCheck1(MouseEventArgs mouse) {
             offGrid = false;
-            if ((int)(mouse.X / Camera.GetZoomX() - position.X * Tile.Width() / 2 + Camera.GetPixelsX() / Camera.GetZoomX()) * cursorTexture.Width / Tile.Width() < 0)
+            if ((int)(mouse.X / Camera.ZoomX - position.X * Tile.Width / 2 + Camera.GetPixelsX() / Camera.ZoomX) * cursorTexture.Width / Tile.Width < 0)
                 offGrid = true;
-            else if ((int)(mouse.Y / Camera.GetZoomY() - position.Y * Tile.Height() + Camera.GetPixelsY() / Camera.GetZoomY()) * cursorTexture.Height / Tile.Height() < 0)
+            else if ((int)(mouse.Y / Camera.ZoomY - position.Y * Tile.Height + Camera.GetPixelsY() / Camera.ZoomY) * cursorTexture.Height / Tile.Height < 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width()  - 1) offGrid = true;
-            else if (position.Y > MapDisplay.GetCurrentMap().Height() - 1) offGrid = true;
+            else if (position.X > MapDisplay.GetCurrentMap().Width  - 1) offGrid = true;
+            else if (position.Y > MapDisplay.GetCurrentMap().Height - 1) offGrid = true;
         }
 
 
@@ -105,8 +105,8 @@ namespace NikTiles.Engine {
             if (position.X < 0) offGrid = true;
             if (position.Y < 0 && position.X % 2 != 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width() -1) offGrid = true;
-            else if (position.Y > MapDisplay.GetCurrentMap().Height()-1) offGrid = true;
+            else if (position.X > MapDisplay.GetCurrentMap().Width -1) offGrid = true;
+            else if (position.Y > MapDisplay.GetCurrentMap().Height-1) offGrid = true;
         }
 
 
@@ -114,13 +114,9 @@ namespace NikTiles.Engine {
             return position;
         }
 
-        public static int GetX() {
-            return (int)position.X;
-        }
+        public static int X { get { return (int)position.X; } }
 
-        public static int GetY() {
-            return (int)position.Y;
-        }
+        public static int Y { get { return (int)position.Y; } }
 
         public static void Draw(SpriteBatch spriteBatch) {
             if (!offGrid) spriteBatch.Draw(cursorTexture, rectangle, Color.White);

@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NikTiles.Engine;
 
 namespace NikTiles.Editor.Forms.FloorMenu {
     public partial class MaterialMenu : UserControl {
@@ -21,12 +22,22 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         private void menuLabel_Click(object sender, EventArgs e) {
             expanded = !expanded;
             if (expanded) {
-                layoutPanel.Visible = true;
+                flowLayoutPanel.Visible = true;
                 groupBox.Size = new Size(groupBox.Width, groupBoxHeight);
             } else {
                 groupBox.Size = new Size(groupBox.Width, 18);
-                layoutPanel.Visible = false;
+                flowLayoutPanel.Visible = false;
             }
         }
+
+        public void LoadPreviews() {
+            flowLayoutPanel.Controls.Clear();
+            foreach (String material in Material.floor.Keys) {
+                MaterialPreview preview = new MaterialPreview();
+                preview.SetMaterial(Material.floor[material]);
+                flowLayoutPanel.Controls.Add(preview);
+            }
+        }
+
     }
 }

@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.materialEditPreview = new NikTiles.Editor.Forms.FloorMenu.MaterialEditPreview();
             this.saveAsButton = new System.Windows.Forms.Button();
             this.menuLabel = new System.Windows.Forms.Label();
@@ -35,7 +36,6 @@
             this.topAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomColorButton = new System.Windows.Forms.Button();
             this.topColorButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +60,16 @@
             this.groupBox.TabIndex = 2;
             this.groupBox.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(102, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "Animation Tools";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // materialEditPreview
             // 
             this.materialEditPreview.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -78,7 +88,6 @@
             this.saveAsButton.TabIndex = 2;
             this.saveAsButton.Text = "Save As";
             this.saveAsButton.UseVisualStyleBackColor = true;
-            this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
             // 
             // menuLabel
             // 
@@ -192,16 +201,6 @@
             this.topColorButton.UseVisualStyleBackColor = false;
             this.topColorButton.Click += new System.EventHandler(this.topColorButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(102, 67);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Animation Tools";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // TextureMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,7 +219,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.Button saveAsButton;
         private System.Windows.Forms.Label menuLabel;
         private System.Windows.Forms.RadioButton bottomTextureButton;
         private System.Windows.Forms.RadioButton topTextureButton;
@@ -232,5 +230,6 @@
         private System.Windows.Forms.Button topColorButton;
         private MaterialEditPreview materialEditPreview;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button saveAsButton;
     }
 }

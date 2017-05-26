@@ -12,7 +12,7 @@ namespace NikTiles.Engine {
         public static Dictionary<string, Texture> floor;
 
 
-        private string name = "";
+        private readonly string name;
         private Texture2D texture;
         private byte alpha = 255;
         private Microsoft.Xna.Framework.Color color = Microsoft.Xna.Framework.Color.White;
@@ -24,7 +24,7 @@ namespace NikTiles.Engine {
 
         public Bitmap GetBitmap() {
             MemoryStream stream = new MemoryStream();
-            texture.SaveAsPng(stream, Tile.Width(), Tile.Height());
+            texture.SaveAsPng(stream, Tile.Width, Tile.Height);
             Bitmap bitmap = new Bitmap(stream);
             stream.Dispose();
             return bitmap;
@@ -34,17 +34,13 @@ namespace NikTiles.Engine {
             return texture;
         }
 
-        public string Name() {
-            return name;
-        }
-
-        public void Name(string name) {
-            this.name = name;
+        public string Name {
+            get {return name;}
         }
 
         public Bitmap ApplyColor(Color color, byte alpha) {
             MemoryStream stream = new MemoryStream();
-            texture.SaveAsPng(stream, Tile.Width(), Tile.Height());
+            texture.SaveAsPng(stream, Tile.Width, Tile.Height);
             Bitmap bitmap = new Bitmap(stream);
             Color newColor, oldColor;
             this.alpha = alpha;
@@ -85,7 +81,7 @@ namespace NikTiles.Engine {
         }
 
         public static Bitmap BlendImages(Bitmap bottom, Bitmap top) {
-            Bitmap bitmap = new Bitmap(Tile.Width(), Tile.Height());
+            Bitmap bitmap = new Bitmap(Tile.Width, Tile.Height);
             Color newColor, bottomColor, topColor;
 
             for (int y = 0; y < bitmap.Height; y++) {

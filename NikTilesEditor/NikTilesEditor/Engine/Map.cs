@@ -6,24 +6,24 @@ namespace NikTiles.Engine {
 
         #region  Declarations
         private Tile[,] tiles;
-        private int Y, X;
+        private readonly int width, height;
         #endregion
 
 
         public Map(int width, int height) {
-            Y = width;
-            X = height;
-            tiles = new Tile[X, Y];
-            for (int y = 0; y < Y; y++) {
-                for (int x = 0; x < X; x++) {
+            this.width = width;
+            this.height = height;
+            tiles = new Tile[width, height];
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     tiles[x, y] = new Tile(x, y);
                 }
             }
 
         }
 
-        public int Width() { return X; }
-        public int Height() { return Y; }
+        public int Width { get { return width; } }
+        public int Height { get { return height; } }
 
         /// <summary>Returns the tile on the map at the given coordinates. </summary>
         /// <param name="x">The x coordinate of the tile.</param>
@@ -38,8 +38,8 @@ namespace NikTiles.Engine {
         /// <param name="width">Width of the view window.</param>
         /// <param name="height">Height of the view window.</param>
         public void Draw(SpriteBatch spriteBatch, int width, int height) {
-            for (    int y = Camera.GetY()-1; y < height  / (Tile.Height() * Camera.GetZoomY()) + Camera.GetY() + 1 && y < Y; y++) {
-                for (int x = Camera.GetX()-1; x < 2*width / (Tile.Width()  * Camera.GetZoomX()) + Camera.GetX() + 1 && x < X; x++) {            
+            for (    int y = Camera.Y-1; y < height  / (Tile.Height * Camera.ZoomY) + Camera.Y + 1 && y < Width; y++) {
+                for (int x = Camera.X-1; x < 2*width / (Tile.Width  * Camera.ZoomX) + Camera.X + 1 && x < Height; x++) {            
                     if (y != -1 && x != -1)tiles[x, y].Draw(spriteBatch);
                 }
             }

@@ -17,8 +17,8 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         public MaterialEditPreview() {
             InitializeComponent();
-            topBitmap    = new Bitmap(Tile.Width(), Tile.Height());
-            bottomBitmap = new Bitmap(Tile.Width(), Tile.Height());
+            topBitmap    = new Bitmap(Tile.Width, Tile.Height);
+            bottomBitmap = new Bitmap(Tile.Width, Tile.Height);
         }
 
         public void SetTopTexture(Texture top, Color color, byte alpha) {
@@ -45,8 +45,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
         }
 
-
-
         public void FlipTexture() {
             Texture temp = bottom;
             bottom = top; top = temp;
@@ -56,6 +54,11 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
             BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
 
+        }
+
+        public FloorMaterial CreateMaterial(string name) {
+            FloorMaterial material = new FloorMaterial(name, top, bottom);
+            return material;
         }
 
 

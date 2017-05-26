@@ -15,6 +15,7 @@ namespace NikTiles.Editor {
 
         private static bool loaded = false;
         private static string contentFolder = "Content";
+        private static GraphicsDevice graphicsDevice;
         #endregion
 
         /// <summary>
@@ -27,9 +28,10 @@ namespace NikTiles.Editor {
         /// </summary>
         public static void LoadTextures(GraphicsDevice graphicsDevice) {
             if (!loaded) {
-                LoadUserInterface(graphicsDevice);
+                ContentLoader.graphicsDevice = graphicsDevice;
+                LoadUserInterface();
 
-                Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png", graphicsDevice);
+                Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png");
                 Engine.Texture.floor.Add("Empty", new Engine.Texture("Empty", new Texture2D(graphicsDevice, 1, 1)));
             }
 
@@ -38,13 +40,13 @@ namespace NikTiles.Editor {
         /// <summary>
         /// Loads images relating to the programs user interface.
         /// </summary>
-        private static void LoadUserInterface(GraphicsDevice graphicsDevice) {
+        private static void LoadUserInterface() {
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
             if (dir.Exists) {
 
-                Engine.Texture.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png", graphicsDevice);
-                Engine.Texture.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png",      graphicsDevice);
-                Engine.Texture.cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png",    graphicsDevice);
+                Engine.Texture.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png");
+                Engine.Texture.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png");
+                Engine.Texture.cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png");
 
                 Microsoft.Xna.Framework.Color[] mouseMap = new Microsoft.Xna.Framework.Color[0];
                 FileInfo[] files = dir.GetFiles("MouseMap.png");
@@ -65,8 +67,7 @@ namespace NikTiles.Editor {
         /// </summary>
         /// <param name="contentFolder">The location of the image files.</param>
         /// <param name="searchFilter">Search parameters for the file (ex. file extension)</param>
-        /// <param name="graphicsDevice">Graphics device is required for the creation of new textures.</param>
-        private static Dictionary<String, Engine.Texture> LoadFilesFrom(string contentFolder, string searchFilter, GraphicsDevice graphicsDevice) {
+        private static Dictionary<String, Engine.Texture> LoadFilesFrom(string contentFolder, string searchFilter) {
             Dictionary<String, Engine.Texture> textures = new Dictionary<string, Engine.Texture>();
 
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder);
@@ -95,7 +96,7 @@ namespace NikTiles.Editor {
         /// <param name="files"></param>
         /// <param name="graphicsDevice"></param>
         /// <returns></returns>
-        private static Texture2D LoadFileFrom(string contentFolder, string searchFilter, GraphicsDevice graphicsDevice) {
+        private static Texture2D LoadFileFrom(string contentFolder, string searchFilter) {
             Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
             DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder);
             if (dir.Exists) {

@@ -13,17 +13,17 @@ namespace NikTiles.Engine {
 
         public static void SetCenter(int x, int y) { centre.X = x; centre.Y = y; }
 
-        public static int GetX() { return (int)(centre.X / (Tile.Width() * zoom.X)); }
+        public static int X { get { return (int)(centre.X / (Tile.Width * zoom.X)); } }
 
-        public static int GetY() { return (int)(centre.Y / (Tile.Height() * zoom.Y)); }
+        public static int Y { get { return (int)(centre.Y / (Tile.Height * zoom.Y)); }  }
 
         public static int GetPixelsX() { return (int)centre.X; }
 
         public static int GetPixelsY() { return (int)centre.Y; }
 
-        public static float GetZoomX() { return zoom.X; }
+        public static float ZoomX { get { return zoom.X; } }
 
-        public static float GetZoomY() { return zoom.Y; }
+        public static float ZoomY { get { return zoom.Y; } }
 
         public static Matrix GetTransform() { return transform; }
 
@@ -33,8 +33,8 @@ namespace NikTiles.Engine {
         /// <param name="y">Change in Y.</param>
         /// <param name="x">Change in X.</param>
         public static void Translate(int x, int y) {
-            centre.X += x * Tile.Width() * zoom.X;
-            centre.Y += y * Tile.Height() * zoom.Y;
+            centre.X += x * Tile.Width * zoom.X;
+            centre.Y += y * Tile.Height * zoom.Y;
         }
 
         /// <summary>

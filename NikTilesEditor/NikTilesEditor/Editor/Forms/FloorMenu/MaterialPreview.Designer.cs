@@ -1,5 +1,5 @@
 ﻿namespace NikTiles.Editor.Forms.FloorMenu {
-    partial class TexturePreview {
+    partial class MaterialPreview {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -34,22 +34,18 @@
             this.nameLabel.Location = new System.Drawing.Point(0, 54);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(128, 10);
-            this.nameLabel.TabIndex = 0;
-            this.nameLabel.Text = "Texture Name";
+            this.nameLabel.TabIndex = 1;
+            this.nameLabel.Text = "Material Name";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
-            this.nameLabel.MouseEnter += new System.EventHandler(this.nameLabel_MouseEnter);
-            this.nameLabel.MouseLeave += new System.EventHandler(this.nameLabel_MouseLeave);
             // 
-            // TexturePreview
+            // MaterialPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Controls.Add(this.nameLabel);
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Name = "TexturePreview";
+            this.Name = "MaterialPreview";
             this.Size = new System.Drawing.Size(128, 64);
             this.ResumeLayout(false);
 

@@ -32,7 +32,7 @@
             this.applyButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
             this.previewBox = new System.Windows.Forms.PictureBox();
-            this.layoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuLabel = new System.Windows.Forms.Label();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
@@ -47,7 +47,7 @@
             this.groupBox.Controls.Add(this.applyButton);
             this.groupBox.Controls.Add(this.nameLabel);
             this.groupBox.Controls.Add(this.previewBox);
-            this.groupBox.Controls.Add(this.layoutPanel);
+            this.groupBox.Controls.Add(this.flowLayoutPanel);
             this.groupBox.Controls.Add(this.menuLabel);
             this.groupBox.Location = new System.Drawing.Point(3, 3);
             this.groupBox.Name = "groupBox";
@@ -124,15 +124,15 @@
             this.previewBox.TabIndex = 17;
             this.previewBox.TabStop = false;
             // 
-            // layoutPanel
+            // flowLayoutPanel
             // 
-            this.layoutPanel.AutoScroll = true;
-            this.layoutPanel.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.layoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.layoutPanel.Location = new System.Drawing.Point(6, 95);
-            this.layoutPanel.Name = "layoutPanel";
-            this.layoutPanel.Size = new System.Drawing.Size(262, 148);
-            this.layoutPanel.TabIndex = 16;
+            this.flowLayoutPanel.AutoScroll = true;
+            this.flowLayoutPanel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.flowLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(6, 95);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(262, 148);
+            this.flowLayoutPanel.TabIndex = 16;
             // 
             // menuLabel
             // 
@@ -174,7 +174,7 @@
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.PictureBox previewBox;
-        private System.Windows.Forms.FlowLayoutPanel layoutPanel;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Label menuLabel;
     }
 }

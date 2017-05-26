@@ -15,23 +15,23 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         public TexturePreview() {
             InitializeComponent();
-            Width = Tile.Width()+10;
-            Height = Tile.Height()+10;
+            Width = Tile.Width+10;
+            Height = Tile.Height+10;
             nameLabel.MaximumSize = Size;
             nameLabel.Text = "";
         }
 
         public void SetTexture(Texture texture) {
             this.texture = texture;
-            Width = Tile.Width()+10;
-            Height = Tile.Height()+10;
+            Width = Tile.Width+10;
+            Height = Tile.Height+10;
             nameLabel.MaximumSize = Size;
-            nameLabel.Text = texture.Name();
+            nameLabel.Text = texture.Name;
             BackgroundImage = texture.GetBitmap();
         }
 
         public string GetTextureName() {
-            return texture.Name();
+            return texture.Name;
         }
 
         public Texture GetTexture() {

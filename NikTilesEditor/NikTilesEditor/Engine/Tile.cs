@@ -10,20 +10,20 @@ namespace NikTiles.Engine {
         #region Static
 
         #region  Declarations
-        private static int X = 64, Y = 32;
+        private static int width = 64, height = 32;
         public static bool viewGrid = false;
         #endregion
 
 
         /// <summary> Returns the width the game tiles. </summary>
-        public static int Width() { return X; }
+        public static int Width { get { return width; } }
         /// <summary> Returns the height the game tiles. </summary>
-        public static int Height() { return Y; }
+        public static int Height{ get { return height; } }
 
         #endregion
 
         #region Declarations
-        private Rectangle rectangle = new Rectangle(0, 0, Tile.Width(), Tile.Height());
+        private Rectangle rectangle = new Rectangle(0, 0, Tile.Width, Tile.Height);
         private int y, x;
         private bool selected = false;
         private bool debug = false;
@@ -33,15 +33,15 @@ namespace NikTiles.Engine {
             this.y = y;
             this.x = x;
             if (x % 2 != 0)
-                rectangle = new Rectangle(x * Tile.Width() / 2, y * Tile.Height() + Tile.Height() / 2, Tile.Width(), Tile.Height());
+                rectangle = new Rectangle(x * Tile.Width / 2, y * Tile.Height + Tile.Height / 2, Tile.Width, Tile.Height);
             else
-                rectangle = new Rectangle(Tile.Width() / 2 * x, Tile.Height() * y, Tile.Width(), Tile.Height());
+                rectangle = new Rectangle(Tile.Width / 2 * x, Tile.Height * y, Tile.Width, Tile.Height);
         }
 
         /// <summary> Returns the x coordinate of the tile. </summary>
-        public int GetX() { return x; }
+        public int X { get { return x; } }
         /// <summary> Returns the y coordinate of the tile. </summary>
-        public int GetY() { return y; }
+        public int Y { get { return y; } }
 
 
         /// <summary> Draws the tile. </summary>

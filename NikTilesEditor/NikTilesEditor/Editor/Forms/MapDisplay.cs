@@ -22,8 +22,8 @@ namespace NikTiles.Editor.Forms {
         /// <param name="mapDisplay">The control to be resized.</param>
         public static void SetCurrentMap(int map, MapDisplay mapDisplay) {
             currentMap = map;
-            mapDisplay.Width = (int)(GetCurrentMap().Width() * Camera.GetZoomX() * Tile.Width() / 2 + Camera.GetZoomX() * Tile.Width() / 2);
-            mapDisplay.Height = (int)(GetCurrentMap().Height() * Camera.GetZoomY() * Tile.Height() + Camera.GetZoomY() * Tile.Height() / 2);
+            mapDisplay.Width = (int)(GetCurrentMap().Width * Camera.ZoomX * Tile.Width / 2 + Camera.ZoomX * Tile.Width / 2);
+            mapDisplay.Height = (int)(GetCurrentMap().Height * Camera.ZoomY * Tile.Height + Camera.ZoomY * Tile.Height / 2);
         }
         #endregion
 
