@@ -12,6 +12,7 @@ namespace NikTiles.Engine {
         #region  Declarations
         private static int width = 64, height = 32;
         public static bool viewGrid = false;
+        private string material = "Empty";
         #endregion
 
 
@@ -47,7 +48,7 @@ namespace NikTiles.Engine {
         /// <summary> Draws the tile. </summary>
         /// <param name="spriteBatch">The SpriteBatch used to draw the tile.</param>
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Texture.floor["Grass"].DiffuseMap, rectangle, Color.White);
+            spriteBatch.Draw(Engine.Material.floor[material].DiffuseMap, rectangle, Color.White);
             if (viewGrid) spriteBatch.Draw(Texture.grid,      rectangle, Color.Black*0.5f);
             if (selected) spriteBatch.Draw(Texture.selection, rectangle, Color.Aqua * 0.5f);
             if (debug)    spriteBatch.Draw(Texture.grid, rectangle, Color.Red * 0.5f);
@@ -55,18 +56,20 @@ namespace NikTiles.Engine {
 
         /// <summary> Selects/deselects the tile based on Selector. </summary>
         public void Select() {
-            selected = !Selector.Deselect();
+            selected = !Selector.Deselect;
         }
 
-        /// <summary> Sets the tile selection. </summary>
-        public void Select(bool select) {
-            selected = select;
+        public bool Selected {
+            get { return selected; }
+            set { selected = value; }
         }
 
         /// <summary> Inverts the tile's selection value. </summary>
         public void InverseSelection() {
             selected = !selected;
         }
+
+        public string Material { get { return material; } set { material = value; }}
 
         /// <summary> A debug function which can be changed and used for any debugging needs. </summary>
         public void Debug() {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -28,23 +29,29 @@ namespace NikTiles.Engine {
 
         private readonly string name;
         private Texture bottom, top;
+        private Texture2D diffuseMap;
 
         public FloorMaterial(string name, Texture top, Texture bottom) {
             this.name = name;
-            this.top = top;
-            this.bottom = bottom;
+            this.top = top.Copy();
+            this.bottom = bottom.Copy();
         }
 
         public new Bitmap GetBitmap() {
             Bitmap topBitmap = top.GetBitmap();
             Bitmap bottomBitmap = bottom.GetBitmap();
 
-            return topBitmap;
+            return Texture.BlendImages(bottomBitmap, topBitmap);
         }
+
+        public Texture2D DiffuseMap{get { return diffuseMap; }}
 
         public new string Name {
             get { return name; }
         }
+
+
+
 
     }
 

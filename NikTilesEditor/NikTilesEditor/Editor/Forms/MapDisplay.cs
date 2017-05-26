@@ -12,7 +12,9 @@ namespace NikTiles.Editor.Forms {
         #region Static
         private static List<Map> maps = new List<Map>(0);
         private static int currentMap;
-        public static Map GetCurrentMap() { return maps[currentMap]; }
+
+        public static Map CurrentMap { get { return maps[currentMap]; } }
+        
         public static void SetCurrentMap(int map) { currentMap = map; }
 
         /// <summary>
@@ -22,8 +24,8 @@ namespace NikTiles.Editor.Forms {
         /// <param name="mapDisplay">The control to be resized.</param>
         public static void SetCurrentMap(int map, MapDisplay mapDisplay) {
             currentMap = map;
-            mapDisplay.Width = (int)(GetCurrentMap().Width * Camera.ZoomX * Tile.Width / 2 + Camera.ZoomX * Tile.Width / 2);
-            mapDisplay.Height = (int)(GetCurrentMap().Height * Camera.ZoomY * Tile.Height + Camera.ZoomY * Tile.Height / 2);
+            mapDisplay.Width = (int)(CurrentMap.Width * Camera.ZoomX * Tile.Width / 2 + Camera.ZoomX * Tile.Width / 2);
+            mapDisplay.Height = (int)(CurrentMap.Height * Camera.ZoomY * Tile.Height + Camera.ZoomY * Tile.Height / 2);
         }
         #endregion
 
@@ -46,7 +48,7 @@ namespace NikTiles.Editor.Forms {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             if (Engine.Texture.floor != null) { //add more advanced check later
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.GetTransform());
-                GetCurrentMap().Draw(spriteBatch, width, height);
+                CurrentMap.Draw(spriteBatch, width, height);
                 Engine.Cursor.Draw(spriteBatch);
                 spriteBatch.End();
             }

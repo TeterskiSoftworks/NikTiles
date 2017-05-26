@@ -86,21 +86,19 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void SetWidth() {
-            int width;
             if (widthBox.Text == "") {
-                width = 1;
+                Selector.Width = 1;
                 widthBox.Text = "1";
             } else {
                 widthBox.Text = widthBox.Text.Replace(" ", "");
-                width = int.Parse(widthBox.Text);
+                Selector.Width = int.Parse(widthBox.Text);
             }
-            Selector.SetWidth(width);
         }
 
 
         private void FillButton_CheckedChanged(object sender, EventArgs e) {
             if (fillButton.Checked) {
-                Selector.SetWidth(-1);
+                Selector.Width=-1;
                 widthBox.Enabled = false;
             } else {
                 SetWidth();
@@ -117,7 +115,7 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void deselectButton_CheckedChanged(object sender, EventArgs e) {
-            Selector.Deselect(deselectButton.Checked);
+            Selector.Deselect=deselectButton.Checked;
         }
     }
     

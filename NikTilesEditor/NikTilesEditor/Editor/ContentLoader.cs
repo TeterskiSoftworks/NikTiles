@@ -89,7 +89,6 @@ namespace NikTiles.Editor {
             return textures;
         }
 
-
         /// <summary>
         /// Loads a single file from the given directory.
         /// </summary>
@@ -127,6 +126,13 @@ namespace NikTiles.Editor {
             }
 
             return  pixels;
+        }
+
+        public static Texture2D CreateTexture2D(Bitmap img) {
+            Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
+            texture = new Texture2D(graphicsDevice, img.Width, img.Height);
+            texture.SetData(CreateColorArray(img));
+            return texture;
         }
 
     }

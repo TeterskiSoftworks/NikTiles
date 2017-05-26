@@ -37,6 +37,9 @@
             this.nameLabel.TabIndex = 1;
             this.nameLabel.Text = "Material Name";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
+            this.nameLabel.MouseEnter += new System.EventHandler(this.nameLabel_MouseEnter);
+            this.nameLabel.MouseLeave += new System.EventHandler(this.nameLabel_MouseLeave);
             // 
             // MaterialPreview
             // 
@@ -45,6 +48,7 @@
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Controls.Add(this.nameLabel);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "MaterialPreview";
             this.Size = new System.Drawing.Size(128, 64);
             this.ResumeLayout(false);

@@ -31,22 +31,21 @@
             this.importButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
             this.nameLabel = new System.Windows.Forms.Label();
-            this.previewBox = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuLabel = new System.Windows.Forms.Label();
+            this.materialPreview = new NikTiles.Editor.Forms.FloorMenu.MaterialPreview();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox
             // 
+            this.groupBox.Controls.Add(this.materialPreview);
             this.groupBox.Controls.Add(this.deleteButton);
             this.groupBox.Controls.Add(this.exportButton);
             this.groupBox.Controls.Add(this.editButton);
             this.groupBox.Controls.Add(this.importButton);
             this.groupBox.Controls.Add(this.applyButton);
             this.groupBox.Controls.Add(this.nameLabel);
-            this.groupBox.Controls.Add(this.previewBox);
             this.groupBox.Controls.Add(this.flowLayoutPanel);
             this.groupBox.Controls.Add(this.menuLabel);
             this.groupBox.Location = new System.Drawing.Point(3, 3);
@@ -101,6 +100,7 @@
             this.applyButton.TabIndex = 18;
             this.applyButton.Text = "Apply";
             this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
             // nameLabel
             // 
@@ -112,17 +112,6 @@
             this.nameLabel.TabIndex = 19;
             this.nameLabel.Text = "Name Label";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // previewBox
-            // 
-            this.previewBox.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.previewBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.previewBox.Location = new System.Drawing.Point(6, 18);
-            this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(74, 43);
-            this.previewBox.TabIndex = 17;
-            this.previewBox.TabStop = false;
             // 
             // flowLayoutPanel
             // 
@@ -148,6 +137,17 @@
             this.menuLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.menuLabel.Click += new System.EventHandler(this.menuLabel_Click);
             // 
+            // materialPreview
+            // 
+            this.materialPreview.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.materialPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.materialPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.materialPreview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.materialPreview.Location = new System.Drawing.Point(6, 18);
+            this.materialPreview.Name = "materialPreview";
+            this.materialPreview.Size = new System.Drawing.Size(74, 43);
+            this.materialPreview.TabIndex = 24;
+            // 
             // MaterialMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,7 +159,6 @@
             this.Size = new System.Drawing.Size(284, 255);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,8 +172,8 @@
         private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Label nameLabel;
-        private System.Windows.Forms.PictureBox previewBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Label menuLabel;
+        private MaterialPreview materialPreview;
     }
 }

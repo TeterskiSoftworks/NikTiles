@@ -24,8 +24,8 @@ namespace NikTiles.Editor.Forms {
             Camera.SetCenter(0, 0);
             Camera.Zoom(mouse.Delta * 0.001f);
 
-            mapDisplay.Width  = (int)((MapDisplay.GetCurrentMap().Width + 1) * Camera.ZoomX * Tile.Width / 2);
-            mapDisplay.Height = (int)((MapDisplay.GetCurrentMap().Height+.5) * Camera.ZoomY * Tile.Height);
+            mapDisplay.Width  = (int)((MapDisplay.CurrentMap.Width + 1) * Camera.ZoomX * Tile.Width / 2);
+            mapDisplay.Height = (int)((MapDisplay.CurrentMap.Height+.5) * Camera.ZoomY * Tile.Height);
 
 
             Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
@@ -42,23 +42,23 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
-            Selector.MouseDown(true);
+            Selector.MouseDown=true;
             Selector.Select();
         }
 
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
             Engine.Cursor.SetCursor(mouse);
-            if (Selector.MouseDown() && mouse.Button == MouseButtons.Left){
+            if (Selector.MouseDown && mouse.Button == MouseButtons.Left){
                 Selector.Select();
             }
 
             //cursor label update
-            cursorBoxX.Text = Engine.Cursor.X.ToString()+"/"+MapDisplay.GetCurrentMap().Width;
-            cursorBoxY.Text = Engine.Cursor.Y.ToString()+"/"+MapDisplay.GetCurrentMap().Height;
+            cursorBoxX.Text = Engine.Cursor.X.ToString()+"/"+MapDisplay.CurrentMap.Width;
+            cursorBoxY.Text = Engine.Cursor.Y.ToString()+"/"+MapDisplay.CurrentMap.Height;
         }
 
         private void mapDisplay_MouseUp(object sender, MouseEventArgs mouse) {
-            Selector.MouseDown(false);
+            Selector.MouseDown = false;
             if (mouse.Button == MouseButtons.Left) {
                 Selector.Select();
             }

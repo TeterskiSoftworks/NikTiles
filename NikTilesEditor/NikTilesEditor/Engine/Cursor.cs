@@ -90,8 +90,8 @@ namespace NikTiles.Engine {
                 offGrid = true;
             else if ((int)(mouse.Y / Camera.ZoomY - position.Y * Tile.Height + Camera.GetPixelsY() / Camera.ZoomY) * cursorTexture.Height / Tile.Height < 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width  - 1) offGrid = true;
-            else if (position.Y > MapDisplay.GetCurrentMap().Height - 1) offGrid = true;
+            else if (position.X > MapDisplay.CurrentMap.Width  - 1) offGrid = true;
+            else if (position.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
         }
 
 
@@ -105,8 +105,8 @@ namespace NikTiles.Engine {
             if (position.X < 0) offGrid = true;
             if (position.Y < 0 && position.X % 2 != 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.GetCurrentMap().Width -1) offGrid = true;
-            else if (position.Y > MapDisplay.GetCurrentMap().Height-1) offGrid = true;
+            else if (position.X > MapDisplay.CurrentMap.Width -1) offGrid = true;
+            else if (position.Y > MapDisplay.CurrentMap.Height-1) offGrid = true;
         }
 
 

@@ -34,10 +34,34 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             flowLayoutPanel.Controls.Clear();
             foreach (String material in Material.floor.Keys) {
                 MaterialPreview preview = new MaterialPreview();
-                preview.SetMaterial(Material.floor[material]);
+                preview.Material = Material.floor[material];
                 flowLayoutPanel.Controls.Add(preview);
+                preview.MouseEnter += new EventHandler(MaterialPreview_MouseEnter);
+                preview.MouseLeave += new EventHandler(MaterialPreview_MouseLeave);
+                preview.Click += new EventHandler(MaterialPreview_Click);
             }
         }
 
+        protected void MaterialPreview_MouseEnter(object sender, EventArgs e) {
+            MaterialPreview preview = sender as MaterialPreview;
+            preview.BackColor = Color.RoyalBlue;
+            preview.HideName();
+        }
+
+        protected void MaterialPreview_MouseLeave(object sender, EventArgs e) {
+            MaterialPreview preview = sender as MaterialPreview;
+            preview.BackColor = Color.CornflowerBlue;
+            preview.ShowName();
+        }
+
+        protected void MaterialPreview_Click(object sender, EventArgs e) {
+            MaterialPreview preview = sender as MaterialPreview;
+            materialPreview.Material = preview.Material;
+            nameLabel.Text = preview.Material.Name;
+        }
+
+        private void applyButton_Click(object sender, EventArgs e) {
+            Selector.ApplyFloorMaterial(materialPreview.Material.Name);
+        }
     }
 }
