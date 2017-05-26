@@ -13,7 +13,6 @@ namespace NikTiles.Engine {
 
         public static Dictionary<string, FloorMaterial> floor = new Dictionary<string, FloorMaterial>();
 
-
         public string Name {
             get { return name; }
         }
@@ -36,16 +35,14 @@ namespace NikTiles.Engine {
             this.bottom = bottom;
         }
 
-        public Bitmap GetBitmap() {
+        public new Bitmap GetBitmap() {
             Bitmap topBitmap = top.GetBitmap();
             Bitmap bottomBitmap = bottom.GetBitmap();
-            Bitmap bitmap;
-
 
             return topBitmap;
         }
 
-        public string Name {
+        public new string Name {
             get { return name; }
         }
 

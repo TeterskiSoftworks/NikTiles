@@ -16,67 +16,72 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         public MaterialEditPreview() {
             InitializeComponent();
-            topBitmap = new Bitmap(Tile.Width, Tile.Height);
+            topBitmap    = new Bitmap(Tile.Width, Tile.Height);
             bottomBitmap = new Bitmap(Tile.Width, Tile.Height);
         }
 
-        public void Update() {
+        public void Initialize() {
+            bottom       = Texture.floor["Empty"].Copy();
+            top          = Texture.floor["Empty"].Copy();
+            topBitmap    = top.GetBitmap();
+            bottomBitmap = bottom.GetBitmap();
+        }
+        
+        private new void Update() {
+            topBitmap = top.GetBitmap();
+            bottomBitmap = bottom.GetBitmap();
             BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
         }
 
         public Texture TopTexture {
             set {
-                top = value;
-                topBitmap = this.top.GetBitmap();
-                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
-            }
-            get { return top; }
+                top.DiffuseMap = value.DiffuseMap;
+                Update();
+            } get { return top; }
         }
 
         public Texture BottomTexture {
             set {
                 bottom = value;
-                bottomBitmap = this.bottom.GetBitmap();
-                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
-            }
-            get { return bottom; }
+                Update();
+            } get { return bottom; }
         }
 
         public Color TopColor {
             set {
                 top.Color = value;
-                topBitmap = top.GetBitmap();
-                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
-            }
-            get { return top.Color; }
+                Update();
+            } get { return top.Color; }
         }
 
         public Color BottomColor {
             set {
                 bottom.Color = value;
-                bottomBitmap = bottom.GetBitmap();
-                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
-            }
-            get { return bottom.Color; }
+                Update();
+            } get { return bottom.Color; }
         }
 
         public byte TopAlpha {
-            set{ top.Alpha = value; } get { return top.Alpha; }
+            set{
+                top.Alpha = value;
+                Update();
+            } get { return top.Alpha; }
         }
 
         public byte BottomAlpha {
-            set{ bottom.Alpha = value; } get { return bottom.Alpha; }
+            set{
+                bottom.Alpha = value;
+                Update();
+            } get { return bottom.Alpha; }
         }
 
         public void FlipTextures() {
-            Texture temp = bottom;
-            bottom = top; top = temp;
 
-            Bitmap tempBitmap = bottomBitmap;
-            bottomBitmap = topBitmap; topBitmap = tempBitmap;
+            Texture temp = bottom.Copy();
+            bottom = top.Copy();
+            top = temp.Copy();
 
-            BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
-
+            Update();
         }
 
         public FloorMaterial CreateMaterial(string name) {

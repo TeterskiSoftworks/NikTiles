@@ -21,8 +21,10 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         }
 
         public void LoadPreviews() {
+            materialEditPreview.Initialize();
+            topTextureButton.Text = "Empty";
+            bottomTextureButton.Text = "Empty";
             foreach (String texture in Texture.floor.Keys) {
-                
                 TexturePreview preview = new TexturePreview();
                 preview.Texture = Texture.floor[texture];
                 flowLayoutPanel.Controls.Add(preview);
@@ -59,6 +61,8 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             bottomTextureButton.Text = tempTexture;
             
             materialEditPreview.FlipTextures();
+            materialEditPreview.TopAlpha = TopAlpha;
+            materialEditPreview.BottomAlpha = BottomAlpha;
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e) {
@@ -92,22 +96,27 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
 
         private void topAlphaBox_TextChanged(object sender, EventArgs e) {
+            if (topAlphaBox.Text == "") topAlphaBox.Text = "0";
             materialEditPreview.TopAlpha = TopAlpha;
-            materialEditPreview.Update();
         }
 
         private void bottomAlphaBox_TextChanged(object sender, EventArgs e) {
+            if (bottomAlphaBox.Text == "") bottomAlphaBox.Text = "0";
             materialEditPreview.BottomAlpha = BottomAlpha;
-            materialEditPreview.Update();
         }
 
 
         private byte TopAlpha {
-            get { return (byte)(float.Parse(topAlphaBox.Text) / 100f * 255f); }
+            get {
+                if (topAlphaBox.Text == "99") return byte.MaxValue;
+                return (byte)(float.Parse(topAlphaBox.Text) / 100f * 255f);
+            }
         }
 
         private byte BottomAlpha {
-            get { return (byte)(float.Parse(bottomAlphaBox.Text) / 100f * 255f); }
+            get {
+                if (bottomAlphaBox.Text == "99") return byte.MaxValue;
+                return (byte)(float.Parse(bottomAlphaBox.Text) / 100f * 255f); }
         }
 
 
@@ -125,6 +134,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
 
         #region Texture Preview
+
         protected void TexturePreview_MouseEnter(object sender, EventArgs e) {
             TexturePreview preview = sender as TexturePreview;
             preview.BackColor = Color.RoyalBlue;
@@ -144,9 +154,11 @@ namespace NikTiles.Editor.Forms.FloorMenu {
                 if (topTextureChecked) {
                     topTextureButton.Text = preview.Name;
                     materialEditPreview.TopTexture = preview.Texture;
+                    materialEditPreview.Update();
                 } else {
                     bottomTextureButton.Text = preview.Name;
                     materialEditPreview.BottomTexture = preview.Texture;
+                    materialEditPreview.Update();
                 }
             }
         }

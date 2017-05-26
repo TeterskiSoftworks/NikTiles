@@ -33,7 +33,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             get { return texture; }
         }
 
-        public string Name {
+        public new string Name {
             get { return texture.Name; }
         }
 

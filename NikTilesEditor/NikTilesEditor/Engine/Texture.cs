@@ -14,11 +14,18 @@ namespace NikTiles.Engine {
 
         private readonly string name;
         private Texture2D diffuseMap;
-        private byte alpha = 255;
+        private byte alpha = byte.MaxValue;
         private Color color = Color.White;
 
         public Texture(string name, Texture2D diffuseMap) {
             this.name = name;
+            this.diffuseMap = diffuseMap;
+        }
+
+        public Texture(string name, Texture2D diffuseMap, Color color, byte alpha) {
+            this.name = name;
+            Color = color;
+            Alpha = alpha;
             this.diffuseMap = diffuseMap;
         }
 
@@ -31,7 +38,7 @@ namespace NikTiles.Engine {
             return bitmap;
         }
 
-        public Texture2D DiffuseMap { get { return diffuseMap; } }
+        public Texture2D DiffuseMap { get { return diffuseMap; } set { diffuseMap = value; } }
 
         public Color Color { get { return color; } set { color = value; } }
 
@@ -50,7 +57,6 @@ namespace NikTiles.Engine {
             for(int y=0; y<bitmap.Height; y++) {
                 for (int x = 0; x < bitmap.Width; x++) {
                     oldColor = bitmap.GetPixel(x, y);
-                    
                     newColor = AddColors(oldColor, color);
                     bitmap.SetPixel(x, y, newColor);
                 }
@@ -67,7 +73,6 @@ namespace NikTiles.Engine {
                 (int)(add.B * original.B / 255f));
             return color;
         }
-
 
         public static Bitmap BlendImages(Bitmap bottom, Bitmap top) {
             Bitmap bitmap = new Bitmap(Tile.Width, Tile.Height);
@@ -97,6 +102,11 @@ namespace NikTiles.Engine {
                 (int)((src.B * src.A / 255f + dst.B * dst.A / 255f * (1 - src.A / 255f)) / (outA / 255f)));
 
             return color;
+        }
+
+        public Texture Copy() {
+            Texture texture = new Texture(Name, DiffuseMap, Color, Alpha);
+            return texture;
         }
 
 
