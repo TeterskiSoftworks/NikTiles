@@ -15,7 +15,7 @@ namespace NikTiles.Engine {
         private readonly string name;
         private Texture2D texture;
         private byte alpha = 255;
-        private Microsoft.Xna.Framework.Color color = Microsoft.Xna.Framework.Color.White;
+        private Color color = Color.White;
 
         public Texture(string name, Texture2D texture) {
             this.name = name;
@@ -30,15 +30,14 @@ namespace NikTiles.Engine {
             return bitmap;
         }
 
-        public Texture2D GetTexture() {
-            return texture;
-        }
+        public Texture2D DiffuseMap { get { return texture; } }
 
-        public string Name {
-            get {return name;}
-        }
+        public Color Color { get { return color; } set { color = value; } }
+
+        public string Name { get {return name;} }
 
         public Bitmap ApplyColor(Color color, byte alpha) {
+            this.Color = color;
             MemoryStream stream = new MemoryStream();
             texture.SaveAsPng(stream, Tile.Width, Tile.Height);
             Bitmap bitmap = new Bitmap(stream);
@@ -95,10 +94,6 @@ namespace NikTiles.Engine {
 
             return bitmap;
         }
-
-
-        public void FlipVertically() { }
-        public void FlipHorizontally() { }
 
     }
 
