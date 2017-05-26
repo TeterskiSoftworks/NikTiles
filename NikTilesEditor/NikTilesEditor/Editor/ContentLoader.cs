@@ -33,6 +33,12 @@ namespace NikTiles.Editor {
 
                 Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png");
                 Engine.Texture.floor.Add("Empty", new Engine.Texture("Empty", new Texture2D(graphicsDevice, 1, 1)));
+
+                Material.floor.Add("Empty",
+                    new FloorMaterial("Empty",
+                    Engine.Texture.floor["Empty"],
+                    Engine.Texture.floor["Empty"]));
+
             }
 
         }
@@ -77,12 +83,8 @@ namespace NikTiles.Editor {
                 FileInfo[] files = dir.GetFiles(searchFilter);
                 foreach (FileInfo file in files) {
 
-                    Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
-                    Texture2D texture = new Texture2D(graphicsDevice, img.Width, img.Height);
-                    texture.SetData(CreateColorArray(img));
-
                     String key = Path.GetFileNameWithoutExtension(file.Name);
-                    textures[key] = new Engine.Texture(key,texture);
+                    textures[key] = new Engine.Texture(key, CreateTexture2D((Bitmap)Image.FromFile(file.FullName, true)));
 
                 }
             }
@@ -101,9 +103,7 @@ namespace NikTiles.Editor {
             if (dir.Exists) {
                 FileInfo[] files = new DirectoryInfo(Application.StartupPath + "/" + contentFolder).GetFiles(searchFilter);
                 foreach (FileInfo file in files) {
-                    Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
-                    texture = new Texture2D(graphicsDevice, img.Width, img.Height);
-                    texture.SetData(CreateColorArray(img));
+                    texture = CreateTexture2D((Bitmap)Image.FromFile(file.FullName, true));
                 }
             }
             return texture;

@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -29,12 +28,15 @@ namespace NikTiles.Engine {
 
         private readonly string name;
         private Texture bottom, top;
-        private Texture2D diffuseMap;
+        private Microsoft.Xna.Framework.Graphics.Texture2D 
+            diffuseMap = Texture.floor["Empty"].DiffuseMap;
 
         public FloorMaterial(string name, Texture top, Texture bottom) {
             this.name = name;
             this.top = top.Copy();
             this.bottom = bottom.Copy();
+            diffuseMap = Editor.ContentLoader.CreateTexture2D(
+                Texture.BlendImages(bottom.GetBitmap(),top.GetBitmap()));
         }
 
         public new Bitmap GetBitmap() {
@@ -44,7 +46,9 @@ namespace NikTiles.Engine {
             return Texture.BlendImages(bottomBitmap, topBitmap);
         }
 
-        public Texture2D DiffuseMap{get { return diffuseMap; }}
+        public Microsoft.Xna.Framework.Graphics.Texture2D DiffuseMap{
+            get { return diffuseMap; }
+        }
 
         public new string Name {
             get { return name; }
