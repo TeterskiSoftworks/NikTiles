@@ -13,39 +13,62 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         private Texture bottom, top;
         private Bitmap bottomBitmap, topBitmap;
-        private Byte topAlpha, bottomAlpha;
 
         public MaterialEditPreview() {
             InitializeComponent();
-            topBitmap    = new Bitmap(Tile.Width, Tile.Height);
+            topBitmap = new Bitmap(Tile.Width, Tile.Height);
             bottomBitmap = new Bitmap(Tile.Width, Tile.Height);
         }
 
-        public void SetTopTexture(Texture top, Color color, byte alpha) {
-            this.top = top;
-            topBitmap = this.top.ApplyColor(color, alpha);
+        public void Update() {
             BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
         }
 
-        public void SetBottomTexture(Texture bottom, Color color, byte alpha) {
-            this.bottom = bottom;
-            bottomBitmap = this.bottom.ApplyColor(color, alpha);
-            BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+        public Texture TopTexture {
+            set {
+                top = value;
+                topBitmap = this.top.GetBitmap();
+                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+            }
+            get { return top; }
         }
 
-        public void SetTopColor(Color color, byte alpha) {
-            topAlpha = alpha;
-            topBitmap = top.ApplyColor(color, alpha);
-            BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+        public Texture BottomTexture {
+            set {
+                bottom = value;
+                bottomBitmap = this.bottom.GetBitmap();
+                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+            }
+            get { return bottom; }
         }
 
-        public void SetBottomColor(Color color, byte alpha) {
-            bottomAlpha = alpha;
-            bottomBitmap = bottom.ApplyColor(color, alpha);
-            BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+        public Color TopColor {
+            set {
+                top.Color = value;
+                topBitmap = top.GetBitmap();
+                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+            }
+            get { return top.Color; }
         }
 
-        public void FlipTexture() {
+        public Color BottomColor {
+            set {
+                bottom.Color = value;
+                bottomBitmap = bottom.GetBitmap();
+                BackgroundImage = Texture.BlendImages(bottomBitmap, topBitmap);
+            }
+            get { return bottom.Color; }
+        }
+
+        public byte TopAlpha {
+            set{ top.Alpha = value; } get { return top.Alpha; }
+        }
+
+        public byte BottomAlpha {
+            set{ bottom.Alpha = value; } get { return bottom.Alpha; }
+        }
+
+        public void FlipTextures() {
             Texture temp = bottom;
             bottom = top; top = temp;
 

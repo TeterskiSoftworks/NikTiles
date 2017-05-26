@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextureMenu));
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.materialEditPreview = new NikTiles.Editor.Forms.FloorMenu.MaterialEditPreview();
@@ -36,12 +37,16 @@
             this.topAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomColorButton = new System.Windows.Forms.Button();
             this.topColorButton = new System.Windows.Forms.Button();
+            this.horizontalFlipButton = new System.Windows.Forms.Button();
+            this.verticalFlipButton = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox
             // 
             this.groupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox.Controls.Add(this.verticalFlipButton);
+            this.groupBox.Controls.Add(this.horizontalFlipButton);
             this.groupBox.Controls.Add(this.button1);
             this.groupBox.Controls.Add(this.materialEditPreview);
             this.groupBox.Controls.Add(this.saveAsButton);
@@ -63,9 +68,9 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(102, 67);
+            this.button1.Location = new System.Drawing.Point(177, 66);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.Size = new System.Drawing.Size(93, 23);
             this.button1.TabIndex = 22;
             this.button1.Text = "Animation Tools";
             this.button1.UseVisualStyleBackColor = true;
@@ -201,6 +206,28 @@
             this.topColorButton.UseVisualStyleBackColor = false;
             this.topColorButton.Click += new System.EventHandler(this.topColorButton_Click);
             // 
+            // horizontalFlipButton
+            // 
+            this.horizontalFlipButton.Enabled = false;
+            this.horizontalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("horizontalFlipButton.Image")));
+            this.horizontalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.horizontalFlipButton.Location = new System.Drawing.Point(102, 67);
+            this.horizontalFlipButton.Name = "horizontalFlipButton";
+            this.horizontalFlipButton.Size = new System.Drawing.Size(23, 23);
+            this.horizontalFlipButton.TabIndex = 23;
+            this.horizontalFlipButton.UseVisualStyleBackColor = true;
+            // 
+            // verticalFlipButton
+            // 
+            this.verticalFlipButton.Enabled = false;
+            this.verticalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("verticalFlipButton.Image")));
+            this.verticalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.verticalFlipButton.Location = new System.Drawing.Point(124, 67);
+            this.verticalFlipButton.Name = "verticalFlipButton";
+            this.verticalFlipButton.Size = new System.Drawing.Size(23, 23);
+            this.verticalFlipButton.TabIndex = 24;
+            this.verticalFlipButton.UseVisualStyleBackColor = true;
+            // 
             // TextureMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,5 +258,7 @@
         private MaterialEditPreview materialEditPreview;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Button saveAsButton;
+        private System.Windows.Forms.Button horizontalFlipButton;
+        private System.Windows.Forms.Button verticalFlipButton;
     }
 }

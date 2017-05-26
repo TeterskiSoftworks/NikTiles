@@ -21,22 +21,22 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             nameLabel.Text = "";
         }
 
-        public void SetTexture(Texture texture) {
-            this.texture = texture;
-            Width = Tile.Width+10;
-            Height = Tile.Height+10;
-            nameLabel.MaximumSize = Size;
-            nameLabel.Text = texture.Name;
-            BackgroundImage = texture.GetBitmap();
+        public Texture Texture {
+            set {
+                texture = value;
+                Width = Tile.Width + 10;
+                Height = Tile.Height + 10;
+                nameLabel.MaximumSize = Size;
+                nameLabel.Text = texture.Name;
+                BackgroundImage = texture.GetBitmap();
+            }
+            get { return texture; }
         }
 
-        public string GetTextureName() {
-            return texture.Name;
+        public string Name {
+            get { return texture.Name; }
         }
 
-        public Texture GetTexture() {
-            return texture;
-        }
 
         public void HideName() {
             nameLabel.ForeColor = Color.White;

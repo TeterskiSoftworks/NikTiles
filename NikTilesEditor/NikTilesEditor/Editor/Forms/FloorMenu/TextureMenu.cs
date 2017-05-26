@@ -15,11 +15,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
                     expanded = true;
         private int groupBoxHeight;
 
-        private Color
-            topColor = Color.White,
-            bottomColor = Color.White;
-
-
         public TextureMenu() {
             InitializeComponent();
             groupBoxHeight = groupBox.Height;
@@ -29,7 +24,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             foreach (String texture in Texture.floor.Keys) {
                 
                 TexturePreview preview = new TexturePreview();
-                preview.SetTexture(Texture.floor[texture]);
+                preview.Texture = Texture.floor[texture];
                 flowLayoutPanel.Controls.Add(preview);
                 preview.MouseEnter += new EventHandler(TexturePreview_MouseEnter);
                 preview.MouseLeave += new EventHandler(TexturePreview_MouseLeave);
@@ -50,12 +45,10 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         }
 
         private void flipButton_Click(object sender, EventArgs e) {
-            Color tempColor = topColor;
-            topColor = bottomColor;
-            bottomColor = tempColor;
+            Color tempColor = topColorButton.BackColor;
 
-            topColorButton.BackColor = topColor;
-            bottomColorButton.BackColor = bottomColor;
+            topColorButton.BackColor = bottomColorButton.BackColor;
+            bottomColorButton.BackColor = tempColor;
 
             string tempAlhpa = topAlphaBox.Text;
             topAlphaBox.Text = bottomAlphaBox.Text;
@@ -64,11 +57,8 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             string tempTexture = topTextureButton.Text;
             topTextureButton.Text = bottomTextureButton.Text;
             bottomTextureButton.Text = tempTexture;
-
-
-            materialEditPreview.FlipTexture();
-            materialEditPreview.SetTopColor(topColor, GetTopAlpha());
-            materialEditPreview.SetBottomColor(bottomColor, GetBottomAlpha());
+            
+            materialEditPreview.FlipTextures();
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e) {
@@ -83,8 +73,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             //colorDialog.CustomColors;
             if (colorDialog.ShowDialog() == DialogResult.OK) {
                 topColorButton.BackColor = colorDialog.Color;
-                topColor = colorDialog.Color;
-                materialEditPreview.SetTopColor(topColor,GetTopAlpha());
+                materialEditPreview.TopColor = colorDialog.Color;
             }
             colorDialog.Dispose();
         }
@@ -96,30 +85,29 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             //colorDialog.CustomColors;
             if (colorDialog.ShowDialog() == DialogResult.OK) {
                 bottomColorButton.BackColor = colorDialog.Color;
-                bottomColor = colorDialog.Color;
-                materialEditPreview.SetBottomColor(bottomColor, GetBottomAlpha());
+                materialEditPreview.BottomColor = colorDialog.Color;
             }
             colorDialog.Dispose();
         }
 
 
         private void topAlphaBox_TextChanged(object sender, EventArgs e) {
-            materialEditPreview.SetTopColor(topColor, GetTopAlpha());
+            materialEditPreview.TopAlpha = TopAlpha;
+            materialEditPreview.Update();
         }
 
         private void bottomAlphaBox_TextChanged(object sender, EventArgs e) {
-            materialEditPreview.SetBottomColor(bottomColor, GetBottomAlpha());
+            materialEditPreview.BottomAlpha = BottomAlpha;
+            materialEditPreview.Update();
         }
 
 
-        private byte GetTopAlpha() {
-            byte alpha = (byte)(float.Parse(topAlphaBox.Text)/100f *255f);
-            return alpha;
+        private byte TopAlpha {
+            get { return (byte)(float.Parse(topAlphaBox.Text) / 100f * 255f); }
         }
 
-        private byte GetBottomAlpha() {
-            byte alpha = (byte)(float.Parse(bottomAlphaBox.Text) / 100f * 255f);
-            return alpha;
+        private byte BottomAlpha {
+            get { return (byte)(float.Parse(bottomAlphaBox.Text) / 100f * 255f); }
         }
 
 
@@ -154,11 +142,11 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             MouseEventArgs mouse = e as MouseEventArgs;
             if (mouse.Button == MouseButtons.Left) {
                 if (topTextureChecked) {
-                    topTextureButton.Text = preview.GetTextureName();
-                    materialEditPreview.SetTopTexture(preview.GetTexture(), topColorButton.BackColor, GetTopAlpha());
+                    topTextureButton.Text = preview.Name;
+                    materialEditPreview.TopTexture = preview.Texture;
                 } else {
-                    bottomTextureButton.Text = preview.GetTextureName();
-                    materialEditPreview.SetBottomTexture(preview.GetTexture(), bottomColorButton.BackColor, 255);
+                    bottomTextureButton.Text = preview.Name;
+                    materialEditPreview.BottomTexture = preview.Texture;
                 }
             }
         }

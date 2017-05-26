@@ -49,7 +49,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Controls.Add(this.nameLabel);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Name = "TexturePreview";
             this.Size = new System.Drawing.Size(128, 64);
             this.ResumeLayout(false);
 
