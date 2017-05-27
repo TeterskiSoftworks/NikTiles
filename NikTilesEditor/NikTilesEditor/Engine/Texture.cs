@@ -31,8 +31,8 @@ namespace NikTiles.Engine {
 
         public Bitmap GetBitmap() {
             MemoryStream stream = new MemoryStream();
-            diffuseMap.SaveAsPng(stream, Tile.Width, Tile.Height);
-            Bitmap bitmap = new Bitmap(stream);
+            diffuseMap.SaveAsPng(stream, Tile.Width, Tile.Height);  //what if saved at orginial size?
+            Bitmap bitmap = new Bitmap(stream,true);
             bitmap = ApplyColor(color,alpha);
             stream.Dispose();
             return bitmap;

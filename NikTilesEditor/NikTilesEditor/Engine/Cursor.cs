@@ -49,11 +49,11 @@ namespace NikTiles.Engine {
 
                 //Consider having the colors be dynamically be selected from the 4 corners
                 //of the mouseMap.
-                //  -how would non-standard/custom mousemaps work into this?
+                //  -how would non-standard/custom mousemaps work into this, e.g. hexagons?
 
                 mouseMapPosition = mouseMap[ Tile.Width *
-                   (int)(mouse.Y / Camera.ZoomY - position.Y * Tile.Height ) * cursorTexture.Height / Tile.Height+
-                   (int)(mouse.X / Camera.ZoomX - position.X * Tile.Width/2) * cursorTexture.Width / Tile.Width];
+                   (int)(mouse.Y / Camera.ZoomY - Y * Tile.Height ) * cursorTexture.Height / Tile.Height+
+                   (int)(mouse.X / Camera.ZoomX - X * Tile.Width/2) * cursorTexture.Width / Tile.Width];
 
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
@@ -76,9 +76,9 @@ namespace NikTiles.Engine {
         /// This visually chagned the location of the cursor on the screen.
         /// </summary>
         public static void CreateRectangle() {
-            if (position.X % 2 != 0)
-                rectangle = new Rectangle((int)(position.X * Tile.Width  / 2), (int)(position.Y * Tile.Height + Tile.Height / 2), Tile.Width, Tile.Height);
-            else rectangle = new Rectangle((int)(position.X * Tile.Width / 2), (int)(position.Y * Tile.Height), Tile.Width, Tile.Height);
+            if (X % 2 != 0)
+                rectangle  = new Rectangle((X*(Tile.Width+2)/2)-X, (Y * (Tile.Height+2) + (Tile.Height+2)/2), Tile.Width, Tile.Height);
+            else rectangle = new Rectangle((X*(Tile.Width+2)/2)-X, (Y * (Tile.Height+2)), Tile.Width, Tile.Height);
         }
 
         /// <summary>

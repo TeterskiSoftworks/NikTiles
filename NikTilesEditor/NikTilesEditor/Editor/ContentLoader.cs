@@ -64,7 +64,7 @@ namespace NikTiles.Editor {
                     }
                 }
 
-                NikTiles.Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
+                Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
             }
         }
 

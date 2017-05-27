@@ -24,19 +24,22 @@ namespace NikTiles.Engine {
         #endregion
 
         #region Declarations
-        private Rectangle rectangle = new Rectangle(0, 0, Tile.Width, Tile.Height);
+        private Rectangle rectangle = new Rectangle(0, 0, Width, Height);
         private int y, x;
         private bool selected = false;
         private bool debug = false;
         #endregion
 
         public Tile(int x, int y) {
+
             this.y = y;
             this.x = x;
-            if (x % 2 != 0)
-                rectangle = new Rectangle(x * Tile.Width / 2, y * Tile.Height + Tile.Height / 2, Tile.Width, Tile.Height);
+            int t = 3 / 2;
+            if (x % 2 == 1)
+                rectangle = new Rectangle(x*(Width+2)/2-x , y*(Height+2) + (Height+2)/2, Width, Height);
             else
-                rectangle = new Rectangle(Tile.Width / 2 * x, Tile.Height * y, Tile.Width, Tile.Height);
+                rectangle = new Rectangle(x*(Width+2)/2-x, y*(Height+2), Width, Height);
+
         }
 
         /// <summary> Returns the x coordinate of the tile. </summary>
