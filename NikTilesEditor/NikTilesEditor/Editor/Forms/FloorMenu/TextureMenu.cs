@@ -24,6 +24,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             materialEditPreview.Initialize();
             topTextureButton.Text = "Empty";
             bottomTextureButton.Text = "Empty";
+            flowLayoutPanel.Controls.Clear();
             foreach (String texture in Texture.floor.Keys) {
                 TexturePreview preview = new TexturePreview();
                 preview.Texture = Texture.floor[texture];
@@ -120,16 +121,28 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         }
 
 
-        public FloorMaterial NewMaterial() {
+        public void NewMaterial() {
             NameDialog nameDialog = new NameDialog();
-            string name ="";
+            RewriteDialog rewrite = new RewriteDialog();
+            DialogResult rewriteResult;
             if (nameDialog.ShowDialog() == DialogResult.OK) {
-                name = nameDialog.textBox.Text;
-                nameDialog.Dispose();
-                return materialEditPreview.CreateMaterial(name);
-            } else {
-                return materialEditPreview.CreateMaterial(name);
+                if (Material.floor.ContainsKey(nameDialog.textBox.Text)) {
+                    do {
+                        rewriteResult = rewrite.ShowDialog();
+                        if (rewriteResult == DialogResult.OK) {
+                            Material.floor.Remove(nameDialog.textBox.Text);
+                            Material.floor.Add(nameDialog.textBox.Text, materialEditPreview.CreateMaterial(nameDialog.textBox.Text));
+                            break;
+                        } else if (rewriteResult == DialogResult.Retry) nameDialog.ShowDialog();
+                        else if (rewriteResult == DialogResult.Cancel) break;
+                    } while (Material.floor.ContainsKey(nameDialog.textBox.Text));
+                    if (rewriteResult == DialogResult.Retry)
+                        Material.floor.Add(nameDialog.textBox.Text, materialEditPreview.CreateMaterial(nameDialog.textBox.Text));
+                } else Material.floor.Add(nameDialog.textBox.Text, materialEditPreview.CreateMaterial(nameDialog.textBox.Text));
             }
+            nameDialog.Dispose();
+            rewrite.Dispose();
+
         }
 
 

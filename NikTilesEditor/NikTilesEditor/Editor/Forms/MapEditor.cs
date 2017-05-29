@@ -107,11 +107,11 @@ namespace NikTiles.Editor.Forms {
 
         private void MapEditor_Load(object sender, System.EventArgs e) {
             floorTextureMenu.LoadPreviews();
+            floorMaterialMenu.LoadPreviews();
         }
 
         private void AddNewFloorMaterial(object sender, System.EventArgs e) {
-            FloorMaterial material = floorTextureMenu.NewMaterial();
-            Material.floor.Add(material.Name,material);
+            floorTextureMenu.NewMaterial();
             floorMaterialMenu.LoadPreviews();
         }
 
