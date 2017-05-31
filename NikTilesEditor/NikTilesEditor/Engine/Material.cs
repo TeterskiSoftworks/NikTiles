@@ -54,7 +54,13 @@ namespace NikTiles.Engine {
             get { return name; }
         }
 
+        public Texture Top {
+            get { return top; }
+        }
 
+        public Texture Bottom {
+            get { return bottom; }
+        }
 
 
     }

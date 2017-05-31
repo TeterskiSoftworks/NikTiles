@@ -36,6 +36,26 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         }
 
+        public void SetEditedMaterial(FloorMaterial material) {
+            topTextureButton.Text = material.Top.Name;
+            bottomTextureButton.Text = material.Bottom.Name;
+
+            materialEditPreview.TopTexture = material.Top.Copy();
+            materialEditPreview.BottomTexture = material.Bottom.Copy();
+
+            topColorButton.BackColor = material.Top.Color;
+            bottomColorButton.BackColor = material.Bottom.Color;
+
+            //doesnt work proprly
+            // perhaps consider a byte input rather than a %
+            int topAlpha = material.Top.Alpha / 255 * 100;
+            int bottomAlpha = material.Bottom.Alpha / 255 * 100;
+            if (topAlpha == 100) topAlpha--;
+            if (bottomAlpha == 100) bottomAlpha--;
+            topAlphaBox.Text = topAlpha.ToString();
+            bottomAlphaBox.Text = bottomAlpha.ToString();
+        }
+
         private void menuLabel_Click(object sender, EventArgs e) {
             expanded = !expanded;
             if (expanded) {

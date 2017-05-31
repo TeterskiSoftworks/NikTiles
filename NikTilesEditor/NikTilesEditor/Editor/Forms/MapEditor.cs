@@ -12,6 +12,7 @@ namespace NikTiles.Editor.Forms {
             InitializeComponent();
             mapDisplay.MouseWheel += new MouseEventHandler(mapDisplay_MouseWheel);
             floorTextureMenu.saveAsButton.Click += new System.EventHandler(AddNewFloorMaterial);
+            floorMaterialMenu.SetEditButton(new System.EventHandler(EditFloorMaterial));
 
             zoomBox.Text = "100";
 
@@ -115,5 +116,12 @@ namespace NikTiles.Editor.Forms {
             floorMaterialMenu.LoadPreviews();
         }
 
+
+        //Use this as the proper way to assign events to unpublic member controls.
+        private void EditFloorMaterial(object sender, System.EventArgs e) {
+            floorTextureMenu.SetEditedMaterial(floorMaterialMenu.CurrentMaterial);
+        }
+
     }
+
 }

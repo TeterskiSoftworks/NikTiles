@@ -63,5 +63,14 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         private void applyButton_Click(object sender, EventArgs e) {
             Selector.ApplyFloorMaterial(materialPreview.Material.Name);
         }
+
+        public void SetEditButton(System.EventHandler eventHandler) {
+            editButton.Click += eventHandler;
+        }
+
+        public FloorMaterial CurrentMaterial {
+            get { return materialPreview.Material; }
+        }
+
     }
 }
