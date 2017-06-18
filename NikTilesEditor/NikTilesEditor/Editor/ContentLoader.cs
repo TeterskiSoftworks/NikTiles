@@ -5,6 +5,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using NikTiles.Engine;
+using Microsoft.Xna.Framework.Content;
+using WinFormsGraphicsDevice;
 
 namespace NikTiles.Editor {
     static class ContentLoader {
@@ -26,18 +28,16 @@ namespace NikTiles.Editor {
         /// 
         /// This function can only be run once.
         /// </summary>
-        public static void LoadTextures(GraphicsDevice graphicsDevice) {
+        public static void LoadTextures(GraphicsDevice graphicsDevice, ServiceContainer Services) {
             if (!loaded) {
                 ContentLoader.graphicsDevice = graphicsDevice;
-                LoadUserInterface();
+                LoadUserInterface(Services);
 
                 Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png");
                 Engine.Texture.floor.Add("Empty", new Engine.Texture("Empty", new Texture2D(graphicsDevice, 1, 1)));
 
                 Material.floor.Add("Empty",
-                    new FloorMaterial("Empty",
-                    Engine.Texture.floor["Empty"],
-                    Engine.Texture.floor["Empty"]));
+                    new FloorMaterial("Empty",Engine.Texture.floor["Empty"],Engine.Texture.floor["Empty"]));
 
             }
 
@@ -46,26 +46,19 @@ namespace NikTiles.Editor {
         /// <summary>
         /// Loads images relating to the programs user interface.
         /// </summary>
-        private static void LoadUserInterface() {
-            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath + "/" + contentFolder + "/UI");
-            if (dir.Exists) {
+        private static void LoadUserInterface(ServiceContainer Services) {
+            ContentManager content = new ContentManager(Services, "Content");
 
-                Engine.Texture.selection   = LoadFileFrom(contentFolder + "/UI", "Selection.png");
-                Engine.Texture.grid        = LoadFileFrom(contentFolder + "/UI", "Cursor.png");
-                Engine.Texture.cursor = LoadFileFrom(contentFolder + "/UI", "Cursor.png");
+            Engine.Texture.selection = content.Load<Texture2D>("Selection");
+            Engine.Texture.grid = content.Load<Texture2D>("Cursor");
+            Engine.Texture.cursor = content.Load<Texture2D>("Cursor");
 
-                Microsoft.Xna.Framework.Color[] mouseMap = new Microsoft.Xna.Framework.Color[0];
-                FileInfo[] files = dir.GetFiles("MouseMap.png");
-                if (dir.Exists) {
-                    foreach (FileInfo file in files) {
-                        Bitmap img = (Bitmap)Image.FromFile(file.FullName, true);
-                        mouseMap = new Microsoft.Xna.Framework.Color[img.Width * img.Height];
-                        mouseMap = CreateColorArray(img);
-                    }
-                }
-
-                Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
-            }
+            MemoryStream stream = new MemoryStream();
+            content.Load<Texture2D>("MouseMap").SaveAsPng(stream, Tile.Width, Tile.Height);
+            Microsoft.Xna.Framework.Color[] mouseMap = CreateColorArray(new Bitmap(stream, true));
+            stream.Dispose();
+            Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
+            
         }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace NikTiles.Editor.Forms {
 
             Application.Idle += delegate { Invalidate(); };
             
-            ContentLoader.LoadTextures(GraphicsDevice);
+            ContentLoader.LoadTextures(GraphicsDevice, Services);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             maps.Add(new Map(100, 100));
             SetCurrentMap(0, this);
