@@ -35,9 +35,9 @@ namespace NikTiles.Engine {
             this.y = y;
             this.x = x;
             if (x % 2 == 1)
-                rectangle = new Rectangle(x*(Width+2)/2-x , y*(Height+2) + (Height+2)/2, Width, Height);
+                rectangle = new Rectangle(x*Width/2 , y*Height + Height/2, Width, Height);
             else
-                rectangle = new Rectangle(x*(Width+2)/2-x, y*(Height+2), Width, Height);
+                rectangle = new Rectangle(x*Width/2, y*Height, Width, Height);
 
         }
 

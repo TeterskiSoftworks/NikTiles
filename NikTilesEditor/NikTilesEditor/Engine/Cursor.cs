@@ -77,8 +77,8 @@ namespace NikTiles.Engine {
         /// </summary>
         public static void CreateRectangle() {
             if (X % 2 != 0)
-                rectangle  = new Rectangle((X*(Tile.Width+2)/2)-X, (Y * (Tile.Height+2) + (Tile.Height+2)/2), Tile.Width, Tile.Height);
-            else rectangle = new Rectangle((X*(Tile.Width+2)/2)-X, (Y * (Tile.Height+2)), Tile.Width, Tile.Height);
+                rectangle  = new Rectangle(X*Tile.Width/2, Y*Tile.Height + Tile.Height/2, Tile.Width, Tile.Height);
+            else rectangle = new Rectangle(X*Tile.Width/2, Y*Tile.Height, Tile.Width, Tile.Height);
         }
 
         /// <summary>
