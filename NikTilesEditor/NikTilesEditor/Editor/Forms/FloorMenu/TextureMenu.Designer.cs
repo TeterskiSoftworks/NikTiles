@@ -35,16 +35,19 @@
             this.topTextureButton = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flipButton = new System.Windows.Forms.Button();
-            this.bottomAlphaBox = new System.Windows.Forms.MaskedTextBox();
-            this.topAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomColorButton = new System.Windows.Forms.Button();
             this.topColorButton = new System.Windows.Forms.Button();
+            this.topAlphaBox = new System.Windows.Forms.NumericUpDown();
+            this.bottomAlphaBox = new System.Windows.Forms.NumericUpDown();
             this.groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topAlphaBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomAlphaBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox
             // 
             this.groupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox.Controls.Add(this.bottomAlphaBox);
             this.groupBox.Controls.Add(this.verticalFlipButton);
             this.groupBox.Controls.Add(this.horizontalFlipButton);
             this.groupBox.Controls.Add(this.button1);
@@ -55,10 +58,9 @@
             this.groupBox.Controls.Add(this.topTextureButton);
             this.groupBox.Controls.Add(this.flowLayoutPanel);
             this.groupBox.Controls.Add(this.flipButton);
-            this.groupBox.Controls.Add(this.bottomAlphaBox);
-            this.groupBox.Controls.Add(this.topAlphaBox);
             this.groupBox.Controls.Add(this.bottomColorButton);
             this.groupBox.Controls.Add(this.topColorButton);
+            this.groupBox.Controls.Add(this.topAlphaBox);
             this.groupBox.Location = new System.Drawing.Point(3, 3);
             this.groupBox.Name = "groupBox";
             this.groupBox.Size = new System.Drawing.Size(278, 250);
@@ -138,9 +140,9 @@
             this.bottomTextureButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bottomTextureButton.Location = new System.Drawing.Point(102, 39);
             this.bottomTextureButton.Name = "bottomTextureButton";
-            this.bottomTextureButton.Size = new System.Drawing.Size(118, 22);
+            this.bottomTextureButton.Size = new System.Drawing.Size(108, 22);
             this.bottomTextureButton.TabIndex = 20;
-            this.bottomTextureButton.Text = "Bottom_Texture_Name";
+            this.bottomTextureButton.Text = "Bot_Texture_Name";
             this.bottomTextureButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.bottomTextureButton.UseVisualStyleBackColor = true;
             // 
@@ -151,7 +153,7 @@
             this.topTextureButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.topTextureButton.Location = new System.Drawing.Point(102, 18);
             this.topTextureButton.Name = "topTextureButton";
-            this.topTextureButton.Size = new System.Drawing.Size(118, 22);
+            this.topTextureButton.Size = new System.Drawing.Size(108, 22);
             this.topTextureButton.TabIndex = 19;
             this.topTextureButton.TabStop = true;
             this.topTextureButton.Text = "Top_Texture_Name";
@@ -182,37 +184,11 @@
             this.flipButton.UseVisualStyleBackColor = true;
             this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
             // 
-            // bottomAlphaBox
-            // 
-            this.bottomAlphaBox.Location = new System.Drawing.Point(241, 40);
-            this.bottomAlphaBox.Mask = "000";
-            this.bottomAlphaBox.Name = "bottomAlphaBox";
-            this.bottomAlphaBox.PromptChar = ' ';
-            this.bottomAlphaBox.Size = new System.Drawing.Size(29, 20);
-            this.bottomAlphaBox.TabIndex = 6;
-            this.bottomAlphaBox.Text = "255";
-            this.bottomAlphaBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.bottomAlphaBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.bottomAlphaBox.TextChanged += new System.EventHandler(this.bottomAlphaBox_TextChanged);
-            // 
-            // topAlphaBox
-            // 
-            this.topAlphaBox.Location = new System.Drawing.Point(241, 19);
-            this.topAlphaBox.Mask = "000";
-            this.topAlphaBox.Name = "topAlphaBox";
-            this.topAlphaBox.PromptChar = ' ';
-            this.topAlphaBox.Size = new System.Drawing.Size(29, 20);
-            this.topAlphaBox.TabIndex = 5;
-            this.topAlphaBox.Text = "255";
-            this.topAlphaBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.topAlphaBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.topAlphaBox.TextChanged += new System.EventHandler(this.topAlphaBox_TextChanged);
-            // 
             // bottomColorButton
             // 
             this.bottomColorButton.BackColor = System.Drawing.Color.White;
             this.bottomColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bottomColorButton.Location = new System.Drawing.Point(220, 40);
+            this.bottomColorButton.Location = new System.Drawing.Point(210, 40);
             this.bottomColorButton.Name = "bottomColorButton";
             this.bottomColorButton.Size = new System.Drawing.Size(20, 20);
             this.bottomColorButton.TabIndex = 4;
@@ -223,12 +199,48 @@
             // 
             this.topColorButton.BackColor = System.Drawing.Color.White;
             this.topColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.topColorButton.Location = new System.Drawing.Point(220, 19);
+            this.topColorButton.Location = new System.Drawing.Point(210, 19);
             this.topColorButton.Name = "topColorButton";
             this.topColorButton.Size = new System.Drawing.Size(20, 20);
             this.topColorButton.TabIndex = 3;
             this.topColorButton.UseVisualStyleBackColor = false;
             this.topColorButton.Click += new System.EventHandler(this.topColorButton_Click);
+            // 
+            // topAlphaBox
+            // 
+            this.topAlphaBox.Location = new System.Drawing.Point(231, 19);
+            this.topAlphaBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.topAlphaBox.Name = "topAlphaBox";
+            this.topAlphaBox.Size = new System.Drawing.Size(39, 20);
+            this.topAlphaBox.TabIndex = 25;
+            this.topAlphaBox.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.topAlphaBox.ValueChanged += new System.EventHandler(this.topAlphaBox_ValueChanged);
+            // 
+            // bottomAlphaBox
+            // 
+            this.bottomAlphaBox.Location = new System.Drawing.Point(231, 40);
+            this.bottomAlphaBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.bottomAlphaBox.Name = "bottomAlphaBox";
+            this.bottomAlphaBox.Size = new System.Drawing.Size(39, 20);
+            this.bottomAlphaBox.TabIndex = 26;
+            this.bottomAlphaBox.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.bottomAlphaBox.ValueChanged += new System.EventHandler(this.bottomAlphaBox_ValueChanged);
             // 
             // TextureMenu
             // 
@@ -241,6 +253,8 @@
             this.Size = new System.Drawing.Size(284, 256);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.topAlphaBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bottomAlphaBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -253,8 +267,6 @@
         private System.Windows.Forms.RadioButton topTextureButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button flipButton;
-        private System.Windows.Forms.MaskedTextBox bottomAlphaBox;
-        private System.Windows.Forms.MaskedTextBox topAlphaBox;
         private System.Windows.Forms.Button bottomColorButton;
         private System.Windows.Forms.Button topColorButton;
         private MaterialEditPreview materialEditPreview;
@@ -262,5 +274,7 @@
         private System.Windows.Forms.Button horizontalFlipButton;
         private System.Windows.Forms.Button verticalFlipButton;
         public System.Windows.Forms.Button saveAsButton;
+        private System.Windows.Forms.NumericUpDown topAlphaBox;
+        private System.Windows.Forms.NumericUpDown bottomAlphaBox;
     }
 }

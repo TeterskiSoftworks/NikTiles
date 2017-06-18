@@ -110,15 +110,11 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         }
 
 
-        private void topAlphaBox_TextChanged(object sender, EventArgs e) {
-            if (topAlphaBox.Text == "") topAlphaBox.Text = "0";
-            else if (int.Parse(topAlphaBox.Text) > byte.MaxValue) topAlphaBox.Text = byte.MaxValue.ToString();
+        private void topAlphaBox_ValueChanged(object sender, EventArgs e) {
             materialEditPreview.TopAlpha = TopAlpha;
         }
 
-        private void bottomAlphaBox_TextChanged(object sender, EventArgs e) {
-            if (bottomAlphaBox.Text == "") bottomAlphaBox.Text = "0";
-            else if (int.Parse(bottomAlphaBox.Text) > byte.MaxValue) bottomAlphaBox.Text = byte.MaxValue.ToString();
+        private void bottomAlphaBox_ValueChanged(object sender, EventArgs e) {
             materialEditPreview.BottomAlpha = BottomAlpha;
         }
 
