@@ -33,6 +33,15 @@ namespace NikTiles.Engine {
         /// <param name="coord">The coordinate pair of the tile.</param>
         public Tile TileAt(int[] coord) { return tiles[coord[0], coord[1]]; }
 
+        public void ReplaceFloorMaterial(string original, string replacer) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    if(tiles[x, y].Material == original) tiles[x, y].Material = replacer;
+                }
+            }
+        }
+
+
         /// <summary> Draws the area of the map visible on the screen. </summary>
         /// <param name="spriteBatch">The SpriteBatch used to draw the map.</param>
         /// <param name="width">Width of the view window.</param>

@@ -62,6 +62,7 @@
             this.deleteButton.Size = new System.Drawing.Size(23, 23);
             this.deleteButton.TabIndex = 23;
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // exportButton
             // 
