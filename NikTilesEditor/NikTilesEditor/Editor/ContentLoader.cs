@@ -34,8 +34,8 @@ namespace NikTiles.Editor {
                 LoadUserInterface(Services);
 
                 Engine.Texture.floor = LoadFilesFrom(contentFolder + "/Floor", "*.png");
+                
                 Engine.Texture.floor.Add("Empty", new Engine.Texture("Empty", new Texture2D(graphicsDevice, 1, 1)));
-
                 Material.floor.Add("Empty",
                     new FloorMaterial("Empty",Engine.Texture.floor["Empty"],Engine.Texture.floor["Empty"]));
 

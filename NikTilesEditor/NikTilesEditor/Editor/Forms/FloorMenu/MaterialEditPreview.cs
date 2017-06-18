@@ -11,7 +11,7 @@ using NikTiles.Engine;
 namespace NikTiles.Editor.Forms.FloorMenu {
     public partial class MaterialEditPreview : UserControl {
 
-        private Texture bottom, top;
+        private Texture bottom , top;
         private Bitmap bottomBitmap, topBitmap;
 
         public MaterialEditPreview() {
@@ -35,15 +35,19 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         public Texture TopTexture {
             set {
-                top.DiffuseMap = value.DiffuseMap;
-                Update();
+                if (value != null) {
+                    top.DiffuseMap = value.DiffuseMap;
+                    Update();
+                }
             } get { return top; }
         }
 
         public Texture BottomTexture {
             set {
-                bottom = value;
-                Update();
+                if (value != null) {
+                    bottom = value;
+                    Update();
+                }
             } get { return bottom; }
         }
 

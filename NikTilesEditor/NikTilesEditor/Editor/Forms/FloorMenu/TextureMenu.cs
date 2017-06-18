@@ -46,14 +46,8 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             topColorButton.BackColor = material.Top.Color;
             bottomColorButton.BackColor = material.Bottom.Color;
 
-            //doesnt work proprly
-            // perhaps consider a byte input rather than a %
-            int topAlpha = material.Top.Alpha / 255 * 100;
-            int bottomAlpha = material.Bottom.Alpha / 255 * 100;
-            if (topAlpha == 100) topAlpha--;
-            if (bottomAlpha == 100) bottomAlpha--;
-            topAlphaBox.Text = topAlpha.ToString();
-            bottomAlphaBox.Text = bottomAlpha.ToString();
+            topAlphaBox.Text = material.Top.Alpha.ToString();
+            bottomAlphaBox.Text = material.Bottom.Alpha.ToString();
         }
 
         private void menuLabel_Click(object sender, EventArgs e) {
@@ -118,26 +112,23 @@ namespace NikTiles.Editor.Forms.FloorMenu {
 
         private void topAlphaBox_TextChanged(object sender, EventArgs e) {
             if (topAlphaBox.Text == "") topAlphaBox.Text = "0";
+            else if (int.Parse(topAlphaBox.Text) > byte.MaxValue) topAlphaBox.Text = byte.MaxValue.ToString();
             materialEditPreview.TopAlpha = TopAlpha;
         }
 
         private void bottomAlphaBox_TextChanged(object sender, EventArgs e) {
             if (bottomAlphaBox.Text == "") bottomAlphaBox.Text = "0";
+            else if (int.Parse(bottomAlphaBox.Text) > byte.MaxValue) bottomAlphaBox.Text = byte.MaxValue.ToString();
             materialEditPreview.BottomAlpha = BottomAlpha;
         }
 
 
         private byte TopAlpha {
-            get {
-                if (topAlphaBox.Text == "99") return byte.MaxValue;
-                return (byte)(float.Parse(topAlphaBox.Text) / 100f * 255f);
-            }
+            get {return (byte)(int.Parse(topAlphaBox.Text));}
         }
 
         private byte BottomAlpha {
-            get {
-                if (bottomAlphaBox.Text == "99") return byte.MaxValue;
-                return (byte)(float.Parse(bottomAlphaBox.Text) / 100f * 255f); }
+            get { return (byte)(float.Parse(bottomAlphaBox.Text)); }
         }
 
 

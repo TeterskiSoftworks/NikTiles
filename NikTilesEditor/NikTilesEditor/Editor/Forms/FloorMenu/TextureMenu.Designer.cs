@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextureMenu));
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.verticalFlipButton = new System.Windows.Forms.Button();
+            this.horizontalFlipButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.materialEditPreview = new NikTiles.Editor.Forms.FloorMenu.MaterialEditPreview();
             this.saveAsButton = new System.Windows.Forms.Button();
@@ -37,8 +39,6 @@
             this.topAlphaBox = new System.Windows.Forms.MaskedTextBox();
             this.bottomColorButton = new System.Windows.Forms.Button();
             this.topColorButton = new System.Windows.Forms.Button();
-            this.horizontalFlipButton = new System.Windows.Forms.Button();
-            this.verticalFlipButton = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +65,28 @@
             this.groupBox.TabIndex = 2;
             this.groupBox.TabStop = false;
             // 
+            // verticalFlipButton
+            // 
+            this.verticalFlipButton.Enabled = false;
+            this.verticalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("verticalFlipButton.Image")));
+            this.verticalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.verticalFlipButton.Location = new System.Drawing.Point(124, 67);
+            this.verticalFlipButton.Name = "verticalFlipButton";
+            this.verticalFlipButton.Size = new System.Drawing.Size(23, 23);
+            this.verticalFlipButton.TabIndex = 24;
+            this.verticalFlipButton.UseVisualStyleBackColor = true;
+            // 
+            // horizontalFlipButton
+            // 
+            this.horizontalFlipButton.Enabled = false;
+            this.horizontalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("horizontalFlipButton.Image")));
+            this.horizontalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.horizontalFlipButton.Location = new System.Drawing.Point(102, 67);
+            this.horizontalFlipButton.Name = "horizontalFlipButton";
+            this.horizontalFlipButton.Size = new System.Drawing.Size(23, 23);
+            this.horizontalFlipButton.TabIndex = 23;
+            this.horizontalFlipButton.UseVisualStyleBackColor = true;
+            // 
             // button1
             // 
             this.button1.Enabled = false;
@@ -80,10 +102,12 @@
             this.materialEditPreview.BackColor = System.Drawing.Color.CornflowerBlue;
             this.materialEditPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.materialEditPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.materialEditPreview.BottomTexture = null;
             this.materialEditPreview.Location = new System.Drawing.Point(8, 19);
             this.materialEditPreview.Name = "materialEditPreview";
             this.materialEditPreview.Size = new System.Drawing.Size(74, 43);
             this.materialEditPreview.TabIndex = 21;
+            this.materialEditPreview.TopTexture = null;
             // 
             // saveAsButton
             // 
@@ -161,12 +185,12 @@
             // bottomAlphaBox
             // 
             this.bottomAlphaBox.Location = new System.Drawing.Point(241, 40);
-            this.bottomAlphaBox.Mask = "00%";
+            this.bottomAlphaBox.Mask = "000";
             this.bottomAlphaBox.Name = "bottomAlphaBox";
             this.bottomAlphaBox.PromptChar = ' ';
             this.bottomAlphaBox.Size = new System.Drawing.Size(29, 20);
             this.bottomAlphaBox.TabIndex = 6;
-            this.bottomAlphaBox.Text = "99";
+            this.bottomAlphaBox.Text = "255";
             this.bottomAlphaBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.bottomAlphaBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.bottomAlphaBox.TextChanged += new System.EventHandler(this.bottomAlphaBox_TextChanged);
@@ -174,12 +198,12 @@
             // topAlphaBox
             // 
             this.topAlphaBox.Location = new System.Drawing.Point(241, 19);
-            this.topAlphaBox.Mask = "00%";
+            this.topAlphaBox.Mask = "000";
             this.topAlphaBox.Name = "topAlphaBox";
             this.topAlphaBox.PromptChar = ' ';
             this.topAlphaBox.Size = new System.Drawing.Size(29, 20);
             this.topAlphaBox.TabIndex = 5;
-            this.topAlphaBox.Text = "99";
+            this.topAlphaBox.Text = "255";
             this.topAlphaBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.topAlphaBox.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.topAlphaBox.TextChanged += new System.EventHandler(this.topAlphaBox_TextChanged);
@@ -205,28 +229,6 @@
             this.topColorButton.TabIndex = 3;
             this.topColorButton.UseVisualStyleBackColor = false;
             this.topColorButton.Click += new System.EventHandler(this.topColorButton_Click);
-            // 
-            // horizontalFlipButton
-            // 
-            this.horizontalFlipButton.Enabled = false;
-            this.horizontalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("horizontalFlipButton.Image")));
-            this.horizontalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.horizontalFlipButton.Location = new System.Drawing.Point(102, 67);
-            this.horizontalFlipButton.Name = "horizontalFlipButton";
-            this.horizontalFlipButton.Size = new System.Drawing.Size(23, 23);
-            this.horizontalFlipButton.TabIndex = 23;
-            this.horizontalFlipButton.UseVisualStyleBackColor = true;
-            // 
-            // verticalFlipButton
-            // 
-            this.verticalFlipButton.Enabled = false;
-            this.verticalFlipButton.Image = ((System.Drawing.Image)(resources.GetObject("verticalFlipButton.Image")));
-            this.verticalFlipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.verticalFlipButton.Location = new System.Drawing.Point(124, 67);
-            this.verticalFlipButton.Name = "verticalFlipButton";
-            this.verticalFlipButton.Size = new System.Drawing.Size(23, 23);
-            this.verticalFlipButton.TabIndex = 24;
-            this.verticalFlipButton.UseVisualStyleBackColor = true;
             // 
             // TextureMenu
             // 
@@ -257,8 +259,8 @@
         private System.Windows.Forms.Button topColorButton;
         private MaterialEditPreview materialEditPreview;
         private System.Windows.Forms.Button button1;
-        public System.Windows.Forms.Button saveAsButton;
         private System.Windows.Forms.Button horizontalFlipButton;
         private System.Windows.Forms.Button verticalFlipButton;
+        public System.Windows.Forms.Button saveAsButton;
     }
 }
