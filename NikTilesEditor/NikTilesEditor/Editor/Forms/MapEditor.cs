@@ -65,6 +65,10 @@ namespace NikTiles.Editor.Forms {
             }
         }
 
+        private void mapDisplay_MouseEnter(object sender, System.EventArgs e) {
+            mapDisplay.Focus();
+        }
+
         private bool IsKeyDown(Microsoft.Xna.Framework.Input.Keys key) {
             return Keyboard.GetState().IsKeyDown(key);
         }
