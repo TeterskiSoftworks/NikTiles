@@ -77,7 +77,10 @@ namespace NikTiles.Editor.Forms {
                 if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.I)) Selector.InverseSelection();
             }
             
-            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) { Tile.viewGrid = !Tile.viewGrid; }
+            if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.G)) {
+                gridToolStripMenuItem.Checked = !gridToolStripMenuItem.Checked;
+                Tile.viewGrid = !Tile.viewGrid;
+            }
 
             #region Selection Mode change
             if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.E))
@@ -95,6 +98,11 @@ namespace NikTiles.Editor.Forms {
                 selectionToolStrip1.SetMode(4);
             #endregion
 
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, System.EventArgs e) {
+            gridToolStripMenuItem.Checked = !gridToolStripMenuItem.Checked;
+            Tile.viewGrid = !Tile.viewGrid;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, System.EventArgs e) {
