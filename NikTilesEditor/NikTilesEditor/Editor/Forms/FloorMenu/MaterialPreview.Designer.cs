@@ -31,11 +31,11 @@
             this.nameLabel.BackColor = System.Drawing.Color.Transparent;
             this.nameLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.nameLabel.Font = new System.Drawing.Font("Segoe UI Mono", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(0, 54);
+            this.nameLabel.Location = new System.Drawing.Point(0, 22);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(128, 10);
+            this.nameLabel.Size = new System.Drawing.Size(64, 10);
             this.nameLabel.TabIndex = 1;
-            this.nameLabel.Text = "Material Name";
+            this.nameLabel.Text = "Empty";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
             this.nameLabel.MouseEnter += new System.EventHandler(this.nameLabel_MouseEnter);
@@ -50,7 +50,7 @@
             this.Controls.Add(this.nameLabel);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "MaterialPreview";
-            this.Size = new System.Drawing.Size(128, 64);
+            this.Size = new System.Drawing.Size(64, 32);
             this.ResumeLayout(false);
 
         }

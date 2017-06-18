@@ -18,7 +18,6 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             Width = Tile.Width + 10;
             Height = Tile.Height + 10;
             nameLabel.MaximumSize = Size;
-            nameLabel.Text = "";
         }
 
         public FloorMaterial Material {

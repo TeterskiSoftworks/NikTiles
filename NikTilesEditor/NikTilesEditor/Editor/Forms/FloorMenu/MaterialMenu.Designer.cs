@@ -111,7 +111,7 @@
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(182, 42);
             this.nameLabel.TabIndex = 19;
-            this.nameLabel.Text = "Name Label";
+            this.nameLabel.Text = "Empty";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel

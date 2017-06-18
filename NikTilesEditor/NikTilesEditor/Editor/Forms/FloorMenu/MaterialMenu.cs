@@ -61,6 +61,11 @@ namespace NikTiles.Editor.Forms.FloorMenu {
         }
 
         private void applyButton_Click(object sender, EventArgs e) {
+            if(materialPreview.Material == null) {
+                materialPreview.Material = Material.floor["Empty"];
+                nameLabel.Text = "Empty";
+            }
+
             Selector.ApplyFloorMaterial(materialPreview.Material.Name);
         }
         private void deleteButton_Click(object sender, EventArgs e) {
