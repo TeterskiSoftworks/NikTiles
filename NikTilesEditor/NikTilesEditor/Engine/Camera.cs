@@ -8,7 +8,7 @@ namespace NikTiles.Engine {
         private static Vector2 centre = new Vector2(0, 0);
         private static Vector2 zoom = new Vector2(1, 1);
         private static Matrix transform = Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
-        private static string oldZoom = "100";
+        public static string oldZoom = "100";
         #endregion
 
         public static void SetCenter(int x, int y) { centre.X = x; centre.Y = y; }
@@ -30,6 +30,10 @@ namespace NikTiles.Engine {
             set { zoom.Y = value; Update(); }
             get { return zoom.Y; }
         }
+
+        public static float MaxZoom { get { return 300; } }
+
+        public static float MinZoom { get { return 50; } }
 
         public static Matrix GetTransform() { return transform; }
 

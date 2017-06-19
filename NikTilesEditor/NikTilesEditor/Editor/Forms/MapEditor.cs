@@ -100,15 +100,30 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void zoomBox_TextChanged(object sender, System.EventArgs e) {
-            Camera.SetCenter(0, 0);
-            Camera.ZoomX = float.Parse(zoomBox.Text)/100;
-            Camera.ZoomY = float.Parse(zoomBox.Text)/100;
+            int zoom;
+            if (int.TryParse(zoomBox.Text, out zoom)) {
 
-            mapDisplay.Width = (int)((MapDisplay.CurrentMap.Width + 1) * Camera.ZoomX * Tile.Width / 2);
-            mapDisplay.Height = (int)((MapDisplay.CurrentMap.Height + .5) * Camera.ZoomY * Tile.Height);
+                if(zoom >Camera.MaxZoom) {
+                    zoom = (int)Camera.MaxZoom;
+                    zoomBox.Text = zoom.ToString();
 
-            Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
+                } else if(zoom<Camera.MinZoom) {
+                    zoom = (int)Camera.MinZoom;
+                    zoomBox.Text = zoom.ToString();
+                }
 
+                Camera.SetCenter(0, 0);
+                Camera.ZoomX = zoom/100f;
+                Camera.ZoomY = zoom/100f;
+
+                mapDisplay.Width = (int)((MapDisplay.CurrentMap.Width + 1) * Camera.ZoomX * Tile.Width / 2);
+                mapDisplay.Height = (int)((MapDisplay.CurrentMap.Height + .5) * Camera.ZoomY * Tile.Height);
+
+                Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
+                Camera.oldZoom = zoomBox.Text;
+            } else {
+                zoomBox.Text = Camera.oldZoom;
+            }
         }
 
         private void gridToolStripMenuItem_Click(object sender, System.EventArgs e) {
