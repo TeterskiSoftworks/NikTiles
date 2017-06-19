@@ -14,8 +14,6 @@ namespace NikTiles.Editor.Forms {
             floorTextureMenu.saveAsButton.Click += new System.EventHandler(AddNewFloorMaterial);
             floorMaterialMenu.SetEditButton(new System.EventHandler(EditFloorMaterial));
 
-            zoomBox.Text = "100";
-
             cursorBoxX.Text = "0/0";
             cursorBoxY.Text = "0/0";
 
@@ -24,12 +22,7 @@ namespace NikTiles.Editor.Forms {
         private void mapDisplay_MouseWheel(object sender, MouseEventArgs mouse) {
             Camera.SetCenter(0, 0);
             Camera.Zoom(mouse.Delta * 0.001f);
-
-            mapDisplay.Width  = (int)((MapDisplay.CurrentMap.Width + 1) * Camera.ZoomX * Tile.Width / 2);
-            mapDisplay.Height = (int)((MapDisplay.CurrentMap.Height+.5) * Camera.ZoomY * Tile.Height);
-
-
-            Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
+            zoomBox.Text = (Camera.ZoomX * 100).ToString();
             ((HandledMouseEventArgs)mouse).Handled = true;
         }
 
@@ -43,8 +36,10 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void mapDisplay_MouseDown(object sender, MouseEventArgs mouse) {
-            Selector.MouseDown=true;
-            Selector.Select();
+            if (mouse.Button == MouseButtons.Left) {
+                Selector.MouseDown = true;
+                Selector.Select();
+            }
         }
 
         private void mapDisplay_MouseMove(object sender, MouseEventArgs mouse) {
@@ -101,6 +96,18 @@ namespace NikTiles.Editor.Forms {
             else if (IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4))
                 selectionToolStrip1.SetMode(4);
             #endregion
+
+        }
+
+        private void zoomBox_TextChanged(object sender, System.EventArgs e) {
+            Camera.SetCenter(0, 0);
+            Camera.ZoomX = float.Parse(zoomBox.Text)/100;
+            Camera.ZoomY = float.Parse(zoomBox.Text)/100;
+
+            mapDisplay.Width = (int)((MapDisplay.CurrentMap.Width + 1) * Camera.ZoomX * Tile.Width / 2);
+            mapDisplay.Height = (int)((MapDisplay.CurrentMap.Height + .5) * Camera.ZoomY * Tile.Height);
+
+            Camera.SetCenter(mapPanel.HorizontalScroll.Value * 2, mapPanel.VerticalScroll.Value);
 
         }
 
