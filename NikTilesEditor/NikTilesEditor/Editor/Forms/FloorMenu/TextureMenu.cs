@@ -44,6 +44,7 @@ namespace NikTiles.Editor.Forms.FloorMenu {
             materialEditPreview.BottomTexture = material.Bottom.Copy();
 
             topColorButton.BackColor = material.Top.Color;
+            materialEditPreview.TopColor = material.Top.Color;  //Why only for the top one?
             bottomColorButton.BackColor = material.Bottom.Color;
 
             topAlphaBox.Text = material.Top.Alpha.ToString();
