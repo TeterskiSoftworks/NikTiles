@@ -15,36 +15,28 @@ namespace NikTiles.Engine {
         private static Color mouseMapPosition = new Color();
         private static bool offGrid = false;
 
-        public enum Mode {
+        public enum Modes {
             Floor, Wall
         }
 
-        public static Mode currentMode = Mode.Floor;
-
-        public static Mode GetCurrentMode() { return currentMode; }
-        public static void SetMode(Mode mode) { currentMode = mode; }
-
+        private static Modes currentMode = Modes.Floor;
         #endregion
 
-        public static int X {
-            get {
+        public static Modes Mode{ set { currentMode = value; } get { return currentMode; } }
+
+        public static int X { get {
                 switch (currentMode) {
-                    case Mode.Floor:
-                        return FloorCursor.X;
-                    case Mode.Wall:
-                        return WallCursor.X;
+                    case Modes.Floor: return FloorCursor.X;
+                    case Modes.Wall:  return WallCursor.X;
                 }
                 return -1;
             }
         }
 
-        public static int Y {
-            get {
+        public static int Y {get {
                 switch (currentMode) {
-                    case Mode.Floor:
-                        return FloorCursor.Y;
-                    case Mode.Wall:
-                        return WallCursor.Y;
+                    case Modes.Floor:    return FloorCursor.Y;
+                    case Modes.Wall:     return WallCursor.Y;
                 }
                 return -1;
             }
@@ -52,10 +44,10 @@ namespace NikTiles.Engine {
 
         public static void SetCursor(MouseEventArgs mouse) {
             switch (currentMode){
-                case Mode.Floor:
+                case Modes.Floor:
                     FloorCursor.SetCursor(mouse);
                     break;
-                case Mode.Wall:
+                case Modes.Wall:
                     break;
             }
 
@@ -63,10 +55,10 @@ namespace NikTiles.Engine {
 
         public static void Draw(SpriteBatch spriteBatch) {
             switch (currentMode) {
-                case Mode.Floor:
+                case Modes.Floor:
                     FloorCursor.Draw(spriteBatch);
                     break;
-                case Mode.Wall:
+                case Modes.Wall:
                     break;
             }
         }
@@ -79,10 +71,10 @@ namespace NikTiles.Engine {
 
         public static void CreateRectangle() {
             switch (currentMode) {
-                case Mode.Floor:
+                case Modes.Floor:
                     FloorCursor.CreateRectangle();
                     break;
-                case Mode.Wall:
+                case Modes.Wall:
                     break;
             }
         }

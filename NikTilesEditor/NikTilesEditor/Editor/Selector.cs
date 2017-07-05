@@ -11,17 +11,15 @@ namespace NikTiles.Editor {
         /// <summary>
         /// The mode refers to how the selector functions. E.i. point selection, line selection, etc.
         /// </summary>
-        public enum Mode {
+        public enum Modes {
             Point, Line, Box, BoxAlign, Circle }
 
         private static int[] head, tail;
         private static int width = 1;
         private static bool firstPress = false, deselect=false,mouseDown=false;
-        private static Mode currentMode = Mode.Point;
+        private static Modes currentMode = Modes.Point;
 
-
-        public static void SetMode(Mode mode) { currentMode = mode; }
-        public static Mode GetMode() { return currentMode; }
+        public static Modes Mode { set { currentMode = value; } get { return currentMode; } }
 
         public static bool Deselect { get { return deselect; } set { deselect = value; } }
 
@@ -30,10 +28,10 @@ namespace NikTiles.Editor {
 
         public static void Select() {
             switch (currentMode) {
-                case Mode.Point:    PointSelect(); break;
-                case Mode.Line:     LineSelect(); break;
-                case Mode.Box:      BoxSelect(width); break;
-                case Mode.BoxAlign: BoxAlignSelect(width); break;
+                case Modes.Point:    PointSelect(); break;
+                case Modes.Line:     LineSelect(); break;
+                case Modes.Box:      BoxSelect(width); break;
+                case Modes.BoxAlign: BoxAlignSelect(width); break;
             }
 
         }

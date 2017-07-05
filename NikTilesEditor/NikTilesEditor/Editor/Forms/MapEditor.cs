@@ -157,7 +157,7 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void tabControl_SelectedIndexChanged(object sender, System.EventArgs e) {
-            Engine.Cursor.SetMode((Engine.Cursor.Mode)tabControl.SelectedIndex);
+            Engine.Cursor.Mode = (Engine.Cursor.Modes)tabControl.SelectedIndex;
         }
     }
 

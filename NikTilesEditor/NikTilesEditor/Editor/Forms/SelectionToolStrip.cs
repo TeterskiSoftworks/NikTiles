@@ -42,7 +42,7 @@ namespace NikTiles.Editor.Forms {
 
         private void PointButton_CheckedChanged(object sender, EventArgs e) {
             if (pointButton.Checked) {
-                Selector.SetMode(Selector.Mode.Point);
+                Selector.Mode = Selector.Modes.Point;
                 fillButton.Enabled = false;
                 fillButton.Checked = false;
                 widthBox.Enabled = false;
@@ -51,7 +51,7 @@ namespace NikTiles.Editor.Forms {
 
         private void LineButton_CheckedChanged(object sender, EventArgs e) {
             if (lineButton.Checked) {
-                Selector.SetMode(Selector.Mode.Line);
+                Selector.Mode = Selector.Modes.Line;
                 fillButton.Enabled = false;
                 fillButton.Checked = false;
                 widthBox.Enabled = false;
@@ -60,7 +60,7 @@ namespace NikTiles.Editor.Forms {
 
         private void BoxAlignButton_CheckedChanged(object sender, EventArgs e) {
             if (boxAlignButton.Checked) {
-                Selector.SetMode(Selector.Mode.BoxAlign);
+                Selector.Mode = Selector.Modes.BoxAlign;
                 fillButton.Enabled = true;
                 widthBox.Enabled = !fillButton.Checked;
             }
@@ -68,7 +68,7 @@ namespace NikTiles.Editor.Forms {
 
         private void BoxButton_CheckedChanged(object sender, EventArgs e) {
             if (boxButton.Checked) {
-                Selector.SetMode(Selector.Mode.Box);
+                Selector.Mode = Selector.Modes.Box;
                 fillButton.Enabled = true;
                 widthBox.Enabled = !fillButton.Checked;
             }
