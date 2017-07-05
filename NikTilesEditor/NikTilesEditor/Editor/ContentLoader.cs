@@ -50,8 +50,8 @@ namespace NikTiles.Editor {
             ContentManager content = new ContentManager(Services, "Content");
 
             Engine.Texture.selection = content.Load<Texture2D>("Selection");
-            Engine.Texture.grid = content.Load<Texture2D>("Cursor");
-            Engine.Texture.cursor = content.Load<Texture2D>("Cursor");
+            Engine.Texture.grid = content.Load<Texture2D>("Cursor Floor");
+            Engine.Texture.cursor = content.Load<Texture2D>("Cursor Floor");
 
             MemoryStream stream = new MemoryStream();
             content.Load<Texture2D>("MouseMap").SaveAsPng(stream, Tile.Width, Tile.Height);
