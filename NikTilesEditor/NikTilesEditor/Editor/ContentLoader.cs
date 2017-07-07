@@ -13,8 +13,6 @@ namespace NikTiles.Editor {
 
 
         #region Declarations
-        
-
         private static bool loaded = false;
         private static string contentFolder = "Content";
         private static GraphicsDevice graphicsDevice;
@@ -50,14 +48,17 @@ namespace NikTiles.Editor {
             ContentManager content = new ContentManager(Services, "Content");
 
             Engine.Texture.selection = content.Load<Texture2D>("Selection");
-            Engine.Texture.grid = content.Load<Texture2D>("Cursor Floor");
-            Engine.Texture.cursor = content.Load<Texture2D>("Cursor Floor");
+            Engine.Texture.grid = content.Load<Texture2D>("Cursor/Sprites/Floor");
 
             MemoryStream stream = new MemoryStream();
-            content.Load<Texture2D>("MouseMap").SaveAsPng(stream, Tile.Width, Tile.Height);
+            content.Load<Texture2D>("Cursor/MouseMap").SaveAsPng(stream, Tile.Width, Tile.Height);
             Microsoft.Xna.Framework.Color[] mouseMap = CreateColorArray(new Bitmap(stream, true));
             stream.Dispose();
-            Engine.Cursor.LoadCursorTextures(mouseMap, Engine.Texture.cursor);
+
+            Engine.Cursor.LoadCursorTextures(
+                mouseMap,
+                content.Load<Texture2D>("Cursor/Sprites/Floor"),
+                content.Load<Texture2D>("Cursor/Sprites/Wall"));
             
         }
 

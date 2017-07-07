@@ -29,13 +29,8 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cursor Floor.png">
-      <Name>Cursor Floor</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="MouseMap.png">
-      <Name>MouseMap</Name>
+    <Compile Include="Cursor\Sprites\Floor.png">
+      <Name>Floor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -46,8 +41,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cursor Wall.png">
-      <Name>Cursor Wall</Name>
+    <Compile Include="Cursor\MouseMap.png">
+      <Name>MouseMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cursor\Sprites\Wall.png">
+      <Name>Wall</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
