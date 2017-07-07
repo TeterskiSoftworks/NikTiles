@@ -169,25 +169,19 @@ namespace NikTiles.Engine {
             }
 
             public static void CreateRectangle() {
-                if (X % 2 != 0) {
-                    if (mouseMapPosition == Color.Red)
-                        rectangle = new Rectangle((X+1) * Tile.Width / 2, Y * Tile.Height + 1, Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.Yellow)
-                        rectangle = new Rectangle(X * Tile.Width / 2, Y * Tile.Height + 1, Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.Green)
-                        rectangle = new Rectangle((X+1) * Tile.Width / 2, (int)((Y - 0.5) * Tile.Height + 1), Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.Blue)
-                        rectangle = new Rectangle(X * Tile.Width / 2, (int)((Y - 0.5) * Tile.Height + 1), Tile.Width / 2, 3 * Tile.Height / 2);
-                } else {
-                    if (mouseMapPosition == Color.Brown)
-                        rectangle = new Rectangle(  X   * Tile.Width / 2, (Y - 1) * Tile.Height + 1, Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.Gold)
-                        rectangle = new Rectangle((X+1) * Tile.Width / 2, (Y - 1) * Tile.Height + 1, Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.LawnGreen)
-                        rectangle = new Rectangle(  X   * Tile.Width / 2, (int)((Y-0.5) * Tile.Height + 1), Tile.Width / 2, 3 * Tile.Height / 2);
-                    if (mouseMapPosition == Color.Aqua)
-                        rectangle = new Rectangle((X+1) * Tile.Width / 2, (int)((Y-0.5) * Tile.Height + 1), Tile.Width / 2, 3 * Tile.Height / 2);
-                }
+
+                rectangle = new Rectangle(
+                    mouseMapPosition == Color.Yellow || mouseMapPosition == Color.Blue || 
+                    mouseMapPosition == Color.Brown  || mouseMapPosition == Color.LawnGreen ?
+                    X * Tile.Width / 2 : (X + 1) * Tile.Width / 2
+                    ,
+                    mouseMapPosition == Color.Green || mouseMapPosition == Color.Blue ||
+                    mouseMapPosition == Color.LawnGreen || mouseMapPosition == Color.Aqua ?
+                    (int)((Y - 0.5) * Tile.Height + 1) :
+                    mouseMapPosition == Color.Red || mouseMapPosition == Color.Yellow  ?
+                    Y * Tile.Height + 1 : (Y - 1) * Tile.Height + 1
+                    ,
+                    Tile.Width / 2,3 * Tile.Height / 2);
             }
 
         }
