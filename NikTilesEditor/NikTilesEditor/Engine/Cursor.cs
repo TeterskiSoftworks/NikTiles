@@ -7,8 +7,9 @@ namespace NikTiles.Engine {
     public static class Cursor {
 
         #region Fields
-        private static Vector2 position = new Vector2(1, 0);
-        private static Rectangle rectangle = new Rectangle(0, 0, 0, 0);
+        private static Vector2
+            coordinate    = new Vector2(1, 0),
+            pixelPosition = new Vector2();
 
         private static Texture2D floorSprite, wallRightSprite, wallLeftSprite;
 
@@ -19,17 +20,19 @@ namespace NikTiles.Engine {
         
         #endregion
 
-        public static int X { get { return (int)position.X; } }
-        public static int Y { get { return (int)position.Y; } }
+        public static int X { get { return (int)coordinate.X; } }
+        public static int Y { get { return (int)coordinate.Y; } }
+
+        public static Vector2 Coordinate { get { return coordinate; } }
 
         /// <summary>
         /// Sets the cursor on the map based on user mouse movement.
         /// </summary>
         public static void SetCursor(MouseEventArgs mouse) {
 
-            position.X = (int)((2 * mouse.X - Tile.Width * Camera.ZoomX) / (Tile.Width * Camera.ZoomX));
-            if (position.X % 2 != 0) position.X++;
-            position.Y = (int)(mouse.Y / (Tile.Height * Camera.ZoomY));
+            coordinate.X = (int)((2 * mouse.X - Tile.Width * Camera.ZoomX) / (Tile.Width * Camera.ZoomX));
+            if (coordinate.X % 2 != 0) coordinate.X++;
+            coordinate.Y = (int)(mouse.Y / (Tile.Height * Camera.ZoomY));
 
             OffGridCheck1(mouse);
 
@@ -40,25 +43,35 @@ namespace NikTiles.Engine {
                     (int)(mouse.Y / Camera.ZoomY - Y * Tile.Height) * floorSprite.Height / Tile.Height +
                     (int)(mouse.X / Camera.ZoomX - X * Tile.Width / 2) * floorSprite.Width / Tile.Width];
                 
-                //Brown
-                //Gold 255 215 0
-                //Aqua 0 255 255
-                //Lawn Green 124 252 0
+                //Brown      165 042 042
+                //Gold       255 215 000
+                //Aqua       000 255 255
+                //Lawn Green 124 252 000
 
                 if (mouseMapPosition == Color.Red) {
-                    position.X--;
-                    position.Y--;
+                    coordinate.X--;
+                    coordinate.Y--;
                 } else if (mouseMapPosition == Color.Yellow) {
-                    position.X++;
-                    position.Y--;
+                    coordinate.X++;
+                    coordinate.Y--;
                 } else if (mouseMapPosition == Color.Green) {
-                    position.X--;
+                    coordinate.X--;
                 } else if (mouseMapPosition == Color.Blue) {
-                    position.X++;
+                    coordinate.X++;
                 }
                 OffGridCheck2();
-                CreateRectangle();
+                UpdatePixelPosition();
             }
+        }
+
+        /// <summary>
+        /// Translates or moves the camera.
+        /// </summary>
+        /// <param name="y">Change in Y.</param>
+        /// <param name="x">Change in X.</param>
+        public static void Translate(int y, int x) {
+            coordinate.X += x; coordinate.Y += x;
+            UpdatePixelPosition();
         }
 
         /// <summary>
@@ -66,12 +79,12 @@ namespace NikTiles.Engine {
         /// </summary>
         private static void OffGridCheck1(MouseEventArgs mouse) {
             offGrid = false;
-            if ((int)(mouse.X / Camera.ZoomX - position.X * Tile.Width / 2 + Camera.GetPixelsX() / Camera.ZoomX) * floorSprite.Width / Tile.Width < 0)
+            if ((int)(mouse.X / Camera.ZoomX - coordinate.X * Tile.Width / 2 + Camera.GetPixelsX() / Camera.ZoomX) * floorSprite.Width / Tile.Width < 0)
                 offGrid = true;
-            else if ((int)(mouse.Y / Camera.ZoomY - position.Y * Tile.Height + Camera.GetPixelsY() / Camera.ZoomY) * floorSprite.Height / Tile.Height < 0)
+            else if ((int)(mouse.Y / Camera.ZoomY - coordinate.Y * Tile.Height + Camera.GetPixelsY() / Camera.ZoomY) * floorSprite.Height / Tile.Height < 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.CurrentMap.Width - 1) offGrid = true;
-            else if (position.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
+            else if (coordinate.X > MapDisplay.CurrentMap.Width - 1) offGrid = true;
+            else if (coordinate.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
         }
 
         /// <summary>
@@ -81,18 +94,11 @@ namespace NikTiles.Engine {
         /// </summary>
         private static void OffGridCheck2() {
             offGrid = false;
-            if (position.X < 0) offGrid = true;
-            if (position.Y < 0 && position.X % 2 != 0)
+            if (coordinate.X < 0) offGrid = true;
+            if (coordinate.Y < 0 && coordinate.X % 2 != 0)
                 offGrid = true;
-            else if (position.X > MapDisplay.CurrentMap.Width - 1) offGrid = true;
-            else if (position.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
-        }
-
-        public static void Draw(SpriteBatch spriteBatch) {
-            switch (MapEditor.Mode) {
-                case MapEditor.Modes.Floor:   FloorCursor.Draw(spriteBatch);  break;
-                case MapEditor.Modes.Wall:    WallCursor.Draw(spriteBatch);   break;
-            }
+            else if (coordinate.X > MapDisplay.CurrentMap.Width - 1) offGrid = true;
+            else if (coordinate.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
         }
 
         public static void LoadCursorTextures(Color[] mouseMap, Texture2D floorSprite, Texture2D wallSprite) {
@@ -105,73 +111,54 @@ namespace NikTiles.Engine {
             bitmap.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
             stream.Dispose();
             wallRightSprite = Editor.ContentLoader.CreateTexture2D(bitmap);
-            CreateRectangle();
+            UpdatePixelPosition();
         }
 
-        public static void CreateRectangle() {
+        public static void Draw(SpriteBatch spriteBatch) {
+            if (!offGrid) {
+                switch (MapEditor.Mode) {
+
+                    #region Floor
+                    case MapEditor.Modes.Floor:
+                        spriteBatch.Draw(floorSprite, pixelPosition, Color.White);
+                        break;
+                    #endregion
+
+                    #region Wall
+                    case MapEditor.Modes.Wall:
+                        spriteBatch.Draw(
+                            mouseMapPosition == Color.Gold || mouseMapPosition == Color.Yellow ||
+                            mouseMapPosition == Color.LawnGreen || mouseMapPosition == Color.Green ?
+                            wallRightSprite : wallLeftSprite, pixelPosition, Color.White);
+                        break;
+                        #endregion
+                }
+            }
+        }
+        
+        public static void UpdatePixelPosition() {
             switch (MapEditor.Mode) {
-                case MapEditor.Modes.Floor:   FloorCursor.CreateRectangle();  break;
-                case MapEditor.Modes.Wall:    WallCursor.CreateRectangle();   break;
+                case MapEditor.Modes.Floor:
+                    if (X % 2 != 0) {
+                        pixelPosition.X = X * Tile.Width / 2;
+                        pixelPosition.Y = Y * Tile.Height + Tile.Height / 2;
+                    } else {
+                        pixelPosition.X = X * Tile.Width / 2;
+                        pixelPosition.Y = Y * Tile.Height;
+                    }
+                    break;
+                case MapEditor.Modes.Wall:
+                    pixelPosition.X = mouseMapPosition == Color.Yellow || mouseMapPosition == Color.Blue ||
+                                      mouseMapPosition == Color.Brown  || mouseMapPosition == Color.LawnGreen ?
+                                      X * Tile.Width / 2 : (X + 1) * Tile.Width / 2;
+
+                    pixelPosition.Y = mouseMapPosition == Color.Green || mouseMapPosition == Color.Blue ||
+                                      mouseMapPosition == Color.LawnGreen || mouseMapPosition == Color.Aqua ?
+                                      (int)((Y - 0.5) * Tile.Height + 1) :
+                                      mouseMapPosition == Color.Red || mouseMapPosition == Color.Yellow ?
+                                      Y * Tile.Height + 1 : (Y - 1) * Tile.Height + 1;
+                    break;
             }
-        }
-
-        private static class FloorCursor {
-
-            /// <summary>
-            /// Translates or moves the camera.
-            /// </summary>
-            /// <param name="y">Change in Y.</param>
-            /// <param name="x">Change in X.</param>
-            public static void Translate(int y, int x) {
-                position.X += x; position.Y += x;
-                CreateRectangle();
-            }
-
-            /// <summary>
-            /// Creates/recreates the rectangle used by XNA to draw the cursor.
-            /// This visually chagned the location of the cursor on the screen.
-            /// </summary>
-            public static void CreateRectangle() {
-                if (X % 2 != 0)
-                    rectangle = new Rectangle(X * Tile.Width / 2, Y * Tile.Height + Tile.Height / 2, Tile.Width, Tile.Height);
-                else rectangle = new Rectangle(X * Tile.Width / 2, Y * Tile.Height, Tile.Width, Tile.Height);
-            }
-
-            public static Vector2 GetPosition() {
-                return position;
-            }
-
-            public static void Draw(SpriteBatch spriteBatch) {
-                if (!offGrid) spriteBatch.Draw(floorSprite, rectangle, Color.White);
-            }
-
-        }
-
-        private static class WallCursor {
-            
-            public static void Draw(SpriteBatch spriteBatch) {
-                if (!offGrid) spriteBatch.Draw( 
-                    mouseMapPosition == Color.Gold || mouseMapPosition == Color.Yellow ||
-                    mouseMapPosition == Color.LawnGreen || mouseMapPosition == Color.Green ? 
-                    wallRightSprite : wallLeftSprite,    rectangle, Color.White);
-            }
-
-            public static void CreateRectangle() {
-
-                rectangle = new Rectangle(
-                    mouseMapPosition == Color.Yellow || mouseMapPosition == Color.Blue || 
-                    mouseMapPosition == Color.Brown  || mouseMapPosition == Color.LawnGreen ?
-                    X * Tile.Width / 2 : (X + 1) * Tile.Width / 2
-                    ,
-                    mouseMapPosition == Color.Green || mouseMapPosition == Color.Blue ||
-                    mouseMapPosition == Color.LawnGreen || mouseMapPosition == Color.Aqua ?
-                    (int)((Y - 0.5) * Tile.Height + 1) :
-                    mouseMapPosition == Color.Red || mouseMapPosition == Color.Yellow  ?
-                    Y * Tile.Height + 1 : (Y - 1) * Tile.Height + 1
-                    ,
-                    Tile.Width / 2,3 * Tile.Height / 2);
-            }
-
         }
 
         public static Color MouseMapPosition {

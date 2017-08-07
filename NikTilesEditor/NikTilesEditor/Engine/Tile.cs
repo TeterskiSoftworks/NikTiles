@@ -19,21 +19,21 @@ namespace NikTiles.Engine {
         /// <summary> Returns the width the game tiles. </summary>
         public static int Width { get { return width; } }
         /// <summary> Returns the height the game tiles. </summary>
-        public static int Height{ get { return height; } }
+        public static int Height { get { return height; } }
 
         #endregion
 
         #region Declarations
-        private Vector2 leftWallPosition  = new Vector2(),
-                        rightWallPosition = new Vector2(),
-                        floorPosition     = new Vector2();
-        private bool floorSelected     = false,
-                     leftWallSelected  = false,
-                     rightWallSelected = false;
+        private Vector2 coordinate = new Vector2();
+        private Vector2[] pixelPosition = new Vector2[3];
+        private bool[] selected = new bool[]{ false,false,false};
+        private const int FLOOR = 0, LEFTWALL = 1, RIGHTWALL = 2;
+
         private bool debug = false;
         #endregion
 
         public Tile(int x, int y) {
+            coordinate = new Vector2(x, y);
             if (x % 2 == 1)
                 Position = new Vector2(x * Width / 2, y * Height + Height/2);
             else
@@ -41,18 +41,20 @@ namespace NikTiles.Engine {
         }
 
         /// <summary> Returns the x coordinate of the tile. </summary>
-        public int X { get { return (int)Position.X; } }
+        public int X { get { return (int)coordinate.X; } }
         /// <summary> Returns the y coordinate of the tile. </summary>
-        public int Y { get { return (int)Position.Y; } }
+        public int Y { get { return (int)coordinate.Y; } }
 
-        /// <summary> Returns the position of the tile in vector form. </summary>
-        public Vector2 Position {
+        /// <summary> Sets or returns the pixel position of the tile in vector form. </summary>
+        private Vector2 Position {
             set {
-                floorPosition = value;
-                leftWallPosition  = new Vector2(Position.X, Position.Y - Height +1);
-                rightWallPosition = new Vector2(Position.X + Width / 2, Position.Y - Height + 1);
-            } get { return floorPosition; }
+                pixelPosition[FLOOR] = value;
+                pixelPosition[LEFTWALL]  = new Vector2(Position.X, Position.Y - Height +1);
+                pixelPosition[RIGHTWALL] = new Vector2(Position.X + Width / 2, Position.Y - Height + 1);
+            } get { return pixelPosition[FLOOR]; }
         }
+
+        #region Draw
 
         /// <summary> Draws the tile. </summary>
         /// <param name="spriteBatch">The SpriteBatch used to draw the tile.</param>
@@ -61,38 +63,49 @@ namespace NikTiles.Engine {
             DrawWall(spriteBatch);
         }
 
-        public void DrawFloor(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Engine.Material.floor[material].DiffuseMap, floorPosition, Color.White);
-            if (viewGrid)      spriteBatch.Draw(Texture.grid,            floorPosition, Color.Black * 0.5f);
-            if (floorSelected) spriteBatch.Draw(Texture.floorSelection,  floorPosition, Color.Aqua  * 0.5f);
+        private void DrawFloor(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(Engine.Material.floor[material].DiffuseMap, pixelPosition[FLOOR], Color.White);
+            if (viewGrid)        spriteBatch.Draw(Texture.grid,            pixelPosition[FLOOR], Color.Black * 0.5f);
+            if (selected[FLOOR]) spriteBatch.Draw(Texture.floorSelection,  pixelPosition[FLOOR], Color.Aqua  * 0.5f);
         }
 
-        public void DrawWall(SpriteBatch spriteBatch) {
-            if (leftWallSelected ) spriteBatch.Draw(Texture.wallSelection, leftWallPosition,       Color.Aqua * 0.5f);
-            if (rightWallSelected) spriteBatch.Draw(Texture.wallSelection, rightWallPosition,null, Color.Aqua * 0.5f, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 1);
-            if (debug)             spriteBatch.Draw(Texture.wall,          leftWallPosition,       Color.Red  * 0.5f);
+        private void DrawWall(SpriteBatch spriteBatch) {
+            if (selected[LEFTWALL])  spriteBatch.Draw(Texture.wallSelection, pixelPosition[LEFTWALL] ,       Color.Aqua * 0.5f);
+            if (selected[RIGHTWALL]) spriteBatch.Draw(Texture.wallSelection, pixelPosition[RIGHTWALL], null, Color.Aqua * 0.5f, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 1);
         }
+        #endregion
 
+
+        #region Selection
 
         /// <summary> Selects/deselects the tile's floor. </summary>
-        public void SelectFloor() {
-            floorSelected = !Selector.Deselect;
+        public void Select(bool select) {
+            SelectFloor(select);
+            SelectWalls(select);
         }
 
-        public void SelectWall(bool right) {
-            if (right) rightWallSelected = !Selector.Deselect;
-            else       leftWallSelected  = !Selector.Deselect;
+        public void SelectFloor(bool select) {
+            selected[FLOOR] = select;
         }
 
-        public bool Selected {
-            get { return floorSelected; }
-            set { floorSelected = value; }
+        public void SelectWalls(bool select) {
+            SelectWall(select, false);
+            SelectWall(select, true);
         }
+
+        public void SelectWall(bool select, bool right) {
+            if (right) selected[RIGHTWALL] = select;
+            else        selected[LEFTWALL] = select;
+        }
+
+        public bool Selected { get { return selected[FLOOR];  } }
 
         /// <summary> Inverts the tile's selection value. </summary>
         public void InverseSelection() {
-            floorSelected = !floorSelected;
+            selected[FLOOR] = !selected[FLOOR];
         }
+
+        #endregion
 
         public string Material { get { return material; } set { material = value; }}
 
