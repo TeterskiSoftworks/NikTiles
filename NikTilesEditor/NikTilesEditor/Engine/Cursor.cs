@@ -16,18 +16,8 @@ namespace NikTiles.Engine {
 
         private static Color mouseMapPosition = Color.White;
         private static bool offGrid = false;
-
-        public enum Modes {
-            Floor, Wall
-        }
-
-        private static Modes currentMode = Modes.Floor;
+        
         #endregion
-
-        public static Modes Mode{
-            set { currentMode = value; CreateRectangle(); }
-            get { return currentMode; }
-        }
 
         public static int X { get { return (int)position.X; } }
         public static int Y { get { return (int)position.Y; } }
@@ -54,7 +44,6 @@ namespace NikTiles.Engine {
                 //Gold 255 215 0
                 //Aqua 0 255 255
                 //Lawn Green 124 252 0
-
 
                 if (mouseMapPosition == Color.Red) {
                     position.X--;
@@ -99,11 +88,10 @@ namespace NikTiles.Engine {
             else if (position.Y > MapDisplay.CurrentMap.Height - 1) offGrid = true;
         }
 
-
         public static void Draw(SpriteBatch spriteBatch) {
-            switch (Mode) {
-                case Modes.Floor:   FloorCursor.Draw(spriteBatch);  break;
-                case Modes.Wall:    WallCursor.Draw(spriteBatch);   break;
+            switch (MapEditor.Mode) {
+                case MapEditor.Modes.Floor:   FloorCursor.Draw(spriteBatch);  break;
+                case MapEditor.Modes.Wall:    WallCursor.Draw(spriteBatch);   break;
             }
         }
 
@@ -121,9 +109,9 @@ namespace NikTiles.Engine {
         }
 
         public static void CreateRectangle() {
-            switch (Mode) {
-                case Modes.Floor:   FloorCursor.CreateRectangle();  break;
-                case Modes.Wall:    WallCursor.CreateRectangle();    break;
+            switch (MapEditor.Mode) {
+                case MapEditor.Modes.Floor:   FloorCursor.CreateRectangle();  break;
+                case MapEditor.Modes.Wall:    WallCursor.CreateRectangle();   break;
             }
         }
 
@@ -184,6 +172,10 @@ namespace NikTiles.Engine {
                     Tile.Width / 2,3 * Tile.Height / 2);
             }
 
+        }
+
+        public static Color MouseMapPosition {
+            get { return mouseMapPosition; }
         }
     }
 }

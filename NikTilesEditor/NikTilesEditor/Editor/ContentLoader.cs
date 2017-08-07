@@ -47,7 +47,8 @@ namespace NikTiles.Editor {
         private static void LoadUserInterface(ServiceContainer Services) {
             ContentManager content = new ContentManager(Services, "Content");
 
-            Engine.Texture.selection = content.Load<Texture2D>("Selection");
+            Engine.Texture.floorSelection = content.Load<Texture2D>("Selection/Floor");
+            Engine.Texture.wallSelection  = content.Load<Texture2D>("Selection/Wall");
             Engine.Texture.grid      = content.Load<Texture2D>("Cursor/Sprites/Floor");
             Engine.Texture.wall      = content.Load<Texture2D>("Cursor/Sprites/Wall");
 

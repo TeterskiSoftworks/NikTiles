@@ -7,6 +7,17 @@ namespace NikTiles.Editor.Forms {
     public partial class MapEditor : Form {
         
 
+        public enum Modes {
+            Floor, Wall
+        }
+
+        private static Modes currentMode = Modes.Floor;
+
+        public static Modes Mode {
+            set { currentMode = value; }
+            get { return currentMode;  }
+        }
+
         public MapEditor() {
 
             InitializeComponent();
@@ -157,8 +168,9 @@ namespace NikTiles.Editor.Forms {
         }
 
         private void tabControl_SelectedIndexChanged(object sender, System.EventArgs e) {
-            Engine.Cursor.Mode = (Engine.Cursor.Modes)tabControl.SelectedIndex;
+            Mode = (Modes)tabControl.SelectedIndex;
         }
+
     }
 
 }
