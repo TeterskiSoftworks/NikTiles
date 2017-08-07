@@ -42,6 +42,9 @@ namespace NikTiles.Editor.Forms {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             maps.Add(new Map(100, 100));
             SetCurrentMap(0, this);
+
+            CurrentMap.TileAt(1, 1).Debug();
+
         }
 
         protected override void Draw() {

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace NikTiles.Engine {
     public class Texture{
 
-        public static Texture2D selection, grid;
+        public static Texture2D selection, grid, wall;
         
         public static Dictionary<string, Texture> floor;
 

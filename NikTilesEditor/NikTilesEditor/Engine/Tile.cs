@@ -24,37 +24,50 @@ namespace NikTiles.Engine {
         #endregion
 
         #region Declarations
-        private Rectangle rectangle = new Rectangle(0, 0, Width, Height);
-        private int y, x;
+        private Vector2 wallPosition  = new Vector2(),
+                        floorPosition = new Vector2();
         private bool selected = false;
         private bool debug = false;
         #endregion
 
         public Tile(int x, int y) {
-
-            this.y = y;
-            this.x = x;
             if (x % 2 == 1)
-                rectangle = new Rectangle(x*Width/2 , y*Height + Height/2, Width, Height);
+                Position = new Vector2(x * Width / 2, y * Height + Height/2);
             else
-                rectangle = new Rectangle(x*Width/2, y*Height, Width, Height);
-
+                Position = new Vector2(x * Width / 2, y * Height);
         }
 
         /// <summary> Returns the x coordinate of the tile. </summary>
-        public int X { get { return x; } }
+        public int X { get { return (int)Position.X; } }
         /// <summary> Returns the y coordinate of the tile. </summary>
-        public int Y { get { return y; } }
+        public int Y { get { return (int)Position.Y; } }
 
+        /// <summary> Returns the position of the tile in vector form. </summary>
+        public Vector2 Position {
+            set {
+                floorPosition = value;
+                wallPosition = new Vector2(Position.X, Position.Y - Height +1);
+            } get { return floorPosition; }
+        }
 
         /// <summary> Draws the tile. </summary>
         /// <param name="spriteBatch">The SpriteBatch used to draw the tile.</param>
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Engine.Material.floor[material].DiffuseMap, rectangle, Color.White);
-            if (viewGrid) spriteBatch.Draw(Texture.grid,      rectangle, Color.Black*0.5f);
-            if (selected) spriteBatch.Draw(Texture.selection, rectangle, Color.Aqua * 0.5f);
-            if (debug)    spriteBatch.Draw(Texture.grid, rectangle, Color.Red * 0.5f);
+            DrawFloor(spriteBatch);
+            DrawWall(spriteBatch);
         }
+
+        public void DrawFloor(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(
+                Engine.Material.floor[material].DiffuseMap,   floorPosition, Color.White);
+            if (viewGrid) spriteBatch.Draw(Texture.grid,      floorPosition, Color.Black * 0.5f);
+            if (selected) spriteBatch.Draw(Texture.selection, floorPosition, Color.Aqua  * 0.5f);
+        }
+
+        public void DrawWall(SpriteBatch spriteBatch) {
+            if (debug) spriteBatch.Draw(Texture.wall, wallPosition, Color.Red * 0.5f);
+        }
+
 
         /// <summary> Selects/deselects the tile based on Selector. </summary>
         public void Select() {
@@ -77,6 +90,7 @@ namespace NikTiles.Engine {
         public void Debug() {
             debug = true;
         }
+
 
     }
 }
