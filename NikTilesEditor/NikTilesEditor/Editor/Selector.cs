@@ -81,7 +81,15 @@ namespace NikTiles.Editor {
             if (mouseDown && !firstPress) {
                 firstPress = true;
                 head = new int[] { cursor[0], cursor[1] };
-                MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
+                switch (MapEditor.Mode) {
+                    case MapEditor.Modes.Floor:
+                        MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
+                        break;
+
+                    case MapEditor.Modes.Wall:
+                        //MapDisplay.CurrentMap.TileAt(head).SelectWalls(!Deselect);
+                        break;
+                }
             } else if (!mouseDown && firstPress) {
                 tail = new int[] { cursor[0], cursor[1] };
                 firstPress = false;
@@ -129,40 +137,92 @@ namespace NikTiles.Editor {
                         cursor[1] += yStep;
                         error += dx;
 
-                        //Corrections for a jagged coordinated grid.
+                        //Corrected for a jagged coordinated grid.
 
                         if (steep) {
-                            if (selection[0] % 2 == 0) MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectFloor(!Deselect);
+                            if (selection[0] % 2 == 0) {
+                                switch (MapEditor.Mode) {
+                                    case MapEditor.Modes.Floor:
+                                        MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectFloor(!Deselect);
+                                        break;
+                                    case MapEditor.Modes.Wall:
+                                        if (dy <= 0) {
+                                            MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectWall(!Deselect, false);
+                                            MapDisplay.CurrentMap.TileAt(selection[0] - 1, selection[1]).SelectWall(!Deselect, true);
+                                        } else {
+                                            MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1]).SelectWall(!Deselect, false);
+                                            MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectWall(!Deselect, true);
+                                        }
+                                        break;
+                                }
+                            }
                         } else {
                             if (dy <= 0) {
                                 if (selection[0] % 2 == 1) {
                                     if (oldY == selection[1] + 1) {
-                                        MapDisplay.CurrentMap.TileAt(selection).SelectFloor(!Deselect);
-                                        MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1]).SelectFloor(!Deselect);
+                                        switch (MapEditor.Mode) {
+                                            case MapEditor.Modes.Floor:
+                                                MapDisplay.CurrentMap.TileAt(selection).SelectFloor(!Deselect);
+                                                MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1]).SelectFloor(!Deselect);
+                                                break;
+                                            case MapEditor.Modes.Wall:
+                                                MapDisplay.CurrentMap.TileAt(selection).SelectWall(!Deselect,false);
+                                                MapDisplay.CurrentMap.TileAt(selection[0] - 1, selection[1]).SelectWall(!Deselect,true);
+                                                break;
+                                        }
                                     }
                                     selection[1]--;
                                 }
                             } else if (selection[0] % 2 == 0) {
                                 if (oldY == selection[1] - 1) {
-                                    MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1]).SelectFloor(!Deselect);
-                                    MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectFloor(!Deselect);
+                                    switch (MapEditor.Mode) {
+                                        case MapEditor.Modes.Floor:
+                                            MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1]).SelectFloor(!Deselect);
+                                            MapDisplay.CurrentMap.TileAt(selection[0], selection[1] + 1).SelectFloor(!Deselect);
+                                            break;
+                                        case MapEditor.Modes.Wall:
+                                            MapDisplay.CurrentMap.TileAt(selection[0] + 2, selection[1] + 1).SelectWall(!Deselect,false);
+                                            MapDisplay.CurrentMap.TileAt(selection[0] + 1, selection[1] + 1).SelectWall(!Deselect,true);
+                                            break;
+                                    }
                                 } else selection[1]++;
                             }
 
                         }
                     }
-
-                    MapDisplay.CurrentMap.TileAt(selection).SelectFloor(!Deselect);
+                    switch (MapEditor.Mode) {
+                        case MapEditor.Modes.Floor:
+                            MapDisplay.CurrentMap.TileAt(selection).SelectFloor(!Deselect);
+                            break;
+                        case MapEditor.Modes.Wall:
+                            if(dy <=0) MapDisplay.CurrentMap.TileAt(selection[0], selection[1]).SelectWall(!Deselect,false);
+                            else       MapDisplay.CurrentMap.TileAt(selection[0], selection[1]).SelectWall(!Deselect,true);
+                            break;
+                    }
 
                     oldY = steep ? selection[0] : selection[1];
                 }
 
-                if (steep) {
-                    MapDisplay.CurrentMap.TileAt(head[1], head[0]).SelectFloor(!Deselect);
-                    MapDisplay.CurrentMap.TileAt(tail[1], tail[0]).SelectFloor(!Deselect);
-                } else {
-                    MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
-                    MapDisplay.CurrentMap.TileAt(tail).SelectFloor(!Deselect);
+                switch (MapEditor.Mode) {
+                    case MapEditor.Modes.Floor:
+                        if (steep) {
+                            MapDisplay.CurrentMap.TileAt(head[1], head[0]).SelectFloor(!Deselect);
+                            MapDisplay.CurrentMap.TileAt(tail[1], tail[0]).SelectFloor(!Deselect);
+                        } else {
+                            MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
+                            MapDisplay.CurrentMap.TileAt(tail).SelectFloor(!Deselect);
+                        }
+                        break;
+                    case MapEditor.Modes.Wall:
+                        //NEXT!
+                        //if (steep) {
+                        //    MapDisplay.CurrentMap.TileAt(head[1], head[0]).SelectWalls(!Deselect);
+                        //    MapDisplay.CurrentMap.TileAt(tail[1], tail[0]).SelectWalls(!Deselect);
+                        //} else {
+                        //    MapDisplay.CurrentMap.TileAt(head).SelectWalls(!Deselect);
+                        //    MapDisplay.CurrentMap.TileAt(tail).SelectWalls(!Deselect);
+                        //}
+                        break;
                 }
 
             }

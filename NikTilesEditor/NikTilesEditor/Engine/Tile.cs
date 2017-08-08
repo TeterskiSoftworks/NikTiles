@@ -70,8 +70,8 @@ namespace NikTiles.Engine {
         }
 
         private void DrawWall(SpriteBatch spriteBatch) {
-            if (selected[LEFTWALL])  spriteBatch.Draw(Texture.wallSelection, pixelPosition[LEFTWALL] ,       Color.Aqua * 0.5f);
-            if (selected[RIGHTWALL]) spriteBatch.Draw(Texture.wallSelection, pixelPosition[RIGHTWALL], null, Color.Aqua * 0.5f, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 1);
+            if (selected[LEFTWALL])  spriteBatch.Draw(Texture.wallSelection, pixelPosition[LEFTWALL] ,       Color.Red * 0.5f);
+            if (selected[RIGHTWALL]) spriteBatch.Draw(Texture.wallSelection, pixelPosition[RIGHTWALL], null, Color.Green*0.5f, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 1);
         }
         #endregion
 
