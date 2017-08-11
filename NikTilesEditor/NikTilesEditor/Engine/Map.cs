@@ -47,9 +47,14 @@ namespace NikTiles.Engine {
         /// <param name="width">Width of the view window.</param>
         /// <param name="height">Height of the view window.</param>
         public void Draw(SpriteBatch spriteBatch, int width, int height) {
-            for (    int y = Camera.Y-1; y < height  / (Tile.Height * Camera.ZoomY) + Camera.Y + 1 && y < Width; y++) {
-                for (int x = Camera.X-1; x < 2*width / (Tile.Width  * Camera.ZoomX) + Camera.X + 1 && x < Height; x++) {            
-                    if (y != -1 && x != -1)tiles[x, y].Draw(spriteBatch);
+            for (int y = Camera.Y; y < height  / (Tile.Height * Camera.ZoomY) + Camera.Y + 1 && y < Width; y++) {
+
+                //Draws the even x-tiles of the y-row first, because they are further back, and then draws the odd ones.
+                for (int x = Camera.X; x < 2 * width / (Tile.Width * Camera.ZoomX) + Camera.X + 1 && x < Height; x += 2) {
+                    if (y >= 0 && x >= 0) tiles[x, y].Draw(spriteBatch);
+                }
+                for (int x = Camera.X + 1; x < 2 * width / (Tile.Width * Camera.ZoomX) + Camera.X + 1 && x < Height; x += 2) {
+                    if (y >= 0 && x >= 0) tiles[x, y].Draw(spriteBatch);
                 }
             }
         }
