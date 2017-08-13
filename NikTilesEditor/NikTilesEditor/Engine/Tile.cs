@@ -64,9 +64,10 @@ namespace NikTiles.Engine {
         }
 
         private void DrawFloor(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Engine.Material.floor[material].DiffuseMap, pixelPosition[FLOOR], Color.White);
-            if (viewGrid)        spriteBatch.Draw(Texture.grid,            pixelPosition[FLOOR], Color.Black * 0.5f);
-            if (selected[FLOOR]) spriteBatch.Draw(Texture.floorSelection,  pixelPosition[FLOOR], Color.Aqua  * 0.5f);
+            spriteBatch.Draw( Engine.Material.floor[material].DiffuseMap, pixelPosition[FLOOR], Color.White);
+            if (viewGrid)        spriteBatch.Draw(Texture.grid,           pixelPosition[FLOOR], Color.Black * 0.5f);
+            if (selected[FLOOR]) spriteBatch.Draw(Texture.floorSelection, pixelPosition[FLOOR], Color.Aqua  * 0.5f);
+            if (debug)           spriteBatch.Draw(Texture.floorSelection, pixelPosition[FLOOR], Color.Gray  * 0.5f);
         }
 
         private void DrawWall(SpriteBatch spriteBatch) {
@@ -110,10 +111,9 @@ namespace NikTiles.Engine {
         public string Material { get { return material; } set { material = value; }}
 
         /// <summary> A debug function which can be changed and used for any debugging needs. </summary>
-        public void Debug() {
-            debug = true;
+        public void Debug(bool val) {
+            debug = val;
         }
-
 
     }
 }
