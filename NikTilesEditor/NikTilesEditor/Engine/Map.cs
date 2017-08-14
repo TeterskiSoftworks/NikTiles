@@ -7,6 +7,8 @@ namespace NikTiles.Engine {
         #region  Declarations
         private Tile[,] tiles;
         private readonly int width, height;
+        // North is directly up.
+        public enum Direction { Omni=-1, N, NE, E, SE, S, SW, W, NW };
         #endregion
 
 

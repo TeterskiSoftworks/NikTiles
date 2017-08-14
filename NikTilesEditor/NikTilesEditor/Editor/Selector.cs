@@ -26,6 +26,77 @@ namespace NikTiles.Editor {
 
         public static bool MouseDown { get { return mouseDown; } set { mouseDown = value;  } }
 
+        #region Wall Selections
+        public static void WallSelect(int x, int y, Map.Direction direction) {
+            switch (direction) {
+                case Map.Direction.Omni:
+                    WallSelect(x, y, Map.Direction.N);
+                    WallSelect(x, y, Map.Direction.S);
+                    break;
+                case Map.Direction.N:
+                    MapDisplay.CurrentMap.TileAt(x, y).SelectWalls(!Deselect);
+                    break;
+                case Map.Direction.NW:
+                    MapDisplay.CurrentMap.TileAt(x, y).SelectWall(!Deselect, true);
+                    break;
+                case Map.Direction.W:
+                    WallSelect(x, y, Map.Direction.NW);
+                    WallSelect(x, y, Map.Direction.SW);
+                    break;
+                case Map.Direction.SW:
+                    if (x % 2 == 0) MapDisplay.CurrentMap.TileAt(x + 1, y    ).SelectWall(!Deselect, false);
+                    else            MapDisplay.CurrentMap.TileAt(x + 1, y + 1).SelectWall(!Deselect, false);
+                    break;
+                case Map.Direction.S:
+                    if (x % 2 == 0) {
+                        MapDisplay.CurrentMap.TileAt(x + 1, y).SelectWall(!Deselect, false);
+                        MapDisplay.CurrentMap.TileAt(x - 1, y).SelectWall(!Deselect, true );
+                    } else {
+                        MapDisplay.CurrentMap.TileAt(x + 1, y + 1).SelectWall(!Deselect, false);
+                        MapDisplay.CurrentMap.TileAt(x - 1, y + 1).SelectWall(!Deselect, true );
+                    }
+                    break;
+                case Map.Direction.SE:
+                    if (x % 2 == 0) MapDisplay.CurrentMap.TileAt(x - 1, y    ).SelectWall(!Deselect, true);
+                    else            MapDisplay.CurrentMap.TileAt(x - 1, y + 1).SelectWall(!Deselect, true);        
+                    break;
+                case Map.Direction.E:
+                    WallSelect(x, y, Map.Direction.NE);
+                    WallSelect(x, y, Map.Direction.SE);
+                    break;
+                case Map.Direction.NE:
+                    MapDisplay.CurrentMap.TileAt(x, y).SelectWall(!Deselect, false);
+                    break;
+            }
+
+        }
+
+        public static void WallSelect(int[] coord, Map.Direction direction) {
+            WallSelect(coord[0], coord[1], direction);
+        }
+
+
+        public static void OutlineWallSelect(Map.Direction direction) {
+            foreach(int[] coord in selectedTiles) {
+                if (coord[0] % 2 == 0) {
+                    if (direction == Map.Direction.NE) {
+
+                        MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.Omni)).Debug(true);
+                        WallSelect(coord, Map.Direction.N);
+                        //if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] - 1, coord[1] - 1 }))) {
+                        //    MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
+                        //    if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] - 1, coord[1] })))
+                        //        MapDisplay.CurrentMap.TileAt(coord[0] - 1, coord[1]).SelectWall(!Deselect, true);
+                        //}
+                    }
+                } else {
+
+                }
+            }
+        }
+
+        #endregion
+
         public static void Select() {
             switch (currentMode) {
                 case Modes.Point:    PointSelect();         break;
@@ -74,7 +145,6 @@ namespace NikTiles.Editor {
             }
         }
 
-        //add width?
         private static void LineSelect() {
             int[] cursor = GetCursor();
 
@@ -178,8 +248,9 @@ namespace NikTiles.Editor {
                             break;
                         case MapEditor.Modes.Wall:
 
-                            //simplify
-
+                            //simplify  - why is this not symetrical?
+                            #region Old code
+                            /*
                             if (coord[0] % 2 == 0) {
                                 if (dy <= 0) {
                                     if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] - 1, coord[1] - 1 }))) {
@@ -199,23 +270,24 @@ namespace NikTiles.Editor {
                                         MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
                                     if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] - 1, coord[1] + 1})))
                                         if(!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] - 1, coord[1] })))
-                                            MapDisplay.CurrentMap.TileAt(coord[0]-1,coord[1]+1).SelectWall(!Deselect, true);
+                                            MapDisplay.CurrentMap.TileAt(coord[0] -1 ,coord[1] + 1).SelectWall(!Deselect, true);
                                         else
                                             MapDisplay.CurrentMap.TileAt(coord[0] - 1, coord[1]).SelectWall(!Deselect, true);
-
                                 } else {
-
-                                    //MapDisplay.CurrentMap.TileAt(coord[0], coord[1]).Debug(true);
-
                                     if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] + 1, coord[1] })))
                                         MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
                                     if (selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] + 1, coord[1] })))
                                         MapDisplay.CurrentMap.TileAt(coord[0] + 1, coord[1]).SelectWall(!Deselect, false);
-                                    if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] + 1, coord[1] + 1})))
+                                    else if (!selectedTiles.Any(t => t.SequenceEqual(new int[] { coord[0] + 1, coord[1] + 1})))
                                         MapDisplay.CurrentMap.TileAt(coord[0] + 1, coord[1] + 1).SelectWall(!Deselect, false);
 
                                 }
                             }
+                            */
+                            #endregion
+
+                            OutlineWallSelect(dy >= 0 ? Map.Direction.NW : Map.Direction.NE);
+
                             break;
                     }
                 }
@@ -262,12 +334,28 @@ namespace NikTiles.Editor {
                         MapDisplay.CurrentMap.TileAt(x, y).SelectFloor(!Deselect);
                 } else for (int xOffset = 0, yOffset = 0; xOffset < width; xOffset++, yOffset++) {
                         if (head[1] + yOffset < tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
-                                MapDisplay.CurrentMap.TileAt(x, head[1] + yOffset).SelectFloor(!Deselect);
-                                MapDisplay.CurrentMap.TileAt(x, tail[1] - yOffset).SelectFloor(!Deselect);
+                                switch (MapEditor.Mode) {
+                                    case (MapEditor.Modes.Floor):
+                                        MapDisplay.CurrentMap.TileAt(x, head[1] + yOffset).SelectFloor(!Deselect);
+                                        MapDisplay.CurrentMap.TileAt(x, tail[1] - yOffset).SelectFloor(!Deselect);
+                                        break;
+                                    case (MapEditor.Modes.Wall):
+                                        if (yOffset == 0) {
+                                            MapDisplay.CurrentMap.TileAt(x, head[1] + 1 + yOffset).SelectWalls(!Deselect);
+                                            MapDisplay.CurrentMap.TileAt(x, tail[1] - 1 - yOffset).SelectWalls(!Deselect);
+                                        }
+                                        if (yOffset == width) {
+                                            MapDisplay.CurrentMap.TileAt(x, head[1] + 1 + yOffset).SelectWalls(!Deselect);
+                                            MapDisplay.CurrentMap.TileAt(x, tail[1] - 1 + yOffset).SelectWalls(!Deselect);
+                                        }
+                                        break;
+                                }
                             }
                         if (head[0] + xOffset < tail[0]) for (int y = head[1]; y <= tail[1]; y++) {
                                 MapDisplay.CurrentMap.TileAt(head[0] + xOffset, y).SelectFloor(!Deselect);
+                                MapDisplay.CurrentMap.TileAt(head[0] + 1 + xOffset, y).SelectFloor(!Deselect);
                                 MapDisplay.CurrentMap.TileAt(tail[0] - xOffset, y).SelectFloor(!Deselect);
+                                MapDisplay.CurrentMap.TileAt(tail[0] - 1 - xOffset, y).SelectFloor(!Deselect);
                             }
                     }
                 firstPress = false;

@@ -34,10 +34,10 @@ namespace NikTiles.Engine {
 
         public Tile(int x, int y) {
             coordinate = new Vector2(x, y);
-            if (x % 2 == 1)
-                Position = new Vector2(x * Width / 2, y * Height + Height/2);
-            else
+            if (x % 2 == 0)
                 Position = new Vector2(x * Width / 2, y * Height);
+            else
+                Position = new Vector2(x * Width / 2, y * Height + Height / 2);
         }
 
         /// <summary> Returns the x coordinate of the tile. </summary>
@@ -76,7 +76,6 @@ namespace NikTiles.Engine {
         }
         #endregion
 
-
         #region Selection
 
         /// <summary> Selects/deselects the tile's floor. </summary>
@@ -109,6 +108,41 @@ namespace NikTiles.Engine {
         #endregion
 
         public string Material { get { return material; } set { material = value; }}
+
+        public static int[] InDirectionFrom(int[] coord, Map.Direction direction) {
+            int[] newCoord = new int[] { coord[0], coord[1] };
+            switch (direction) {
+                case Map.Direction.N:
+                    newCoord[1]--;
+                    break;
+                case Map.Direction.NW:
+                    if (coord[0] % 2 == 0) newCoord[1]--;
+                    newCoord[0]++;
+                    break;
+                case Map.Direction.W:
+                    newCoord[0] += 2;
+                    break;
+                case Map.Direction.SW:
+                    if (coord[0] % 2 == 1) newCoord[1]++;
+                    newCoord[0]++;
+                    break;
+                case Map.Direction.S:
+                    newCoord[1]++;
+                    break;
+                case Map.Direction.SE:
+                    if (coord[0] % 2 == 1) newCoord[1]++;
+                    newCoord[0]--;
+                    break;
+                case Map.Direction.E:
+                    newCoord[0] -= 2;
+                    break;
+                case Map.Direction.NE:
+                    if (coord[0] % 2 == 0) newCoord[1]--;
+                    newCoord[0]--;
+                    break;
+            }
+            return newCoord;
+        }
 
         /// <summary> A debug function which can be changed and used for any debugging needs. </summary>
         public void Debug(bool val) {
