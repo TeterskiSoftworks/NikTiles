@@ -102,7 +102,9 @@ namespace NikTiles.Engine {
 
         /// <summary> Inverts the tile's selection value. </summary>
         public void InverseSelection() {
-            selected[FLOOR] = !selected[FLOOR];
+            selected[  FLOOR  ] = !selected[  FLOOR  ];
+            selected[RIGHTWALL] = !selected[RIGHTWALL];
+            selected[LEFTWALL ] = !selected[LEFTWALL ];
         }
 
         #endregion
@@ -117,28 +119,28 @@ namespace NikTiles.Engine {
                     break;
                 case Map.Direction.NW:
                     if (coord[0] % 2 == 0) newCoord[1]--;
-                    newCoord[0]++;
+                    newCoord[0]--;
                     break;
                 case Map.Direction.W:
-                    newCoord[0] += 2;
+                    newCoord[0] -= 2;
                     break;
                 case Map.Direction.SW:
                     if (coord[0] % 2 == 1) newCoord[1]++;
-                    newCoord[0]++;
+                    newCoord[0]--;
                     break;
                 case Map.Direction.S:
                     newCoord[1]++;
                     break;
                 case Map.Direction.SE:
                     if (coord[0] % 2 == 1) newCoord[1]++;
-                    newCoord[0]--;
+                    newCoord[0]++;
                     break;
                 case Map.Direction.E:
-                    newCoord[0] -= 2;
+                    newCoord[0] += 2;
                     break;
                 case Map.Direction.NE:
                     if (coord[0] % 2 == 0) newCoord[1]--;
-                    newCoord[0]--;
+                    newCoord[0]++;
                     break;
             }
             return newCoord;
