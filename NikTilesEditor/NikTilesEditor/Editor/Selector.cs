@@ -75,67 +75,64 @@ namespace NikTiles.Editor {
             WallSelect(coord[0], coord[1], direction);
         }
 
-
         public static void OutlineWallSelect(Map.Direction direction) {
             foreach (int[] coord in selectedTiles) {
-                switch (direction) {
-                    
-                    case Map.Direction.N :
-                    case Map.Direction.NW:
-                        if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW)))) {
-                            MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
 
-                            if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
-                                MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SW)).SelectWall(!Deselect, true);
+                if (direction == Map.Direction.Omni || direction == Map.Direction.N || direction == Map.Direction.W || direction == Map.Direction.NW) {
+                    if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW)))) {
+                        MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
 
-                            if (selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
-                                if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
-                                    MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
-                        }
-                        break;
-                        
-                    case Map.Direction.NE:
-                        if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE)))) {
-                            MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
-
-                            if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
-                                MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SE)).SelectWall(!Deselect, false);
-
-                            if (selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
-                                if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
-                                    MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
-
-                        }
-                        break;
-                    case Map.Direction.S:
-                    case Map.Direction.SW:
-                        if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW)))) {
+                        if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
                             MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SW)).SelectWall(!Deselect, true);
 
-                            if(!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
-                                MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
+                        if (selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
+                            if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
+                                MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
+                    }
+                }
 
-                            if (selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
-                                if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
-                                    MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SE)).SelectWall(!Deselect, false);
+                if (direction == Map.Direction.Omni || direction == Map.Direction.N || direction == Map.Direction.E || direction == Map.Direction.NE) {
+                    if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE)))) {
+                        MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
 
-                        }
-                        break;
-
-                    case Map.Direction.SE:
-                        if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE)))) {
+                        if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
                             MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SE)).SelectWall(!Deselect, false);
 
-                            if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
-                                MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
+                        if (selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
+                            if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
+                                MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
 
-                            if (selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
-                                if (!selectedTiles.Any(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
-                                    MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SW)).SelectWall(!Deselect, true);
-
-                        }
-                        break;
+                    }
                 }
+
+                if (direction == Map.Direction.Omni || direction == Map.Direction.S || direction == Map.Direction.E || direction == Map.Direction.SE) {
+                    if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE)))) {
+                        MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SE)).SelectWall(!Deselect, false);
+
+                        if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
+                            MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, true);
+
+                        if (selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
+                            if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW))))
+                                MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SW)).SelectWall(!Deselect, true);
+
+                    }
+                }
+
+                if (direction == Map.Direction.Omni || direction == Map.Direction.S || direction == Map.Direction.W || direction == Map.Direction.SW) {
+                    if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SW)))) {
+                        MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SW)).SelectWall(!Deselect, true);
+
+                        if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NW))))
+                            MapDisplay.CurrentMap.TileAt(coord).SelectWall(!Deselect, false);
+
+                        if (selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.NE))))
+                            if (!selectedTiles.Exists(t => t.SequenceEqual(Tile.InDirectionFrom(coord, Map.Direction.SE))))
+                                MapDisplay.CurrentMap.TileAt(Tile.InDirectionFrom(coord, Map.Direction.SE)).SelectWall(!Deselect, false);
+
+                    }
+                }
+
             }
             
         }
@@ -286,17 +283,16 @@ namespace NikTiles.Editor {
                     selectedTiles.Add(new int[] { tail[0], tail[1] });
                 }
 
-                foreach(int[] coord in selectedTiles) {
-                    switch (MapEditor.Mode) {
-                        case MapEditor.Modes.Floor:
+
+                switch (MapEditor.Mode) {
+                    case MapEditor.Modes.Floor:
+                        foreach (int[] coord in selectedTiles)
                             MapDisplay.CurrentMap.TileAt(coord).SelectFloor(!Deselect);
-                            break;
-                        case MapEditor.Modes.Wall:
-                            OutlineWallSelect(dy >= 0 ? Map.Direction.SW : Map.Direction.SE);
-                            break;
-                    }
+                        break;
+                    case MapEditor.Modes.Wall:
+                        OutlineWallSelect(dy >= 0 ? Map.Direction.SW : Map.Direction.SE);
+                        break;
                 }
-                
                 selectedTiles.Clear();
             }
         }
@@ -320,10 +316,12 @@ namespace NikTiles.Editor {
             if (mouseDown && !firstPress) {
                 firstPress = true;
                 head = new int[] { cursor[0], cursor[1] };
-                MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
+                selectedTiles.Add(new int[] { head[0], head[1] });
+                //MapDisplay.CurrentMap.TileAt(head).SelectFloor(!Deselect);
             } else if (!mouseDown && firstPress) {
                 tail = new int[] { cursor[0], cursor[1] };
-                MapDisplay.CurrentMap.TileAt(tail).SelectFloor(!Deselect);
+                selectedTiles.Add(new int[] { tail[0], tail[1] });
+                //MapDisplay.CurrentMap.TileAt(tail).SelectFloor(!Deselect);
                 //Swaps head and tail if necessary
                 if (head[0] > tail[0]) {
                     int temp = head[0];
@@ -336,34 +334,33 @@ namespace NikTiles.Editor {
 
                 if (width < 0) {
                     for (int y = head[1]; y <= tail[1]; y++) for (int x = head[0]; x <= tail[0]; x++)
-                        MapDisplay.CurrentMap.TileAt(x, y).SelectFloor(!Deselect);
+                            selectedTiles.Add(new int[] { x, y });
                 } else for (int xOffset = 0, yOffset = 0; xOffset < width; xOffset++, yOffset++) {
                         if (head[1] + yOffset < tail[1]) for (int x = head[0]; x <= tail[0]; x++) {
-                                switch (MapEditor.Mode) {
-                                    case (MapEditor.Modes.Floor):
-                                        MapDisplay.CurrentMap.TileAt(x, head[1] + yOffset).SelectFloor(!Deselect);
-                                        MapDisplay.CurrentMap.TileAt(x, tail[1] - yOffset).SelectFloor(!Deselect);
-                                        break;
-                                    case (MapEditor.Modes.Wall):
-                                        if (yOffset == 0) {
-                                            MapDisplay.CurrentMap.TileAt(x, head[1] + 1 + yOffset).SelectWalls(!Deselect);
-                                            MapDisplay.CurrentMap.TileAt(x, tail[1] - 1 - yOffset).SelectWalls(!Deselect);
-                                        }
-                                        if (yOffset == width) {
-                                            MapDisplay.CurrentMap.TileAt(x, head[1] + 1 + yOffset).SelectWalls(!Deselect);
-                                            MapDisplay.CurrentMap.TileAt(x, tail[1] - 1 + yOffset).SelectWalls(!Deselect);
-                                        }
-                                        break;
-                                }
+                                selectedTiles.Add(new int[] { x, head[1] + yOffset });
+                                selectedTiles.Add(new int[] { x, tail[1] - yOffset });
                             }
                         if (head[0] + xOffset < tail[0]) for (int y = head[1]; y <= tail[1]; y++) {
-                                MapDisplay.CurrentMap.TileAt(head[0] + xOffset, y).SelectFloor(!Deselect);
-                                MapDisplay.CurrentMap.TileAt(head[0] + 1 + xOffset, y).SelectFloor(!Deselect);
-                                MapDisplay.CurrentMap.TileAt(tail[0] - xOffset, y).SelectFloor(!Deselect);
-                                MapDisplay.CurrentMap.TileAt(tail[0] - 1 - xOffset, y).SelectFloor(!Deselect);
+                                selectedTiles.Add(new int[] { head[0] + xOffset, y });
+                                selectedTiles.Add(new int[] { head[0] + 1 + xOffset, y });
+                                selectedTiles.Add(new int[] { tail[0] - xOffset, y });
+                                selectedTiles.Add(new int[] { tail[0] - 1 - xOffset, y });
                             }
                     }
                 firstPress = false;
+
+
+                switch (MapEditor.Mode) {
+                    case MapEditor.Modes.Floor:
+                        foreach (int[] coord in selectedTiles)
+                            MapDisplay.CurrentMap.TileAt(coord).SelectFloor(!Deselect);
+                        break;
+                    case MapEditor.Modes.Wall:
+                        OutlineWallSelect(Map.Direction.NE);
+                        OutlineWallSelect(Map.Direction.S);
+                        break;
+                }
+                selectedTiles.Clear();
             }
         }
 
@@ -539,6 +536,7 @@ namespace NikTiles.Editor {
                 }
             }
         }
+
 
         public static int Width { set { width = value; } }
 
